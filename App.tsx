@@ -8,12 +8,17 @@ import { createStackNavigator } from "react-navigation-stack";
 import { Home } from "./src/scenes/index";
 import store from "./src/stores";
 import NavigationService from "./src/NavigationService";
+import { GradientHeader } from "./src/components/GradientHeader";
 
 const AppNavigator = createStackNavigator(
     {
         Home
     },
     {
+
+        defaultNavigationOptions: {
+            headerTitle: <GradientHeader />
+        }
         //   initialRouteName:"About"
     }
 );
