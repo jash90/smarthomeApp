@@ -16,10 +16,11 @@ const AppNavigator = createStackNavigator(
     },
     {
 
-        defaultNavigationOptions: {
-            headerTitle: <GradientHeader />
-        }
+        // defaultNavigationOptions: {
+        //     headerTitle: <GradientHeader />
+        // }
         //   initialRouteName:"About"
+        headerMode:"none"
     }
 );
 
