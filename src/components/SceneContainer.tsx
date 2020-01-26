@@ -1,17 +1,27 @@
-import React from "react";
+import React, { Props } from "react";
 import Color from "../Color";
 import styled from "styled-components/native";
 import LinearGradient from "react-native-linear-gradient";
-const Container = styled.View`
-    flex: 1;
-    margin: 20px;
-`;
+import { NotificationBar, NotificationBarProps } from "./NotificationBar";
+import { View, KeyboardAvoidingView } from "react-native";
 
 const SafeView = styled.SafeAreaView`
     flex: 1;
 `;
 
-export const ScreenContainer: React.FC = ({ children }) => {
+const Container = styled.View`
+    flex: 1;
+    margin: 0px 20px 20px 20px;
+`;
+
+interface ScreenContainerProps extends Props<View>, NotificationBarProps {}
+
+export const ScreenContainer: React.FC<ScreenContainerProps> = ({
+    children,
+    onBackPress,
+    onRightPress,
+    icon
+}: ScreenContainerProps) => {
     return (
         <LinearGradient
             colors={["#3D4151", "#1C202C", "#141824"]}
@@ -19,10 +29,16 @@ export const ScreenContainer: React.FC = ({ children }) => {
             end={{ x: 1.0, y: 1.0 }}
             style={{
                 flex: 1,
-                backgroundColor: Color.primaryColor,
-                padding: 20
+                backgroundColor: Color.primaryColor
             }}>
-            <SafeView>{children}</SafeView>
+            <SafeView>
+                <NotificationBar
+                    icon={icon}
+                    onBackPress={onBackPress}
+                    onRightPress={onRightPress}
+                />
+                <Container>{children}</Container>
+            </SafeView>
         </LinearGradient>
     );
 };

@@ -5,22 +5,37 @@ import {
     NavigationContainerComponent
 } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import { Home } from "./src/scenes/index";
+import {
+    Home,
+    Start,
+    Add,
+    EditProfile,
+    Login,
+    Profile,
+    Register,
+    Room
+} from "./src/scenes/index";
 import store from "./src/stores";
 import NavigationService from "./src/NavigationService";
 import { GradientHeader } from "./src/components/GradientHeader";
 
 const AppNavigator = createStackNavigator(
     {
-        Home
+        Home,
+        Start,
+        Add,
+        EditProfile,
+        Login,
+        Profile,
+        Register,
+        Room
     },
     {
-
         // defaultNavigationOptions: {
         //     headerTitle: <GradientHeader />
         // }
-        //   initialRouteName:"About"
-        headerMode:"none"
+        initialRouteName: "Profile",
+        headerMode: "none"
     }
 );
 

@@ -5,7 +5,7 @@ import { Logo } from "../components/Logo";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, Title } from "../components/StyledComponent";
 
-class Start extends Component<{}, {}> {
+class Start extends Component {
     render() {
         return (
             <ScreenContainer>

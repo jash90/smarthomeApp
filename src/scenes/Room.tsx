@@ -1,50 +1,15 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 import { ScreenContainer } from "../components/SceneContainer";
-import {
-    Title,
-    ButtonText,
-    Button,
-    WelcomeText,
-    PersonText,
-    H1,
-    H2,
-    Room,
-    RoomText,
-    Control,
-    ControlText,
-    SeparatorWidth,
-    SeparatorHeight
-} from "../components/StyledComponent";
-import { View, FlatList, ScrollView } from "react-native";
-import { Logo } from "../components/Logo";
-import styled from "styled-components/native";
+import { PersonText, H1, H2, RoomText, Control, ControlText, SeparatorWidth, SeparatorHeight, WelcomeText, Title } from "../components/StyledComponent";
+import { FlatList, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-class Home extends Component {
+class Room extends Component {
     render() {
         return (
-            <ScreenContainer icon="account">
-                <WelcomeText>Hello,</WelcomeText>
-                <PersonText>Mr. Karol</PersonText>
-                <H1>Flat 1</H1>
-                <H2>Rooms</H2>
-                <FlatList
-                    horizontal
-                    data={[1, 2, 3, 4]}
-                    style={{ height: 140, flexGrow: 0 }}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    keyExtractor={item => String(item)}
-                    ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={() => {
-                        return (
-                            <Room>
-                                <RoomText>Room</RoomText>
-                            </Room>
-                        );
-                    }}
-                />
+            <ScreenContainer onBackPress={true}>
+                <Title>Kitchen</Title>
                 <H2>Controls</H2>
                 <FlatList
                     data={[
@@ -80,4 +45,4 @@ class Home extends Component {
         );
     }
 }
-export default inject("authStore", "propsStore")(observer(Home));
+export default inject("authStore", "propsStore")(observer(Room));

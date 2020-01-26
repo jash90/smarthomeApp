@@ -1,6 +1,6 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, ScrollView, Platform } from "react-native";
 import { Logo } from "../components/Logo";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
@@ -12,13 +12,17 @@ import {
 } from "../components/StyledComponent";
 import { NotificationBar } from "../components/NotificationBar";
 
-class Login extends Component {
+class Register extends Component {
     render() {
         return (
             <ScreenContainer>
-                <Title>Login</Title>
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
-                    <View style={{ flex: 1, justifyContent: "center" }}>
+                    <Title>Register</Title>
+                    <View
+                        style={{
+                            flex: 1,
+                            paddingTop: Platform.OS === "ios" ? 0 : 60
+                        }}>
                         <Input
                             placeholder={"Login"}
                             placeholderTextColor={"#D0DBE6"}
@@ -27,16 +31,21 @@ class Login extends Component {
                             placeholder={"Password"}
                             placeholderTextColor={"#D0DBE6"}
                         />
-                        <FlatButton>
-                            <ButtonText>Create account</ButtonText>
-                        </FlatButton>
+                        <Input
+                            placeholder={"Login"}
+                            placeholderTextColor={"#D0DBE6"}
+                        />
+                        <Input
+                            placeholder={"Password"}
+                            placeholderTextColor={"#D0DBE6"}
+                        />
                     </View>
                     <Button>
-                        <ButtonText>Login</ButtonText>
+                        <ButtonText>Register</ButtonText>
                     </Button>
                 </View>
             </ScreenContainer>
         );
     }
 }
-export default inject("authStore", "propsStore")(observer(Login));
+export default inject("authStore", "propsStore")(observer(Register));
