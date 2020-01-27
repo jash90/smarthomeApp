@@ -49,7 +49,8 @@ export const Button = styled.TouchableOpacity({
     alignSelf: "center",
     justifyContent: "center",
     width: "100%",
-    height: 50
+    height: 50,
+    marginVertical: 10
 });
 
 export const ButtonText = styled.Text({
@@ -62,7 +63,8 @@ export const FlatButton = styled.TouchableOpacity({
     flexDirection: "row",
     backgroundColor: "transparent",
     justifyContent: "flex-end",
-    width: "100%"
+    width: "100%",
+    height: 50
 });
 
 export const Room = styled.View({
@@ -83,14 +85,14 @@ export const Control = styled(Room)({
     backgroundColor: "#282C3A",
     width: 70,
     height: 70,
-    justifyContent:"center",
-    alignItems:"center",
-    padding:0
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0
 });
 
 export const ControlText = styled(H2)({
     color: "#D0DBE8"
-})
+});
 
 export const Input = styled.TextInput({
     width: "100%",
@@ -103,3 +105,23 @@ export const Input = styled.TextInput({
     fontSize: 18,
     marginVertical: 10
 });
+
+export const FlatText = styled(H2)({
+    padding: 0,
+});
+
+export const SaveContainer = styled.View({
+    width:70,
+    height:30,
+    backgroundColor:"transparent",
+    borderRadius :20,
+    borderColor:"#D0DBE6",
+    borderWidth: 1,
+    justifyContent:"center"
+})
+
+export const SaveText = styled.Text({
+    color:"#D0DBE6",
+    fontSize:12,
+    alignSelf:"center"
+})
