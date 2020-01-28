@@ -16,19 +16,26 @@ import {
     SeparatorWidth,
     SeparatorHeight
 } from "../components/StyledComponent";
-import { View, FlatList, ScrollView } from "react-native";
+import { View, FlatList, ScrollView, TouchableOpacity } from "react-native";
 import { Logo } from "../components/Logo";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import NavigationService from "../NavigationService";
+import Scenes from "../Scenes";
 
 class Home extends Component {
     render() {
         return (
-            <ScreenContainer icon="account">
+            <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>Mr. Karol</PersonText>
                 <H1>Flat 1</H1>
-                <H2>Rooms</H2>
+                <View style={{flexDirection:"row", alignItems:"center"}}>
+                    <H2>Rooms</H2>
+                    <TouchableOpacity onPress={this.onAdd}>
+                    <H2 style={{color:"orange", fontSize:24, marginHorizontal:5}}>+</H2>
+                    </TouchableOpacity>
+                </View>
                 <FlatList
                     horizontal
                     data={[1, 2, 3, 4]}
@@ -39,13 +46,20 @@ class Home extends Component {
                     ItemSeparatorComponent={() => <SeparatorWidth />}
                     renderItem={() => {
                         return (
-                            <Room>
-                                <RoomText>Room</RoomText>
-                            </Room>
+                            <TouchableOpacity onPress={this.onRoom}>
+                                <Room>
+                                    <RoomText>Room</RoomText>
+                                </Room>
+                            </TouchableOpacity>
                         );
                     }}
                 />
-                <H2>Controls</H2>
+                <View style={{flexDirection:"row", alignItems:"center"}}>
+                    <H2>Controls</H2>
+                    <TouchableOpacity onPress={this.onAdd}>
+                    <H2 style={{color:"orange", fontSize:24, marginHorizontal:5}}>+</H2>
+                    </TouchableOpacity>
+                </View>
                 <FlatList
                     data={[
                         { icon: "lightbulb", text: "Lamp 2" },
@@ -79,5 +93,17 @@ class Home extends Component {
             </ScreenContainer>
         );
     }
+
+    onProfile = () => {
+        NavigationService.navigate(Scenes.Profile);
+    };
+
+    onRoom = () => {
+        NavigationService.navigate(Scenes.Room);
+    };
+
+    onAdd = () => {
+        NavigationService.navigate(Scenes.Add);
+    };
 }
 export default inject("authStore", "propsStore")(observer(Home));

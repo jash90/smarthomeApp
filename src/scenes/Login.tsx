@@ -11,6 +11,8 @@ import {
     FlatButton
 } from "../components/StyledComponent";
 import { NotificationBar } from "../components/NotificationBar";
+import NavigationService from "../NavigationService";
+import Scenes from "../Scenes";
 
 class Login extends Component {
     render() {
@@ -27,16 +29,24 @@ class Login extends Component {
                             placeholder={"Password"}
                             placeholderTextColor={"#D0DBE6"}
                         />
-                        <FlatButton>
+                        <FlatButton onPress={this.onRegister}>
                             <ButtonText>Create account</ButtonText>
                         </FlatButton>
                     </View>
-                    <Button>
+                    <Button onPress={this.onLogin}>
                         <ButtonText>Login</ButtonText>
                     </Button>
                 </View>
             </ScreenContainer>
         );
     }
+
+    onLogin = () => {
+        NavigationService.navigate(Scenes.Home);
+    };
+
+    onRegister = () => {
+        NavigationService.navigate(Scenes.Register);
+    };
 }
 export default inject("authStore", "propsStore")(observer(Login));

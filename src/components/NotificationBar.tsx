@@ -30,8 +30,8 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
                 )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ padding: 5 }} onPress={onRightPress}>
-                {onRightPress && (
+            <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical:5 }} onPress={onRightPress}>
+                {onRightPress && !icon && (
                     <Icon name={"content-save"} size={35} color={"white"} />
                 )}
                   {icon && (

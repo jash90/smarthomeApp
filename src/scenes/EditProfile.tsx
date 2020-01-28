@@ -10,11 +10,12 @@ import {
     H1
 } from "../components/StyledComponent";
 import { View } from "react-native";
+import NavigationService from "../NavigationService";
 
 class EditProfile extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={true}>
+            <ScreenContainer onBackPress={this.onBack}>
                 <View style={{ flex: 1, alignItems:"center" }}>
                     <H1>Edit Profile</H1>
                     <Input
@@ -43,6 +44,11 @@ class EditProfile extends Component {
                 </View>
             </ScreenContainer>
         );
-    }
+ 
+        }
+    onBack = () => {
+        NavigationService.goBack();
+    };
+
 }
 export default inject("authStore", "propsStore")(observer(EditProfile));

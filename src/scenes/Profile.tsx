@@ -21,25 +21,44 @@ import {
     SaveText
 } from "../components/StyledComponent";
 import { NotificationBar } from "../components/NotificationBar";
+import NavigationService from "../NavigationService";
+import Scenes from "../Scenes";
 
 class Profile extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={true}>
+            <ScreenContainer onBackPress={this.onBack}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>Mr. Karol</PersonText>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
-                <H2>Flats</H2>
-                <SaveContainer>
-                    <SaveText>Save</SaveText>
-                </SaveContainer>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center"
+                    }}>
+                    <H2>Flats</H2>
+                    <SaveContainer>
+                        <SaveText>Save</SaveText>
+                    </SaveContainer>
                 </View>
                 <View
-                    style={{ flexDirection: "row", justifyContent: "center", alignItems:"center" }}>
-                    <Input style={{ width: 100, alignSelf: "flex-start" }} placeholder="Add new Flat"  placeholderTextColor={"#D0DBE6"}/>
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                    <Input
+                        style={{ width: 100, alignSelf: "flex-start" }}
+                        placeholder="Add new Flat"
+                        placeholderTextColor={"#D0DBE6"}
+                    />
                     <FlatList
                         horizontal
-                        style={{ paddingHorizontal:20,height: 25, flexGrow: 0 }}
+                        style={{
+                            paddingHorizontal: 20,
+                            height: 25,
+                            flexGrow: 0
+                        }}
                         data={[1, 2, 3, 4, 5, 6]}
                         keyExtractor={item => String(item)}
                         showsHorizontalScrollIndicator={false}
@@ -54,16 +73,26 @@ class Profile extends Component {
                         }}
                     />
                 </View>
-                <View style={{flex:1, justifyContent:"flex-end"}}>
-                <Button>
-                    <ButtonText>Edit Profile</ButtonText>
-                </Button>
-                <Button>
-                    <ButtonText>Logout</ButtonText>
-                </Button>
+                <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                    <Button onPress={this.onEditProfile}>
+                        <ButtonText>Edit Profile</ButtonText>
+                    </Button>
+                    <Button onPress={this.onLogout}>
+                        <ButtonText>Logout</ButtonText>
+                    </Button>
                 </View>
             </ScreenContainer>
         );
     }
+
+    onBack = () => {
+        NavigationService.goBack();
+    };
+    onEditProfile = () => {
+        NavigationService.navigate(Scenes.EditProfile);
+    };
+    onLogout = () => {
+        NavigationService.navigate(Scenes.Login);
+    };
 }
 export default inject("authStore", "propsStore")(observer(Profile));

@@ -18,6 +18,7 @@ import {
 import store from "./src/stores";
 import NavigationService from "./src/NavigationService";
 import { GradientHeader } from "./src/components/GradientHeader";
+import Scenes from "./src/Scenes";
 
 const AppNavigator = createStackNavigator(
     {
@@ -34,7 +35,7 @@ const AppNavigator = createStackNavigator(
         // defaultNavigationOptions: {
         //     headerTitle: <GradientHeader />
         // }
-        initialRouteName: "Add",
+        initialRouteName: Scenes.Start,
         headerMode: "none"
     }
 );

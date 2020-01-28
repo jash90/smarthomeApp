@@ -4,6 +4,8 @@ import { View } from "react-native";
 import { Logo } from "../components/Logo";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, Title } from "../components/StyledComponent";
+import NavigationService from "../NavigationService";
+import Scenes from "../Scenes";
 
 class Start extends Component {
     render() {
@@ -14,12 +16,16 @@ class Start extends Component {
                     <View style={{ flex: 1, justifyContent: "center" }}>
                         <Logo />
                     </View>
-                    <Button>
+                    <Button onPress={this.onLogin}>
                         <ButtonText>Login</ButtonText>
                     </Button>
                 </View>
             </ScreenContainer>
         );
     }
+
+    onLogin = () => {
+        NavigationService.navigate(Scenes.Login);
+    };
 }
 export default inject("authStore", "propsStore")(observer(Start));

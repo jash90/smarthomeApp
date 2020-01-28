@@ -18,11 +18,13 @@ import {
     ControlText
 } from "../components/StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import NavigationService from '../NavigationService';
+import Scenes from "../Scenes";
 
 class Add extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={true} onRightPress={true}>
+            <ScreenContainer onBackPress={this.onBack} onRightPress={this.onSave}>
                 <Title>Flat 1</Title>
                 <View
                     style={{
@@ -81,7 +83,7 @@ class Add extends Component {
                 </View>
                 <FlatList
                     horizontal
-                    style={{ height: 110, paddingVertical: 10 }}
+                    style={{ height: 120, paddingVertical: 10 }}
                     data={[
                         { icon: "lightbulb" },
                         { icon: "power-plug" },
@@ -142,5 +144,14 @@ class Add extends Component {
             </ScreenContainer>
         );
     }
+
+    onBack = () =>{
+        NavigationService.goBack();
+    }
+
+    onSave = () =>{
+        NavigationService.navigate(Scenes.Home);
+    }
+
 }
 export default inject("authStore", "propsStore")(observer(Add));
