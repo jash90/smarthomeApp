@@ -87,7 +87,8 @@ export const Control = styled(Room)({
     height: 70,
     justifyContent: "center",
     alignItems: "center",
-    padding: 0
+    padding: 0,
+    marginRight:20
 });
 
 export const ControlText = styled(H2)({
@@ -100,7 +101,7 @@ export const Input = styled.TextInput({
     alignSelf: "center",
     borderRadius: 15,
     backgroundColor: "#686B75",
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     color: "white",
     fontSize: 18,
     marginVertical: 10

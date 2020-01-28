@@ -28,7 +28,7 @@ class Profile extends Component {
             <ScreenContainer onBackPress={true}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>Mr. Karol</PersonText>
-                <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+                <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                 <H2>Flats</H2>
                 <SaveContainer>
                     <SaveText>Save</SaveText>

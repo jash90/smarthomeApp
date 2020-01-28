@@ -34,7 +34,7 @@ const AppNavigator = createStackNavigator(
         // defaultNavigationOptions: {
         //     headerTitle: <GradientHeader />
         // }
-        initialRouteName: "Profile",
+        initialRouteName: "Add",
         headerMode: "none"
     }
 );

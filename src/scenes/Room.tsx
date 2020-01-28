@@ -34,7 +34,7 @@ class Room extends Component {
                                         color="#D0DBE8"
                                     />
                                 </Control>
-                                <ControlText style={{ marginLeft: 20 }}>
+                                <ControlText>
                                     {item.text}
                                 </ControlText>
                             </View>
