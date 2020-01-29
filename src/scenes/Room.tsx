@@ -4,11 +4,12 @@ import { ScreenContainer } from "../components/SceneContainer";
 import { PersonText, H1, H2, RoomText, Control, ControlText, SeparatorWidth, SeparatorHeight, WelcomeText, Title } from "../components/StyledComponent";
 import { FlatList, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import NavigationService from '../NavigationService';
 
 class Room extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={true}>
+            <ScreenContainer onBackPress={this.onBack}>
                 <Title>Kitchen</Title>
                 <H2>Controls</H2>
                 <FlatList
@@ -34,7 +35,7 @@ class Room extends Component {
                                         color="#D0DBE8"
                                     />
                                 </Control>
-                                <ControlText style={{ marginLeft: 20 }}>
+                                <ControlText>
                                     {item.text}
                                 </ControlText>
                             </View>
@@ -43,6 +44,10 @@ class Room extends Component {
                 />
             </ScreenContainer>
         );
+    }
+
+    onBack = () =>{
+        NavigationService.goBack();
     }
 }
 export default inject("authStore", "propsStore")(observer(Room));

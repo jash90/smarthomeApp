@@ -11,11 +11,13 @@ import {
     FlatButton
 } from "../components/StyledComponent";
 import { NotificationBar } from "../components/NotificationBar";
+import NavigationService from "../NavigationService";
+import Scenes from "../Scenes";
 
 class Register extends Component {
     render() {
         return (
-            <ScreenContainer>
+            <ScreenContainer onBackPress={this.onBack}>
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     <Title>Register</Title>
                     <View
@@ -40,12 +42,19 @@ class Register extends Component {
                             placeholderTextColor={"#D0DBE6"}
                         />
                     </View>
-                    <Button>
+                    <Button onPress={this.onRegister}>
                         <ButtonText>Register</ButtonText>
                     </Button>
                 </View>
             </ScreenContainer>
         );
     }
+    onBack = () => {
+        NavigationService.goBack();
+    };
+
+    onRegister = () => {
+        NavigationService.navigate(Scenes.Home);
+    };
 }
 export default inject("authStore", "propsStore")(observer(Register));
