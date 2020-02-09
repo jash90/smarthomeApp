@@ -13,6 +13,7 @@ import {
 import ErrorUtil from "../ErrorUtil";
 import NavigationService from "../NavigationService";
 import { Navigators } from "../Navigators/Enum";
+import ValidatedInput from "../components/ValidatedInput";
 
 interface State {
     login: string;
@@ -22,6 +23,11 @@ interface State {
 }
 
 class Register extends Component<{}, State> {
+    public loginInput: ValidatedInput | null | undefined;
+    public passwordInput: ValidatedInput | null | undefined;
+    public firstnameInput: ValidatedInput | null | undefined;
+    public lastnameInput: ValidatedInput | null | undefined;
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -42,36 +48,44 @@ class Register extends Component<{}, State> {
                             flex: 1,
                             paddingTop: Platform.OS === "ios" ? 0 : 60
                         }}>
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.firstnameInput = ref)}
                             placeholder={"Firstname"}
-                            placeholderTextColor={"#D0DBE6"}
                             value={this.state.firstname}
                             onChangeText={firstname =>
                                 this.setState({ firstname })
                             }
+                            error={this.state.firstname.length === 0}
+                            errorText={"Uzupełnił firstname"}
                         />
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.lastnameInput = ref)}
                             placeholder={"Lastname"}
-                            placeholderTextColor={"#D0DBE6"}
                             value={this.state.lastname}
                             onChangeText={lastname =>
                                 this.setState({ lastname })
                             }
+                            error={this.state.lastname.length === 0}
+                            errorText={"Uzupełnił lastname"}
                         />
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.loginInput = ref)}
                             placeholder={"Login"}
-                            placeholderTextColor={"#D0DBE6"}
                             value={this.state.login}
                             onChangeText={login => this.setState({ login })}
+                            error={Boolean(() => this.validateEmail())}
+                            errorText={"Nieprawidłowy format login"}
                         />
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.passwordInput = ref)}
                             placeholder={"Password"}
-                            placeholderTextColor={"#D0DBE6"}
                             secureTextEntry
                             value={this.state.password}
                             onChangeText={password =>
                                 this.setState({ password })
                             }
+                            error={this.state.password.length <= 4}
+                            errorText={"Uzupełnił password"}
                         />
                     </View>
                     <Button onPress={this.onRegister}>
@@ -85,17 +99,38 @@ class Register extends Component<{}, State> {
         NavigationService.goBack();
     };
 
+    validateEmail = () => {
+        const validate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            this.state.login
+        );
+        return !validate && this.state.login.length === 0;
+    };
+
     onRegister = async () => {
         try {
             const { login, password, firstname, lastname } = this.state;
+            if (
+                !ValidatedInput.validate([
+                    this.firstnameInput,
+                    this.lastnameInput,
+                    this.loginInput,
+                    this.passwordInput
+                ])
+            ) {
+                return;
+            }
             const response = await AuthApi.register(
                 login,
                 password,
                 firstname,
                 lastname
             );
-            AuthActions.setUser(response.data);
-            NavigationService.navigate(Navigators.Account);
+            if (response.status === 200 && !!response.data?.token) {
+                AuthActions.setUser(response.data);
+                NavigationService.navigate(Navigators.Account);
+            } else {
+                ErrorUtil.errorService(response);
+            }
         } catch (error) {
             ErrorUtil.errorService(error);
         }

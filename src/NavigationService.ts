@@ -1,11 +1,10 @@
-import { NavigationActions, StackActions } from "react-navigation";
 import {
+    NavigationActions,
     NavigationContainerComponent,
-    NavigationRoute,
-    NavigationScreenProp
+    StackActions
 } from "react-navigation";
 import Scenes from "./Scenes";
-import { Navigators } from "./Navigators/Navigators";
+import { Navigators } from "./Navigators/Enum";
 
 export default class NavigationService {
     static navigator: NavigationContainerComponent | any;

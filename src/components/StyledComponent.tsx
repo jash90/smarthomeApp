@@ -104,7 +104,8 @@ export const Input = styled.TextInput({
 });
 
 Input.defaultProps = {
-    autoCapitalize: "none"
+    autoCapitalize: "none",
+    placeholderTextColor:"#D0DBE6"
 };
 
 export const FlatText = styled(H2)({

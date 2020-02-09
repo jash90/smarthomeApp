@@ -8,13 +8,14 @@ import {
     Button,
     ButtonText,
     FlatButton,
-    Input,
     Title
 } from "../components/StyledComponent";
 import ErrorUtil from "../ErrorUtil";
 import NavigationService from "../NavigationService";
 import { Navigators } from "../Navigators/Enum";
 import Scenes from "../Scenes";
+import ValidatedInput from "../components/ValidatedInput";
+import Toast from "react-native-simple-toast";
 
 interface State {
     login: string;
@@ -22,6 +23,9 @@ interface State {
 }
 
 class Login extends Component<{}, State> {
+    public loginInput: ValidatedInput | null | undefined;
+    public passwordInput: ValidatedInput | null | undefined;
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -35,16 +39,20 @@ class Login extends Component<{}, State> {
                 <Title>Login</Title>
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     <View style={{ flex: 1, justifyContent: "center" }}>
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.loginInput = ref)}
                             placeholder={"Login"}
-                            placeholderTextColor={"#D0DBE6"}
                             value={this.state.login}
+                            error={this.state.login.length === 0}
+                            errorText={"Uzupełnij login"}
                             onChangeText={login => this.setState({ login })}
                         />
-                        <Input
+                        <ValidatedInput
+                            ref={ref => (this.passwordInput = ref)}
                             placeholder={"Password"}
-                            placeholderTextColor={"#D0DBE6"}
                             value={this.state.password}
+                            error={this.state.password.length === 0}
+                            errorText={"Uzupełnij hasło"}
                             secureTextEntry
                             onChangeText={password =>
                                 this.setState({ password })
@@ -65,10 +73,15 @@ class Login extends Component<{}, State> {
     onLogin = async () => {
         try {
             const { login, password } = this.state;
+            if (!ValidatedInput.validate([this.loginInput, this.passwordInput])){
+                return;
+            }
             const response = await AuthApi.login(login, password);
-            if (!!response.data?.token) {
+            if (response.status === 200 && !!response.data?.token) {
                 AuthActions.setUser(response.data);
                 NavigationService.navigate(Navigators.Account);
+            } else {
+                ErrorUtil.errorService(response);
             }
         } catch (error) {
             ErrorUtil.errorService(error);
