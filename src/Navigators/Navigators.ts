@@ -14,18 +14,12 @@ import {
     Profile,
     Register,
     Room
-} from "./scenes/index";
-import store from "./stores";
-import NavigationService from "./NavigationService";
-import { GradientHeader } from "./components/GradientHeader";
-import Scenes from "./Scenes";
-
-enum Navigators {
-    Auth = "Auth",
-    Account = "Account",
-    App = "App"
-}
-
+} from "../scenes/index";
+import store from "../stores";
+import NavigationService from "../NavigationService";
+import { GradientHeader } from "../components/GradientHeader";
+import Scenes from "../Scenes";
+import { Navigators } from "./Enum";
 
 const AuthNavigator = createStackNavigator(
     {
@@ -52,9 +46,9 @@ const AccountNavigator = createStackNavigator(
 
 const AppNavigator = createStackNavigator(
     {
-        [Scenes.Start]:Start,
-        [Navigators.Auth]:AuthNavigator,
-        [Navigators.Account]:AccountNavigator
+        Start,
+        AuthNavigator,
+        AccountNavigator
     },
     {
         headerMode: "none"
@@ -63,4 +57,4 @@ const AppNavigator = createStackNavigator(
 
 const RootNavigator = createAppContainer(AppNavigator);
 
-export { RootNavigator, Navigators };
+export { RootNavigator };

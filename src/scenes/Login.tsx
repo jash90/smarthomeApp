@@ -15,9 +15,9 @@ import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
 import AuthApi from "../api/AuthApi";
 import ErrorUtil from "../ErrorUtil";
-import Store from "../stores"
-import AuthActions from '../actions/AuthActions';
-import { Navigators } from "../Navigators";
+import Store from "../stores";
+import AuthActions from "../actions/AuthActions";
+import { Navigators } from "../Navigators/Enum";
 
 interface State {
     login: string;
@@ -25,7 +25,7 @@ interface State {
 }
 
 class Login extends Component<{}, State> {
-    constructor(props:any) {
+    constructor(props: any) {
         super(props);
         this.state = {
             login: "",
@@ -69,8 +69,10 @@ class Login extends Component<{}, State> {
         try {
             const { login, password } = this.state;
             const response = await AuthApi.login(login, password);
-            AuthActions.setUser(response.data);
-            NavigationService.navigate(Navigators.Account);
+            if (!!response.data?.token) {
+                AuthActions.setUser(response.data);
+                NavigationService.navigate(Navigators.Account);
+            }
         } catch (error) {
             ErrorUtil.errorService(error);
         }

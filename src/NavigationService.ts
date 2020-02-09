@@ -5,6 +5,7 @@ import {
     NavigationScreenProp
 } from "react-navigation";
 import Scenes from "./Scenes";
+import { Navigators } from "./Navigators/Navigators";
 
 export default class NavigationService {
     static navigator: NavigationContainerComponent | any;
@@ -15,8 +16,13 @@ export default class NavigationService {
         this.navigator = navigatorRef;
     }
 
-    public static navigate(routeName: Scenes, params: any | null = null) {
-        console.log(`[Navigation]: routename: ${routeName} params: ${String(params)}`);
+    public static navigate(
+        routeName: Scenes | Navigators,
+        params: any | null = null
+    ) {
+        console.log(
+            `[Navigation]: routename: ${routeName} params: ${String(params)}`
+        );
         this.navigator.dispatch(
             NavigationActions.navigate({
                 routeName,
@@ -30,7 +36,7 @@ export default class NavigationService {
         this.navigator.dispatch(NavigationActions.back());
     }
 
-    public static reset(routeName: Scenes) {
+    public static reset(routeName: Scenes | Navigators) {
         console.log(`[Navigation]: RESET routename: ${routeName}`);
         const resetAction = StackActions.reset({
             index: 0,

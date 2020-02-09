@@ -19,11 +19,22 @@ import store from "./src/stores";
 import NavigationService from "./src/NavigationService";
 import { GradientHeader } from "./src/components/GradientHeader";
 import Scenes from "./src/Scenes";
-import { RootNavigator } from "./src/Navigators";
-
-
+import { RootNavigator } from "./src/Navigators/Navigators";
+import axios from "./src/Axios";
+import Interceptors from "./src/actions/Interceptors";
 
 export default class App extends React.Component {
+    componentDidMount() {
+        axios.interceptors.request.use(
+            request => Interceptors.handleRequest(request),
+            error => Interceptors.handleError(error)
+        );
+        axios.interceptors.response.use(
+            response => Interceptors.handleResponse(response),
+            error => Interceptors.handleError(error)
+        );
+    }
+
     render() {
         return (
             <Provider {...store}>

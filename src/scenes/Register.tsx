@@ -16,7 +16,7 @@ import Scenes from "../Scenes";
 import AuthApi from "../api/AuthApi";
 import AuthActions from "../actions/AuthActions";
 import ErrorUtil from "../ErrorUtil";
-import { Navigators } from "../Navigators";
+import { Navigators } from "../Navigators/Enum";
 
 interface State {
     login: string;
