@@ -30,7 +30,6 @@ export default class Interceptors {
         return response;
     }
     public static handleError(error: any) {
-        console.log({ error });
         console.group(
             `[Network]: Error ${error.status} ${String(
                 error.config.method
