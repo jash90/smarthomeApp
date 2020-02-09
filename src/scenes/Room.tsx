@@ -1,10 +1,16 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { ScreenContainer } from "../components/SceneContainer";
-import { PersonText, H1, H2, RoomText, Control, ControlText, SeparatorWidth, SeparatorHeight, WelcomeText, Title } from "../components/StyledComponent";
 import { FlatList, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import NavigationService from '../NavigationService';
+import { ScreenContainer } from "../components/SceneContainer";
+import {
+    Control,
+    ControlText,
+    H2,
+    SeparatorHeight,
+    Title
+} from "../components/StyledComponent";
+import NavigationService from "../NavigationService";
 
 class Room extends Component {
     render() {
@@ -35,9 +41,7 @@ class Room extends Component {
                                         color="#D0DBE8"
                                     />
                                 </Control>
-                                <ControlText>
-                                    {item.text}
-                                </ControlText>
+                                <ControlText>{item.text}</ControlText>
                             </View>
                         );
                     }}
@@ -46,8 +50,8 @@ class Room extends Component {
         );
     }
 
-    onBack = () =>{
+    onBack = () => {
         NavigationService.goBack();
-    }
+    };
 }
 export default inject("authStore", "propsStore")(observer(Room));

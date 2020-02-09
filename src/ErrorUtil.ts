@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 import Toast from "react-native-simple-toast";
 import NetInfo from "@react-native-community/netinfo";
 import NavigationService from "./NavigationService";

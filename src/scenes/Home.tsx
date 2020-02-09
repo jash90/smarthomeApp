@@ -1,25 +1,20 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
+import { FlatList, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
-    Title,
-    ButtonText,
-    Button,
-    WelcomeText,
-    PersonText,
-    H1,
-    H2,
-    Room,
-    RoomText,
     Control,
     ControlText,
+    H1,
+    H2,
+    PersonText,
+    Room,
+    RoomText,
+    SeparatorHeight,
     SeparatorWidth,
-    SeparatorHeight
+    WelcomeText
 } from "../components/StyledComponent";
-import { View, FlatList, ScrollView, TouchableOpacity } from "react-native";
-import { Logo } from "../components/Logo";
-import styled from "styled-components/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
 import Store from "../stores";
@@ -31,10 +26,17 @@ class Home extends Component {
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
                 <H1>Flat 1</H1>
-                <View style={{flexDirection:"row", alignItems:"center"}}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H2>Rooms</H2>
                     <TouchableOpacity onPress={this.onAdd}>
-                    <H2 style={{color:"orange", fontSize:24, marginHorizontal:5}}>+</H2>
+                        <H2
+                            style={{
+                                color: "orange",
+                                fontSize: 24,
+                                marginHorizontal: 5
+                            }}>
+                            +
+                        </H2>
                     </TouchableOpacity>
                 </View>
                 <FlatList
@@ -55,10 +57,17 @@ class Home extends Component {
                         );
                     }}
                 />
-                <View style={{flexDirection:"row", alignItems:"center"}}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H2>Controls</H2>
                     <TouchableOpacity onPress={this.onAdd}>
-                    <H2 style={{color:"orange", fontSize:24, marginHorizontal:5}}>+</H2>
+                        <H2
+                            style={{
+                                color: "orange",
+                                fontSize: 24,
+                                marginHorizontal: 5
+                            }}>
+                            +
+                        </H2>
                     </TouchableOpacity>
                 </View>
                 <FlatList

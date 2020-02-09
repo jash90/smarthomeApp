@@ -1,30 +1,23 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { View, FlatList } from "react-native";
-import { Logo } from "../components/Logo";
+import { FlatList, View } from "react-native";
+import AuthActions from "../actions/AuthActions";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
     Button,
     ButtonText,
-    Title,
-    Input,
-    FlatButton,
-    WelcomeText,
-    PersonText,
-    H2,
-    SeparatorHeight,
-    Control,
-    ControlText,
-    SeparatorWidth,
     FlatText,
+    H2,
+    Input,
+    PersonText,
     SaveContainer,
-    SaveText
+    SaveText,
+    SeparatorWidth,
+    WelcomeText
 } from "../components/StyledComponent";
-import { NotificationBar } from "../components/NotificationBar";
 import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
 import Store from "../stores";
-import AuthActions from '../actions/AuthActions';
 
 class Profile extends Component {
     render() {

@@ -1,30 +1,29 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
+import { FlatList, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
-import { View, FlatList } from "react-native";
 import {
-    H1,
-    Input,
-    ButtonText,
-    Button,
-    Title,
+    Control,
+    ControlText,
+    FlatText,
     H2,
+    Input,
     SaveContainer,
     SaveText,
-    SeparatorWidth,
-    FlatText,
     SeparatorHeight,
-    Control,
-    ControlText
+    SeparatorWidth,
+    Title
 } from "../components/StyledComponent";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import NavigationService from '../NavigationService';
+import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
 
 class Add extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack} onRightPress={this.onSave}>
+            <ScreenContainer
+                onBackPress={this.onBack}
+                onRightPress={this.onSave}>
                 <Title>Flat 1</Title>
                 <View
                     style={{
@@ -108,11 +107,11 @@ class Add extends Component {
                         );
                     }}
                 />
-                  <Input
-                        style={{alignSelf: "flex-start" }}
-                        placeholder="Add Control"
-                        placeholderTextColor={"#D0DBE6"}
-                    />
+                <Input
+                    style={{ alignSelf: "flex-start" }}
+                    placeholder="Add Control"
+                    placeholderTextColor={"#D0DBE6"}
+                />
                 <FlatList
                     data={[
                         { icon: "lightbulb", text: "Lamp 2" },
@@ -145,13 +144,12 @@ class Add extends Component {
         );
     }
 
-    onBack = () =>{
+    onBack = () => {
         NavigationService.goBack();
-    }
+    };
 
-    onSave = () =>{
+    onSave = () => {
         NavigationService.navigate(Scenes.Home);
-    }
-
+    };
 }
 export default inject("authStore", "propsStore")(observer(Add));

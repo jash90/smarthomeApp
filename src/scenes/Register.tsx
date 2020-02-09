@@ -1,21 +1,17 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { View, ScrollView, Platform } from "react-native";
-import { Logo } from "../components/Logo";
+import { Platform, View } from "react-native";
+import AuthActions from "../actions/AuthActions";
+import AuthApi from "../api/AuthApi";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
     Button,
     ButtonText,
-    Title,
     Input,
-    FlatButton
+    Title
 } from "../components/StyledComponent";
-import { NotificationBar } from "../components/NotificationBar";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
-import AuthApi from "../api/AuthApi";
-import AuthActions from "../actions/AuthActions";
 import ErrorUtil from "../ErrorUtil";
+import NavigationService from "../NavigationService";
 import { Navigators } from "../Navigators/Enum";
 
 interface State {
@@ -92,8 +88,13 @@ class Register extends Component<{}, State> {
     onRegister = async () => {
         try {
             const { login, password, firstname, lastname } = this.state;
-            const response = await AuthApi.register(login, password, firstname, lastname);
-            AuthActions.setUser(response.data);    
+            const response = await AuthApi.register(
+                login,
+                password,
+                firstname,
+                lastname
+            );
+            AuthActions.setUser(response.data);
             NavigationService.navigate(Navigators.Account);
         } catch (error) {
             ErrorUtil.errorService(error);

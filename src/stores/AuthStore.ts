@@ -37,7 +37,7 @@ export default class AuthStore {
         this.id = id;
     }
 
-    @action setUser(user:User){
+    @action setUser(user: User) {
         this.firstname = user.firstname;
         this.lastname = user.lastname;
         this.email = user.email;

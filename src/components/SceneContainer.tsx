@@ -1,9 +1,9 @@
 import React, { Props } from "react";
-import Color from "../Color";
-import styled from "styled-components/native";
+import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import styled from "styled-components/native";
+import Color from "../Color";
 import { NotificationBar, NotificationBarProps } from "./NotificationBar";
-import { View, KeyboardAvoidingView } from "react-native";
 
 const SafeView = styled.SafeAreaView`
     flex: 1;

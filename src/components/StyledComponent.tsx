@@ -1,9 +1,5 @@
 import styled from "styled-components/native";
 
-import Color from "../Color";
-
-import Icon from "react-native-vector-icons/MaterialIcons";
-
 export const SeparatorWidth = styled.View({
     width: 15
 });
@@ -88,7 +84,7 @@ export const Control = styled(Room)({
     justifyContent: "center",
     alignItems: "center",
     padding: 0,
-    marginRight:20
+    marginRight: 20
 });
 
 export const ControlText = styled(H2)({
@@ -108,25 +104,25 @@ export const Input = styled.TextInput({
 });
 
 Input.defaultProps = {
-    autoCapitalize:"none"
-}
+    autoCapitalize: "none"
+};
 
 export const FlatText = styled(H2)({
-    padding: 0,
+    padding: 0
 });
 
 export const SaveContainer = styled.View({
-    width:70,
-    height:30,
-    backgroundColor:"transparent",
-    borderRadius :20,
-    borderColor:"#D0DBE6",
+    width: 70,
+    height: 30,
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    borderColor: "#D0DBE6",
     borderWidth: 1,
-    justifyContent:"center"
-})
+    justifyContent: "center"
+});
 
 export const SaveText = styled.Text({
-    color:"#D0DBE6",
-    fontSize:12,
-    alignSelf:"center"
-})
+    color: "#D0DBE6",
+    fontSize: 12,
+    alignSelf: "center"
+});

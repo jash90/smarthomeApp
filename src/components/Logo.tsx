@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -6,10 +6,10 @@ const ContainerLogo = styled.View({
     width: 200,
     height: 200,
     backgroundColor: "#282C3A",
-    borderRadius:50,
-    justifyContent:"center",
-    alignItems:"center",
-    alignSelf:"center"
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center"
 });
 
 export const Logo: React.FC = () => {

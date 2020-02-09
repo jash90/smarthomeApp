@@ -1,23 +1,20 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 import { View } from "react-native";
-import { Logo } from "../components/Logo";
+import AuthActions from "../actions/AuthActions";
+import AuthApi from "../api/AuthApi";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
     Button,
     ButtonText,
-    Title,
+    FlatButton,
     Input,
-    FlatButton
+    Title
 } from "../components/StyledComponent";
-import { NotificationBar } from "../components/NotificationBar";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
-import AuthApi from "../api/AuthApi";
 import ErrorUtil from "../ErrorUtil";
-import Store from "../stores";
-import AuthActions from "../actions/AuthActions";
+import NavigationService from "../NavigationService";
 import { Navigators } from "../Navigators/Enum";
+import Scenes from "../Scenes";
 
 interface State {
     login: string;

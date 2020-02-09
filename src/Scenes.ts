@@ -1,5 +1,5 @@
 enum Scenes {
-    Home ="Home",
+    Home = "Home",
     Start = "Start",
     Add = "Add",
     EditProfile = "EditProfile",

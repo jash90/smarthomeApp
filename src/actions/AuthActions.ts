@@ -1,16 +1,11 @@
-import { Platform } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage';
-import Toast from "react-native-simple-toast";
-import NetInfo from "@react-native-community/netinfo";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
-import Stores from "../stores";
+import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 import { User } from "../models";
+import Stores from "../stores";
 export default class AuthActions {
     public static async setUser(user: User) {
         Stores.authStore.setUser(user);
-        await AsyncStorage.setItem("User",String(user));
+        await AsyncStorage.setItem("User", String(user));
         axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
     }
 

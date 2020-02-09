@@ -14,7 +14,7 @@ const ContainerNotification = styled.View({
 export interface NotificationBarProps {
     onBackPress?: () => void;
     onRightPress?: () => void;
-    icon?:string
+    icon?: string;
 }
 
 export const NotificationBar: React.FC<NotificationBarProps> = ({
@@ -30,13 +30,13 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
                 )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical:5 }} onPress={onRightPress}>
+            <TouchableOpacity
+                style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+                onPress={onRightPress}>
                 {onRightPress && !icon && (
                     <Icon name={"content-save"} size={35} color={"white"} />
                 )}
-                  {icon && (
-                    <Icon name={`${icon}`} size={35} color={"white"} />
-                )}
+                {icon && <Icon name={`${icon}`} size={35} color={"white"} />}
             </TouchableOpacity>
         </ContainerNotification>
     );

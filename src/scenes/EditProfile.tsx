@@ -1,22 +1,15 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { ScreenContainer } from "../components/SceneContainer";
-import {
-    Title,
-    Input,
-    FlatButton,
-    ButtonText,
-    Button,
-    H1
-} from "../components/StyledComponent";
 import { View } from "react-native";
+import { ScreenContainer } from "../components/SceneContainer";
+import { Button, ButtonText, H1, Input } from "../components/StyledComponent";
 import NavigationService from "../NavigationService";
 
 class EditProfile extends Component {
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
-                <View style={{ flex: 1, alignItems:"center" }}>
+                <View style={{ flex: 1, alignItems: "center" }}>
                     <H1>Edit Profile</H1>
                     <Input
                         placeholder={"Firstname"}
@@ -44,11 +37,9 @@ class EditProfile extends Component {
                 </View>
             </ScreenContainer>
         );
- 
-        }
+    }
     onBack = () => {
         NavigationService.goBack();
     };
-
 }
 export default inject("authStore", "propsStore")(observer(EditProfile));
