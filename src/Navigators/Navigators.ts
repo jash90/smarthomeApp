@@ -1,6 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { Add, EditProfile, Home, Login, Profile, Register, Room, Start } from "../scenes/index";
+import { Navigators } from "./Enum";
 
 const AuthNavigator = createStackNavigator(
     {
@@ -28,8 +29,8 @@ const AccountNavigator = createStackNavigator(
 const AppNavigator = createStackNavigator(
     {
         Start,
-        AuthNavigator,
-        AccountNavigator
+        [Navigators.Auth]:AuthNavigator,
+        [Navigators.Account]:AccountNavigator
     },
     {
         headerMode: "none"
