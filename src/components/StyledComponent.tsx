@@ -107,6 +107,10 @@ export const Input = styled.TextInput({
     marginVertical: 10
 });
 
+Input.defaultProps = {
+    autoCapitalize:"none"
+}
+
 export const FlatText = styled(H2)({
     padding: 0,
 });

@@ -23,13 +23,15 @@ import {
 import { NotificationBar } from "../components/NotificationBar";
 import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
+import Store from "../stores";
+import AuthActions from '../actions/AuthActions';
 
 class Profile extends Component {
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
                 <WelcomeText>Hello,</WelcomeText>
-                <PersonText>Mr. Karol</PersonText>
+                <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
                 <View
                     style={{
                         flexDirection: "row",
@@ -92,6 +94,7 @@ class Profile extends Component {
         NavigationService.navigate(Scenes.EditProfile);
     };
     onLogout = () => {
+        AuthActions.clearUser();
         NavigationService.navigate(Scenes.Login);
     };
 }

@@ -1,7 +1,7 @@
 import axios from "../Axios";
 export default class AuthApi {
     public static async login(email: string, password: string) {
-        return await axios.post("/login", {
+        return await axios.post("/users/auth", {
             email: email,
             password: password
         });
@@ -12,7 +12,7 @@ export default class AuthApi {
         firstname: string,
         lastname: string
     ) {
-        return await axios.post("/register", {
+        return await axios.post("/users", {
             email,
             password,
             firstname,

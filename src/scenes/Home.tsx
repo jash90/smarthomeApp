@@ -22,13 +22,14 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
+import Store from "../stores";
 
 class Home extends Component {
     render() {
         return (
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
-                <PersonText>Mr. Karol</PersonText>
+                <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
                 <H1>Flat 1</H1>
                 <View style={{flexDirection:"row", alignItems:"center"}}>
                     <H2>Rooms</H2>

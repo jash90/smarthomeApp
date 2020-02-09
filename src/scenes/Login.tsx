@@ -13,8 +13,25 @@ import {
 import { NotificationBar } from "../components/NotificationBar";
 import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
+import AuthApi from "../api/AuthApi";
+import ErrorUtil from "../ErrorUtil";
+import Store from "../stores"
+import AuthActions from '../actions/AuthActions';
+import { Navigators } from "../Navigators";
 
-class Login extends Component {
+interface State {
+    login: string;
+    password: string;
+}
+
+class Login extends Component<{}, State> {
+    constructor(props:any) {
+        super(props);
+        this.state = {
+            login: "",
+            password: ""
+        };
+    }
     render() {
         return (
             <ScreenContainer>
@@ -24,10 +41,17 @@ class Login extends Component {
                         <Input
                             placeholder={"Login"}
                             placeholderTextColor={"#D0DBE6"}
+                            value={this.state.login}
+                            onChangeText={login => this.setState({ login })}
                         />
                         <Input
                             placeholder={"Password"}
                             placeholderTextColor={"#D0DBE6"}
+                            value={this.state.password}
+                            secureTextEntry
+                            onChangeText={password =>
+                                this.setState({ password })
+                            }
                         />
                         <FlatButton onPress={this.onRegister}>
                             <ButtonText>Create account</ButtonText>
@@ -41,8 +65,15 @@ class Login extends Component {
         );
     }
 
-    onLogin = () => {
-        NavigationService.navigate(Scenes.Home);
+    onLogin = async () => {
+        try {
+            const { login, password } = this.state;
+            const response = await AuthApi.login(login, password);
+            AuthActions.setUser(response.data);
+            NavigationService.navigate(Navigators.Account);
+        } catch (error) {
+            ErrorUtil.errorService(error);
+        }
     };
 
     onRegister = () => {

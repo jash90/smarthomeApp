@@ -16,6 +16,7 @@ export default class NavigationService {
     }
 
     public static navigate(routeName: Scenes, params: any | null = null) {
+        console.log(`[Navigation]: routename: ${routeName} params: ${String(params)}`);
         this.navigator.dispatch(
             NavigationActions.navigate({
                 routeName,
@@ -25,10 +26,12 @@ export default class NavigationService {
     }
 
     public static goBack() {
+        console.log(`[Navigation]: back`);
         this.navigator.dispatch(NavigationActions.back());
     }
 
     public static reset(routeName: Scenes) {
+        console.log(`[Navigation]: RESET routename: ${routeName}`);
         const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({ routeName })]
