@@ -1,6 +1,6 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
@@ -19,13 +19,46 @@ import NavigationService from "../NavigationService";
 import Scenes from "../Scenes";
 import Store from "../stores";
 
-class Home extends Component {
+interface State {
+    controls: any[];
+    rooms: any[];
+}
+
+class Home extends Component<{}, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            controls: [
+                { icon: "lightbulb", text: "Lamp 2", value: false },
+                { icon: "power-plug", text: "Plug", value: true },
+                { icon: "door", text: "Door", value: true },
+                { icon: "garage", text: "Garage", value: false },
+                { icon: "water-pump", text: "Garden", value: true },
+                {
+                    icon: "oil-temperature",
+                    text: "Temperature",
+                    value: false
+                }
+            ],
+            rooms: [
+                { value: false },
+                { value: false },
+                { value: true },
+                { value: false },
+                { value: false },
+                { value: false },
+                { value: false }
+            ]
+        };
+    }
     render() {
         return (
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <H1>Flat 1</H1>
+                <TouchableOpacity onPress={this.onProfile}>
+                    <H1>Flat 1</H1>
+                </TouchableOpacity>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H2>Rooms</H2>
                     <TouchableOpacity onPress={this.onAdd}>
@@ -41,17 +74,25 @@ class Home extends Component {
                 </View>
                 <FlatList
                     horizontal
-                    data={[1, 2, 3, 4]}
-                    style={{ height: 140, flexGrow: 0 }}
+                    data={this.state.rooms}
+                    style={{
+                        height: 140,
+                        flexGrow: 0,
+                        marginHorizontal: -20
+                    }}
+                    contentContainerStyle={{
+                        paddingLeft: 20,
+                        paddingRight: 20
+                    }}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={item => String(item)}
                     ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={() => {
+                    renderItem={item => {
                         return (
                             <TouchableOpacity onPress={this.onRoom}>
                                 <Room>
-                                    <RoomText>Room</RoomText>
+                                    <RoomText>{`Room ${item.index+1}`}</RoomText>
                                 </Room>
                             </TouchableOpacity>
                         );
@@ -71,32 +112,38 @@ class Home extends Component {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={[
-                        { icon: "lightbulb", text: "Lamp 2" },
-                        { icon: "power-plug", text: "Plug" },
-                        { icon: "door", text: "Door" },
-                        { icon: "garage", text: "Garage" },
-                        { icon: "water-pump", text: "Garden" },
-                        { icon: "oil-temperature", text: "Temperature" }
-                    ]}
+                    data={this.state.controls}
                     keyExtractor={item => String(item)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }) => {
+                    renderItem={item => {
                         return (
-                            <View style={{ flexDirection: "row" }}>
-                                <Control>
-                                    <Icon
-                                        name={item.icon}
-                                        size={40}
-                                        color="#D0DBE8"
-                                    />
-                                </Control>
-                                <ControlText style={{ marginLeft: 20 }}>
-                                    {item.text}
-                                </ControlText>
-                            </View>
+                            <TouchableOpacity
+                                onPress={() => this.changeValue(item)}>
+                                <View style={{ flexDirection: "row" }}>
+                                    <Control>
+                                        <Icon
+                                            name={item.item.icon}
+                                            size={40}
+                                            color={
+                                                item.item.value
+                                                    ? "#FF7500"
+                                                    : "#D0DBE8"
+                                            }
+                                        />
+                                    </Control>
+                                    <ControlText
+                                        style={{
+                                            marginLeft: 20,
+                                            color: item.item.value
+                                                ? "#FF7500"
+                                                : "#D0DBE8"
+                                        }}>
+                                        {item.item.text}
+                                    </ControlText>
+                                </View>
+                            </TouchableOpacity>
                         );
                     }}
                 />
@@ -114,6 +161,13 @@ class Home extends Component {
 
     onAdd = () => {
         NavigationService.navigate(Scenes.Add);
+    };
+
+    changeValue = (item: any) => {
+        const { controls } = this.state;
+        if (item.item.value) controls[item.index].value = false;
+        else controls[item.index].value = true;
+        this.setState({ controls });
     };
 }
 export default inject("authStore", "propsStore")(observer(Home));
