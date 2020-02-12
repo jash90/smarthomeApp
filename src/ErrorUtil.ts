@@ -11,6 +11,8 @@ export default class ErrorUtil {
             Toast.show(`Podany email jest już zajęty.`, Toast.LONG);
         } else if (error.response?.status === 400) {
             Toast.show(`Niepoprawny login lub hasło.`, Toast.LONG);
+        } else if (error.response?.status === 401) {
+            Toast.show(`Odmowowa dostępu`, Toast.LONG);
         } else if (error) {
             Toast.show(
                 `Coś poszło nie tak skontaktuj się z obsługą, bądź administratorem.`,

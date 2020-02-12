@@ -4,16 +4,12 @@ import { Platform, View } from "react-native";
 import AuthActions from "../actions/AuthActions";
 import AuthApi from "../api/AuthApi";
 import { ScreenContainer } from "../components/SceneContainer";
-import {
-    Button,
-    ButtonText,
-    Input,
-    Title
-} from "../components/StyledComponent";
+import { Button, ButtonText, Title } from "../components/StyledComponent";
+import ValidatedInput from "../components/ValidatedInput";
 import ErrorUtil from "../ErrorUtil";
 import NavigationService from "../NavigationService";
 import { Navigators } from "../Navigators/Enum";
-import ValidatedInput from "../components/ValidatedInput";
+import { regexEmail } from "../Const";
 
 interface State {
     login: string;
@@ -73,7 +69,10 @@ class Register extends Component<{}, State> {
                             placeholder={"Login"}
                             value={this.state.login}
                             onChangeText={login => this.setState({ login })}
-                            error={Boolean(() => this.validateEmail())}
+                            error={
+                                !regexEmail.test(this.state.login) &&
+                                this.state.login.length === 0
+                            }
                             errorText={"Nieprawidłowy format login"}
                         />
                         <ValidatedInput
@@ -97,13 +96,6 @@ class Register extends Component<{}, State> {
     }
     onBack = () => {
         NavigationService.goBack();
-    };
-
-    validateEmail = () => {
-        const validate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-            this.state.login
-        );
-        return !validate && this.state.login.length === 0;
     };
 
     onRegister = async () => {

@@ -38,11 +38,11 @@ export default class AuthStore {
     }
 
     @action setUser(user: User) {
-        this.firstname = user.firstname;
-        this.lastname = user.lastname;
-        this.email = user.email;
-        this.token = user.token;
-        this.id = user.id;
+        this.firstname = this.firstname || user.firstname;
+        this.lastname = this.lastname || user.lastname;
+        this.email = this.email || user.email;
+        this.token = this.token || user.token;
+        this.id = this.id ||user.id;
     }
 
     @action clearUser() {

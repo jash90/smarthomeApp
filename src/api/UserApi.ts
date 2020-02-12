@@ -1,23 +1,17 @@
 import axios from "../Axios";
 export default class LoanGameApi {
-    public static apiName = "user";
-    public static async edit(
-        firstname: string,
-        lastname: string,
-        city: string,
-        age: number,
-        userId: number
-    ) {
-        return await axios.post(`/${this.apiName}/edit`, {
+    public static apiName = "users";
+    public static async edit(firstname: string, lastname: string) {
+        return await axios.put(`/${this.apiName}/me`, {
             firstname,
-            lastname,
-            city,
-            age,
-            userId
+            lastname
         });
     }
-    public static async all() {
-        return await axios.get(`/${this.apiName}s`);
+    public static async editPassword(password: string, repeatPassword: string) {
+        return await axios.put(`/${this.apiName}/password`, {
+            password,
+            repeatPassword
+        });
     }
     public static async get(userId: number) {
         return await axios.get(`/${this.apiName}/${userId}`);

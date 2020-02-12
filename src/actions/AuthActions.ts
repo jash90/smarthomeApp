@@ -6,7 +6,6 @@ export default class AuthActions {
     public static async setUser(user: User) {
         Stores.authStore.setUser(user);
         await AsyncStorage.setItem("User", String(user));
-        axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
     }
 
     public static async clearUser() {

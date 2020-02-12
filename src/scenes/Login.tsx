@@ -16,6 +16,7 @@ import { Navigators } from "../Navigators/Enum";
 import Scenes from "../Scenes";
 import ValidatedInput from "../components/ValidatedInput";
 import Toast from "react-native-simple-toast";
+import axios from "../Axios";
 
 interface State {
     login: string;
@@ -79,6 +80,7 @@ class Login extends Component<{}, State> {
             const response = await AuthApi.login(login, password);
             if (response.status === 200 && !!response.data?.token) {
                 AuthActions.setUser(response.data);
+                axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
                 NavigationService.navigate(Navigators.Account);
             } else {
                 ErrorUtil.errorService(response);
