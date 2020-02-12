@@ -117,7 +117,7 @@ class Register extends Component<{}, State> {
                 firstname,
                 lastname
             );
-            if (response.status === 200 && !!response.data?.token) {
+            if (!!response.data?.token) {
                 AuthActions.setUser(response.data);
                 NavigationService.navigate(Navigators.Account);
             } else {
