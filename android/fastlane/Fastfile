@@ -1,0 +1,60 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc 'Build the Android application.'
+  lane :build do
+    keyAlias = get_properties_value( key: "keyAlias", path: "app/keystores/keystore.properties" )
+    keyPassword = get_properties_value( key: "keyPassword", path: "app/keystores/keystore.properties")
+    storePassword = get_properties_value( key: "storePassword", path: "app/keystores/keystore.properties")
+    path = File.expand_path(File.dirname(__FILE__)) + '/../app/keystores/release.keystore'
+    gradle(task: 'clean')
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      properties: {
+          "android.injected.signing.store.file" => path,
+          "android.injected.signing.store.password" => storePassword,
+          "android.injected.signing.key.alias" => keyAlias,
+          "android.injected.signing.key.password" => keyPassword,
+        }
+    )
+  end
+
+desc 'Build and upload to App Center.'
+lane :beta do
+build
+apiToken = get_properties_value( key: "apiKey", path: "app/keystores/appcenter.properties" )
+appcenter_upload(
+    api_token:apiToken,
+    owner_name: "bartlomiejzimny",
+    app_name: "smarthome",
+    apk: "app/build/outputs/apk/release/app-release.apk"
+    )
+end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+end
