@@ -118,7 +118,7 @@ class Register extends Component<{}, State> {
                 lastname
             );
             if (!!response.data?.token) {
-                AuthActions.setUser(response.data);
+                await AuthActions.setUser(response.data);
                 NavigationService.navigate(Navigators.Account);
             } else {
                 ErrorUtil.errorService(response);

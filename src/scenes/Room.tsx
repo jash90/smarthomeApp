@@ -6,7 +6,7 @@ import { ScreenContainer } from "../components/SceneContainer";
 import {
     Control,
     ControlText,
-    H2,
+    H4,
     SeparatorHeight,
     Title
 } from "../components/StyledComponent";
@@ -17,7 +17,7 @@ class Room extends Component {
         return (
             <ScreenContainer onBackPress={this.onBack}>
                 <Title>Kitchen</Title>
-                <H2>Controls</H2>
+                <H4>Controls</H4>
                 <FlatList
                     data={[
                         { icon: "lightbulb", text: "Lamp 2" },

@@ -8,9 +8,10 @@ export default class AsyncStore {
 
     public static async load(key: string) {
         const item = await AsyncStorage.getItem(key);
-        console.log(`Load: key: ${key} value: ${item}`);
-        if (item !== null) return JSON.parse(item);
-        return "";
+        let value;
+        item != null ? (value = JSON.parse(item)) : (value = "");
+        console.log(`Save: key: ${key} value: ${value}`);
+        return value;
     }
 
     public static async remove(key: string) {

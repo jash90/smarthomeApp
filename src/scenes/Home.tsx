@@ -14,6 +14,7 @@ import {
     ControlText,
     H1,
     H2,
+    H4,
     PersonText,
     Room,
     RoomText,
@@ -24,6 +25,14 @@ import {
 import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
 import Store from "../stores/mobxStores";
+import ControlApi from "../api/ControlApi";
+import Loading from "./Loading";
+import { LoadingIndicator } from "../components/LoadingIndicator";
+import { NoItems } from "../components/NoItems";
+import ErrorUtil from "../api/ErrorUtil";
+import RoomsApi from "../api/RoomsApi";
+import ControlSwitch from "../components/ControlSwitch";
+import ControlSlider from "../components/ControlSlider";
 
 interface State {
     controls: any[];
@@ -37,39 +46,15 @@ class Home extends Component<{}, State> {
         super(props);
         this.state = {
             controls: [],
-            rooms: [
-                { value: false },
-                { value: false },
-                { value: true },
-                { value: false },
-                { value: false },
-                { value: false },
-                { value: false }
-            ],
+            rooms: [],
             loadingControl: true,
             loadingRoom: false
         };
     }
 
-    componentWillMount = () => {
-        this.setState({ loadingControl: true });
-
-        const controls = [
-            { icon: "lightbulb", text: "Lamp 2", value: false },
-            { icon: "power-plug", text: "Plug", value: true },
-            { icon: "door", text: "Door", value: true },
-            { icon: "garage", text: "Garage", value: false },
-            { icon: "water-pump", text: "Garden", value: true },
-            {
-                icon: "oil-temperature",
-                text: "Temperature",
-                value: false
-            }
-        ];
-        setTimeout(
-            () => this.setState({ controls, loadingControl: false }),
-            5000
-        );
+    componentWillMount = async () => {
+        this.getControls();
+        this.getRooms();
     };
 
     renderSeparator = () => {
@@ -78,18 +63,9 @@ class Home extends Component<{}, State> {
 
     renderEmpty = () => {
         if (this.state.loadingControl) {
-            return (
-                <View>
-                    <ActivityIndicator />
-                    <Text>Loading</Text>
-                </View>
-            );
+            return <LoadingIndicator />;
         }
-        return (
-            <View>
-                <Text> No items</Text>
-            </View>
-        );
+        return <NoItems />;
     };
 
     render() {
@@ -97,20 +73,17 @@ class Home extends Component<{}, State> {
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <TouchableOpacity onPress={this.onProfile}>
-                    <H1>Flat 1</H1>
-                </TouchableOpacity>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <H2>Rooms</H2>
+                    <H4>Rooms</H4>
                     <TouchableOpacity onPress={this.onAdd}>
-                        <H2
+                        <H4
                             style={{
                                 color: "orange",
                                 fontSize: 24,
                                 marginHorizontal: 5
                             }}>
                             +
-                        </H2>
+                        </H4>
                     </TouchableOpacity>
                 </View>
                 <FlatList
@@ -118,15 +91,18 @@ class Home extends Component<{}, State> {
                     data={this.state.rooms}
                     style={{
                         height: 140,
+
                         flexGrow: 0,
                         marginHorizontal: -20
                     }}
                     contentContainerStyle={{
                         paddingLeft: 20,
-                        paddingRight: 20
+                        paddingRight: 20,
+                        width: "100%"
                     }}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
+                    ListEmptyComponent={this.renderEmpty}
                     keyExtractor={item => String(item)}
                     ItemSeparatorComponent={() => <SeparatorWidth />}
                     renderItem={item => {
@@ -141,53 +117,48 @@ class Home extends Component<{}, State> {
                     }}
                 />
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <H2>Controls</H2>
+                    <H4>Controls</H4>
                     <TouchableOpacity onPress={this.onAdd}>
-                        <H2
+                        <H4
                             style={{
                                 color: "orange",
                                 fontSize: 24,
                                 marginHorizontal: 5
                             }}>
                             +
-                        </H2>
+                        </H4>
                     </TouchableOpacity>
                 </View>
                 <FlatList
                     data={this.state.controls}
-                    keyExtractor={item => String(item)}
+                    keyExtractor={item => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListEmptyComponent={this.renderEmpty}
                     renderItem={item => {
-                        return (
-                            <TouchableOpacity
-                                onPress={() => this.changeValue(item)}>
-                                <View style={{ flexDirection: "row" }}>
-                                    <Control>
-                                        <Icon
-                                            name={item.item.icon}
-                                            size={40}
-                                            color={
-                                                item.item.value
-                                                    ? "#FF7500"
-                                                    : "#D0DBE8"
-                                            }
-                                        />
-                                    </Control>
-                                    <ControlText
-                                        style={{
-                                            marginLeft: 20,
-                                            color: item.item.value
-                                                ? "#FF7500"
-                                                : "#D0DBE8"
-                                        }}>
-                                        {item.item.text}
-                                    </ControlText>
-                                </View>
-                            </TouchableOpacity>
-                        );
+                        if (item.item.type) {
+                            return (
+                                <ControlSlider
+                                    name={item.item.name}
+                                    icon={item.item.icon}
+                                    value={item.item.value}
+                                    min={item.item.min}
+                                    max={item.item.max}
+                                    onValueChange={(value: any) =>
+                                        this.changeValue(item, value)
+                                    }
+                                />
+                            );
+                        } else {
+                            return (
+                                <ControlSwitch
+                                    name={item.item.name}
+                                    icon={item.item.icon}
+                                    value={item.item.value}
+                                />
+                            );
+                        }
                     }}
                 />
             </ScreenContainer>
@@ -203,13 +174,61 @@ class Home extends Component<{}, State> {
     };
 
     onAdd = () => {
-        NavigationService.navigate(Scenes.Add);
+        NavigationService.navigate(Scenes.Room);
     };
 
-    changeValue = (item: any) => {
-        const { controls } = this.state;
-        controls[item.index].value = !item.item.value;
-        this.setState({ controls });
+    getControls = async () => {
+        try {
+            this.setState({ loadingControl: true });
+            const response = await ControlApi.getControls();
+            if (response.status === 200) {
+                const controls = [
+                    {
+                        id: 1,
+                        icon: "oil-temperature",
+                        name: "Temperature",
+                        value: 25,
+                        type: "slider",
+                        min: 16,
+                        max: 35
+                    },
+                    { id: 2, icon: "lightbulb", name: "Lamp 2", value: false },
+                    { id: 3, icon: "power-plug", name: "Plug", value: true },
+                    { id: 4, icon: "door", name: "Door", value: true },
+                    { id: 5, icon: "garage", name: "Garage", value: false },
+                    { id: 6, icon: "water-pump", name: "Garden", value: true }
+                ];
+                this.setState({ controls });
+            } else {
+                await ErrorUtil.errorService(response);
+            }
+            this.setState({ loadingControl: false });
+        } catch (error) {
+            this.setState({ loadingControl: false });
+            await ErrorUtil.errorService(error);
+        }
     };
+
+    getRooms = async () => {
+        try {
+            this.setState({ loadingRoom: true });
+            const response = await RoomsApi.getRooms();
+            if (response.status === 200) {
+                this.setState({ rooms: response.data });
+            } else {
+                await ErrorUtil.errorService(response);
+            }
+            this.setState({ loadingRoom: false });
+        } catch (error) {
+            this.setState({ loadingRoom: false });
+            await ErrorUtil.errorService(error);
+        }
+    };
+
+    changeValue(item: any, value: any) {
+        const { controls } = this.state;
+        controls[item.index].value = value;
+        this.setState({ controls });
+    }
 }
 export default inject("authStore", "propsStore")(observer(Home));

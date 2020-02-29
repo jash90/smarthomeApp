@@ -126,7 +126,7 @@ class Login extends Component<{}, State> {
                 await ErrorUtil.errorService(response);
             }
         } catch (error) {
-            ErrorUtil.errorService(error);
+            await ErrorUtil.errorService(error);
         }
     };
     rememberEmail = async () => {

@@ -7,7 +7,7 @@ import {
     Control,
     ControlText,
     FlatText,
-    H2,
+    H4,
     Input,
     SaveContainer,
     SaveText,
@@ -31,7 +31,7 @@ class Add extends Component {
                         justifyContent: "space-between",
                         alignItems: "center"
                     }}>
-                    <H2>Rooms</H2>
+                    <H4>Rooms</H4>
                     <SaveContainer>
                         <SaveText>Save</SaveText>
                     </SaveContainer>
@@ -75,7 +75,7 @@ class Add extends Component {
                         justifyContent: "space-between",
                         alignItems: "center"
                     }}>
-                    <H2>Controls</H2>
+                    <H4>Controls</H4>
                     <SaveContainer>
                         <SaveText>Save</SaveText>
                     </SaveContainer>

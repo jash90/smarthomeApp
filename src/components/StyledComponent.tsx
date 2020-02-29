@@ -24,19 +24,26 @@ export const WelcomeText = styled(Title)`
 export const PersonText = styled(WelcomeText)`
     margin-top: -20px;
     font-weight: bold;
+    margin-bottom: 10px;
 `;
 
 export const H1 = styled.Text`
     color: white;
     font-size: 26px;
     font-weight: bold;
+    padding: 10px 0;
 `;
 
-export const H2 = styled.Text`
-    color: white;
+export const H2 = styled(H1)`
+    font-size: 24px;
+`;
+
+export const H3 = styled(H1)`
+    font-size: 22px;
+`;
+
+export const H4 = styled(H1)`
     font-size: 20px;
-    font-weight: bold;
-    padding: 20px 0;
 `;
 
 export const Button = styled.TouchableOpacity({
@@ -72,7 +79,7 @@ export const Room = styled.View({
     paddingBottom: 10
 });
 
-export const RoomText = styled(H2)({
+export const RoomText = styled(H4)({
     padding: 0
 });
 
@@ -86,7 +93,7 @@ export const Control = styled(Room)({
     marginRight: 20
 });
 
-export const ControlText = styled(H2)({
+export const ControlText = styled(H4)({
     color: "#D0DBE8"
 });
 
@@ -107,7 +114,7 @@ Input.defaultProps = {
     placeholderTextColor: "#D0DBE6"
 };
 
-export const FlatText = styled(H2)({
+export const FlatText = styled(H4)({
     padding: 0
 });
 

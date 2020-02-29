@@ -1,6 +1,7 @@
 import AsyncStoreUtil from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
+import axios from "../api/Axios";
 
 export default class Initial {
     public static async AppStore() {
@@ -21,7 +22,12 @@ export default class Initial {
             Stores.appStore.setSavedEmail(savedEmail);
             Stores.appStore.setFirstOpen(firstOpen);
             Stores.appStore.setLogged(logged);
-            Stores.authStore.setUser(user);
+            if (logged) {
+                Stores.authStore.setUser(JSON.parse(user));
+                axios.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${JSON.parse(user).token}`;
+            }
         } catch (error) {
             console.log(error);
         }

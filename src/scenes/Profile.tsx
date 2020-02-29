@@ -7,7 +7,7 @@ import {
     Button,
     ButtonText,
     FlatText,
-    H2,
+    H4,
     Input,
     PersonText,
     SaveContainer,
@@ -25,49 +25,6 @@ class Profile extends Component {
             <ScreenContainer onBackPress={this.onBack}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center"
-                    }}>
-                    <H2>Flats</H2>
-                    <SaveContainer>
-                        <SaveText>Save</SaveText>
-                    </SaveContainer>
-                </View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
-                    <Input
-                        style={{ width: 100, alignSelf: "flex-start" }}
-                        placeholder="Add new Flat"
-                        placeholderTextColor={"#D0DBE6"}
-                    />
-                    <FlatList
-                        horizontal
-                        style={{
-                            paddingHorizontal: 20,
-                            height: 25,
-                            flexGrow: 0
-                        }}
-                        data={[1, 2, 3, 4, 5, 6]}
-                        keyExtractor={item => String(item)}
-                        showsHorizontalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
-                        ItemSeparatorComponent={() => <SeparatorWidth />}
-                        renderItem={() => {
-                            return (
-                                <>
-                                    <FlatText>Flat1</FlatText>
-                                </>
-                            );
-                        }}
-                    />
-                </View>
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     <Button onPress={this.onEditProfile}>
                         <ButtonText>Edit Profile</ButtonText>

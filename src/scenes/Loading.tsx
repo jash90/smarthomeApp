@@ -9,6 +9,7 @@ import NavigationService from "../navigation/NavigationService";
 import { Navigators } from "../navigation/navigators/Enum";
 import Scenes from "../navigation/Scenes";
 import Stores from "../stores/mobxStores";
+import { LoadingIndicator } from "../components/LoadingIndicator";
 
 class Loading extends Component {
     componentDidMount = async () => {
@@ -36,8 +37,7 @@ class Loading extends Component {
                             alignItems: "center",
                             justifyContent: "center"
                         }}>
-                        <ActivityIndicator size={32} />
-                        <H1>Loading...</H1>
+                        <LoadingIndicator/>
                     </View>
                 </View>
             </ScreenContainer>
