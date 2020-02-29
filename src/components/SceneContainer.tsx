@@ -2,7 +2,7 @@ import React, { Props } from "react";
 import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styled from "styled-components/native";
-import Color from "../Color";
+import Color from "../utils/Color";
 import { NotificationBar, NotificationBarProps } from "./NotificationBar";
 
 const SafeView = styled.SafeAreaView`
@@ -11,7 +11,7 @@ const SafeView = styled.SafeAreaView`
 
 const Container = styled.View`
     flex: 1;
-    margin: 0px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
 `;
 
 interface ScreenContainerProps extends Props<View>, NotificationBarProps {}

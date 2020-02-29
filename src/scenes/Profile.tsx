@@ -15,9 +15,9 @@ import {
     SeparatorWidth,
     WelcomeText
 } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
-import Store from "../stores";
+import NavigationService from "../navigation/NavigationService";
+import Scenes from "../navigation/Scenes";
+import Store from "../stores/mobxStores";
 
 class Profile extends Component {
     render() {
@@ -59,7 +59,7 @@ class Profile extends Component {
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={() => <SeparatorWidth />}
-                        renderItem={({ item }) => {
+                        renderItem={() => {
                             return (
                                 <>
                                     <FlatText>Flat1</FlatText>

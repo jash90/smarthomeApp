@@ -10,7 +10,7 @@ import {
     SeparatorHeight,
     Title
 } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
+import NavigationService from "../navigation/NavigationService";
 
 class Room extends Component {
     render() {

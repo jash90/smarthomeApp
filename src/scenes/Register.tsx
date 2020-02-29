@@ -3,13 +3,13 @@ import React, { Component } from "react";
 import { Platform, View } from "react-native";
 import AuthActions from "../actions/AuthActions";
 import AuthApi from "../api/AuthApi";
+import ErrorUtil from "../api/ErrorUtil";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, Title } from "../components/StyledComponent";
 import ValidatedInput from "../components/ValidatedInput";
-import ErrorUtil from "../ErrorUtil";
-import NavigationService from "../NavigationService";
-import { Navigators } from "../Navigators/Enum";
-import { regexEmail } from "../Const";
+import NavigationService from "../navigation/NavigationService";
+import { Navigators } from "../navigation/navigators/Enum";
+import { regexEmail } from "../utils/Const";
 
 interface State {
     login: string;
@@ -66,14 +66,14 @@ class Register extends Component<{}, State> {
                         />
                         <ValidatedInput
                             ref={ref => (this.loginInput = ref)}
-                            placeholder={"Login"}
+                            placeholder={"Email"}
                             value={this.state.login}
                             onChangeText={login => this.setState({ login })}
                             error={
                                 !regexEmail.test(this.state.login) &&
                                 this.state.login.length === 0
                             }
-                            errorText={"Nieprawidłowy format login"}
+                            errorText={"Nieprawidłowy format email"}
                         />
                         <ValidatedInput
                             ref={ref => (this.passwordInput = ref)}

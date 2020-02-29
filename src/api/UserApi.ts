@@ -1,12 +1,15 @@
-import axios from "../Axios";
+import axios from "./Axios";
+
 export default class LoanGameApi {
     public static apiName = "users";
+
     public static async edit(firstname: string, lastname: string) {
         return await axios.put(`/${this.apiName}/me`, {
             firstname,
             lastname
         });
     }
+
     public static async editPassword(password: string, repeatPassword: string) {
         return await axios.put(`/${this.apiName}/password`, {
             password,

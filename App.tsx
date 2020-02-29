@@ -1,27 +1,11 @@
 import { Provider } from "mobx-react";
 import React from "react";
-import {
-    createAppContainer,
-    NavigationContainerComponent
-} from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import {
-    Home,
-    Start,
-    Add,
-    EditProfile,
-    Login,
-    Profile,
-    Register,
-    Room
-} from "./src/scenes/index";
-import store from "./src/stores";
-import NavigationService from "./src/NavigationService";
-import { GradientHeader } from "./src/components/GradientHeader";
-import Scenes from "./src/Scenes";
-import { RootNavigator } from "./src/Navigators/Navigators";
-import axios from "./src/Axios";
-import Interceptors from "./src/actions/Interceptors";
+import { NavigationContainerComponent } from "react-navigation";
+import Interceptors from "./src/actions/InterceptorsActions";
+import axios from "./src/api/Axios";
+import NavigationService from "./src/navigation/NavigationService";
+import { RootNavigator } from "./src/navigation/navigators/Navigators";
+import store from "./src/stores/mobxStores";
 
 export default class App extends React.Component {
     componentDidMount() {

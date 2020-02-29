@@ -36,7 +36,7 @@ export const H2 = styled.Text`
     color: white;
     font-size: 20px;
     font-weight: bold;
-    padding: 20px 0px;
+    padding: 20px 0;
 `;
 
 export const Button = styled.TouchableOpacity({
@@ -59,7 +59,6 @@ export const FlatButton = styled.TouchableOpacity({
     flexDirection: "row",
     backgroundColor: "transparent",
     justifyContent: "flex-end",
-    width: "100%",
     height: 50
 });
 
@@ -105,7 +104,7 @@ export const Input = styled.TextInput({
 
 Input.defaultProps = {
     autoCapitalize: "none",
-    placeholderTextColor:"#D0DBE6"
+    placeholderTextColor: "#D0DBE6"
 };
 
 export const FlatText = styled(H2)({

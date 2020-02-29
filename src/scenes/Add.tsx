@@ -15,8 +15,8 @@ import {
     SeparatorWidth,
     Title
 } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
+import NavigationService from "../navigation/NavigationService";
+import Scenes from "../navigation/Scenes";
 
 class Add extends Component {
     render() {
@@ -59,7 +59,7 @@ class Add extends Component {
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={() => <SeparatorWidth />}
-                        renderItem={({ item }) => {
+                        renderItem={() => {
                             return (
                                 <>
                                     <FlatText>Room 1</FlatText>

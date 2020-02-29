@@ -4,10 +4,16 @@ import { View } from "react-native";
 import { Logo } from "../components/Logo";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, Title } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
-import { Navigators } from "../Navigators/Enum";
+import NavigationService from "../navigation/NavigationService";
+import { Navigators } from "../navigation/navigators/Enum";
+import Util from "../stores/asyncStore";
+import Keys from "../stores/asyncStore/AsyncStoreKeys";
 
 class Start extends Component {
+    componentDidMount = () => {
+        Util.save(Keys.firstOpen, false);
+    };
+
     render() {
         return (
             <ScreenContainer>

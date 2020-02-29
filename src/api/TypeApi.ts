@@ -1,11 +1,14 @@
-import axios from "../Axios";
+import axios from "./Axios";
+
 export default class TypeApi {
     public static apiName = "type";
+
     public static async add(name: string) {
         return await axios.post(`/${this.apiName}/add`, {
             name
         });
     }
+
     public static async all() {
         return await axios.get(`/${this.apiName}s`);
     }

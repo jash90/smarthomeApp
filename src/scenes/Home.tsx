@@ -1,6 +1,12 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { FlatList, TouchableOpacity, View, ScrollView } from "react-native";
+import {
+    ActivityIndicator,
+    FlatList,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
@@ -15,31 +21,22 @@ import {
     SeparatorWidth,
     WelcomeText
 } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
-import Scenes from "../Scenes";
-import Store from "../stores";
+import NavigationService from "../navigation/NavigationService";
+import Scenes from "../navigation/Scenes";
+import Store from "../stores/mobxStores";
 
 interface State {
     controls: any[];
+    loadingControl: boolean;
     rooms: any[];
+    loadingRoom: boolean;
 }
 
 class Home extends Component<{}, State> {
     constructor(props: any) {
         super(props);
         this.state = {
-            controls: [
-                { icon: "lightbulb", text: "Lamp 2", value: false },
-                { icon: "power-plug", text: "Plug", value: true },
-                { icon: "door", text: "Door", value: true },
-                { icon: "garage", text: "Garage", value: false },
-                { icon: "water-pump", text: "Garden", value: true },
-                {
-                    icon: "oil-temperature",
-                    text: "Temperature",
-                    value: false
-                }
-            ],
+            controls: [],
             rooms: [
                 { value: false },
                 { value: false },
@@ -48,9 +45,53 @@ class Home extends Component<{}, State> {
                 { value: false },
                 { value: false },
                 { value: false }
-            ]
+            ],
+            loadingControl: true,
+            loadingRoom: false
         };
     }
+
+    componentWillMount = () => {
+        this.setState({ loadingControl: true });
+
+        const controls = [
+            { icon: "lightbulb", text: "Lamp 2", value: false },
+            { icon: "power-plug", text: "Plug", value: true },
+            { icon: "door", text: "Door", value: true },
+            { icon: "garage", text: "Garage", value: false },
+            { icon: "water-pump", text: "Garden", value: true },
+            {
+                icon: "oil-temperature",
+                text: "Temperature",
+                value: false
+            }
+        ];
+        setTimeout(
+            () => this.setState({ controls, loadingControl: false }),
+            5000
+        );
+    };
+
+    renderSeparator = () => {
+        return <SeparatorHeight />;
+    };
+
+    renderEmpty = () => {
+        if (this.state.loadingControl) {
+            return (
+                <View>
+                    <ActivityIndicator />
+                    <Text>Loading</Text>
+                </View>
+            );
+        }
+        return (
+            <View>
+                <Text> No items</Text>
+            </View>
+        );
+    };
+
     render() {
         return (
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
@@ -92,7 +133,8 @@ class Home extends Component<{}, State> {
                         return (
                             <TouchableOpacity onPress={this.onRoom}>
                                 <Room>
-                                    <RoomText>{`Room ${item.index+1}`}</RoomText>
+                                    <RoomText>{`Room ${item.index +
+                                        1}`}</RoomText>
                                 </Room>
                             </TouchableOpacity>
                         );
@@ -116,7 +158,8 @@ class Home extends Component<{}, State> {
                     keyExtractor={item => String(item)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListEmptyComponent={this.renderEmpty}
                     renderItem={item => {
                         return (
                             <TouchableOpacity
@@ -165,8 +208,7 @@ class Home extends Component<{}, State> {
 
     changeValue = (item: any) => {
         const { controls } = this.state;
-        if (item.item.value) controls[item.index].value = false;
-        else controls[item.index].value = true;
+        controls[item.index].value = !item.item.value;
         this.setState({ controls });
     };
 }

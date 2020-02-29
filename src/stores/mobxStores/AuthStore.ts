@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { action, observable } from "mobx";
 import { User } from "../models";
 
 export default class AuthStore {
@@ -42,7 +42,7 @@ export default class AuthStore {
         this.lastname = this.lastname || user.lastname;
         this.email = this.email || user.email;
         this.token = this.token || user.token;
-        this.id = this.id ||user.id;
+        this.id = this.id || user.id;
     }
 
     @action clearUser() {

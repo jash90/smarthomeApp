@@ -31,9 +31,9 @@ export default class Interceptors {
     }
     public static handleError(error: any) {
         console.group(
-            `[Network]: Error ${String(
-                error.config.method
-            ).toUpperCase()} => ${error.config.url}`
+            `[Network]: Error ${String(error.config.method).toUpperCase()} => ${
+                error.config.url
+            }`
         );
         console.group(`headers:`);
         console.log(error.config.headers);

@@ -3,8 +3,8 @@ import {
     NavigationContainerComponent,
     StackActions
 } from "react-navigation";
+import { Navigators } from "./navigators/Enum";
 import Scenes from "./Scenes";
-import { Navigators } from "./Navigators/Enum";
 
 export default class NavigationService {
     static navigator: NavigationContainerComponent | any;

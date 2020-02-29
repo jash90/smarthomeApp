@@ -1,15 +1,16 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 import { View } from "react-native";
+import Toast from "react-native-simple-toast";
+import AuthActions from "../actions/AuthActions";
+import { UserApi } from "../api";
+import ErrorUtil from "../api/ErrorUtil";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, H1, Input } from "../components/StyledComponent";
-import NavigationService from "../NavigationService";
 import ValidatedInput from "../components/ValidatedInput";
-import Store from "../stores";
-import { UserApi } from "../api";
-import AuthActions from "../actions/AuthActions";
-import ErrorUtil from "../ErrorUtil";
-import Toast from "react-native-simple-toast";
+import NavigationService from "../navigation/NavigationService";
+import Store from "../stores/mobxStores";
+
 interface State {
     firstname: string;
     lastname: string;
@@ -99,7 +100,7 @@ class EditProfile extends Component<{}, State> {
             if (response.status === 200) {
                 AuthActions.setUser(response.data);
                 Toast.show("Password changes.");
-                this.setState({password:"", repeatPassword:""})
+                this.setState({ password: "", repeatPassword: "" });
             } else {
                 ErrorUtil.errorService(response);
             }

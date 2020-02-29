@@ -1,5 +1,6 @@
 import NetInfo from "@react-native-community/netinfo";
 import Toast from "react-native-simple-toast";
+
 export default class ErrorUtil {
     public static async errorService(error: any) {
         const connectionInfo = await NetInfo.fetch();

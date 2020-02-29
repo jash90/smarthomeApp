@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import {
-    StyleSheet,
-    TextInput,
     TextInputProps,
-    View,
     Text
 } from "react-native";
-import styled from "styled-components/native";
 import { Input } from "./StyledComponent";
 
 interface Props extends TextInputProps {
@@ -33,7 +29,7 @@ export default class ValidatedInput extends Component<Props, State> {
         this.setState({ validate: true });
     }
 
-    public static validate(refs: any[]):boolean {
+    public static validate(refs: any[]): boolean {
         let validate = true;
         refs.forEach((ref: ValidatedInput | null | undefined) => {
             if (ref) {
@@ -62,7 +58,7 @@ export default class ValidatedInput extends Component<Props, State> {
                             fontSize: 12,
                             color: "red",
                             paddingVertical: 2,
-                            paddingLeft:15
+                            paddingLeft: 15
                         }}>
                         {this.props.errorText}
                     </Text>

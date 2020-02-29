@@ -1,10 +1,21 @@
-import Home from "./Home";
-import Start from "./Start";
-import Login from "./Login";
-import Register from "./Register";
 import Add from "./Add";
-import Profile from "./Profile";
 import EditProfile from "./EditProfile";
+import Home from "./Home";
+import Loading from "./Loading";
+import Login from "./Login";
+import Profile from "./Profile";
+import Register from "./Register";
 import Room from "./Room";
+import Start from "./Start";
 
-export { Home, Start, Login, Register, Add, Profile, Room, EditProfile };
+export {
+    Home,
+    Start,
+    Login,
+    Register,
+    Add,
+    Profile,
+    Room,
+    EditProfile,
+    Loading
+};
