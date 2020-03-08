@@ -9,7 +9,7 @@ export default class PropsStore {
     @observable
     room: Room | null = null;
 
-    @action setControl(control: Control) {
+    @action setControl(control: Control | null) {
         this.control = control;
     }
 

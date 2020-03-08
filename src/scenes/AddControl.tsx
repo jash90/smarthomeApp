@@ -26,6 +26,7 @@ import TypeUtil from "../utils/TypeUtil";
 import ControlActions from "../actions/ControlActions";
 import { Control } from "../stores/models";
 import Stores from "../stores/mobxStores";
+import Toast from "react-native-simple-toast";
 
 interface Props {
     appStore: AppStore;
@@ -218,6 +219,7 @@ class AddControl extends Component<Props, State> {
         });
         if (!Stores.propsStore.control) {
             await ControlActions.saveControl(this.state);
+            Toast.show(`Control ${this.state.name} added.`);
         } else {
             const index = Stores.appStore.controls.findIndex(
                 (c: Control) => c.id == Stores.propsStore.control?.id
@@ -232,6 +234,7 @@ class AddControl extends Component<Props, State> {
             };
 
             await ControlActions.changeControl(index, control);
+            Toast.show(`Control ${control.name} updated.`);
         }
         this.setState({
             loading: false
@@ -253,6 +256,7 @@ class AddControl extends Component<Props, State> {
             loadingRemove: true
         });
         await ControlActions.removeControl(Stores.propsStore.control?.id || 0);
+        Toast.show(`Control ${Stores.propsStore.control?.name} removed.`);
         this.setState({
             loadingRemove: false
         });
