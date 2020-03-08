@@ -18,6 +18,7 @@ interface Control {
     value: any;
     typeId: number;
     userId?: string;
+    roomId?: number | null;
 }
 
 interface Type {

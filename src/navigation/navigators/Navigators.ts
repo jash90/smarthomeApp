@@ -9,7 +9,8 @@ import {
     Profile,
     Register,
     Room,
-    Start
+    Start,
+    AddControl
 } from "../../scenes/index";
 import { Navigators } from "./Enum";
 
@@ -28,6 +29,7 @@ const AccountNavigator = createStackNavigator(
         Home,
         Room,
         Add,
+        AddControl,
         EditProfile,
         Profile
     },

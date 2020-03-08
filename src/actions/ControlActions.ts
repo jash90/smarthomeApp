@@ -7,17 +7,36 @@ import ControlApi from "../api/ControlApi";
 import { Deserialize, Clazz, Serialize } from "../serialize";
 
 export default class ControlActions {
-    public static async changeControl(id: number, value: any) {
+    public static async changeControl(index: number, control: Control) {
         try {
-            let controls: Control[] = await Stores.appStore.controls;
-            const index = controls.findIndex(control => control.id == id);
-            let control = JSON.parse(JSON.stringify(controls[index]));
-            control.value = value;
             await Deserialize.this(Clazz.controls, control);
             const response = await ControlApi.updateControl(control);
             control = response.data;
             await Serialize.this(Clazz.controls, control);
-            Stores.appStore.controls[index].value = value;
+            Stores.appStore.setControl(index, control);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    public static async saveControl(value: any) {
+        try {
+            let control = value;
+            await Deserialize.this(Clazz.controls, control);
+            const response = await ControlApi.createControl(control);
+            Stores.appStore.controls.push(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    public static async removeControl(id: number) {
+        try {
+            const response = await ControlApi.removeControl(id);
+            const index = Stores.appStore.controls.findIndex(
+                (c: any) => c.id == id
+            );
+            Stores.appStore.controls.splice(index, 1);
         } catch (error) {
             console.log(error);
         }

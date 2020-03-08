@@ -4,7 +4,7 @@ import { FlatList, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
-    Control,
+    ControlView,
     ControlText,
     FlatText,
     H4,
@@ -97,13 +97,13 @@ class Add extends Component {
                     ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }) => {
                         return (
-                            <Control>
+                            <ControlView>
                                 <Icon
                                     name={item.icon}
                                     size={40}
                                     color="#D0DBE8"
                                 />
-                            </Control>
+                            </ControlView>
                         );
                     }}
                 />
@@ -128,13 +128,13 @@ class Add extends Component {
                     renderItem={({ item }) => {
                         return (
                             <View style={{ flexDirection: "row" }}>
-                                <Control>
+                                <ControlView>
                                     <Icon
                                         name={item.icon}
                                         size={40}
                                         color="#D0DBE8"
                                     />
-                                </Control>
+                                </ControlView>
                                 <ControlText>{item.text}</ControlText>
                             </View>
                         );

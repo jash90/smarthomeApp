@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import { State, TouchableOpacity } from "react-native-gesture-handler";
-import { View, ActivityIndicator } from "react-native";
-import { Control, ControlText, H4 } from "./StyledComponent";
+import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import { ControlView, ControlText, H4 } from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Slider from "@react-native-community/slider";
 import _ from "underscore";
-import { Control as Con } from "../stores/models";
 import TypeActions from "../actions/TypeActions";
 import ControlActions from "../actions/ControlActions";
-
+import { toJS } from "mobx";
+import Stores from "../stores/mobxStores";
+import { Control } from "../stores/models";
+import Scenes from "../navigation/Scenes";
+import NavigationService from "../navigation/NavigationService";
 interface Props {
-    item: Con;
+    item: any;
 }
 interface State {
     loading: boolean;
@@ -27,15 +29,23 @@ export default class ControlSlider extends Component<Props, State> {
     render() {
         return (
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Control>
+                <ControlView>
                     <Icon
-                        name={TypeActions.getIcon(this.props.item.typeId) || ""}
+                        name={
+                            TypeActions.getIcon(this.props.item.item.typeId) ||
+                            ""
+                        }
                         size={40}
                         color={"#FF7500"}
                     />
-                </Control>
+                </ControlView>
 
-                <View style={{ flexDirection: "column", flex: 1 }}>
+                <View
+                    style={{
+                        flexDirection: "column",
+                        flex: 1,
+                        justifyContent: "flex-start"
+                    }}>
                     <ControlText
                         style={{
                             width: "100%",
@@ -43,7 +53,7 @@ export default class ControlSlider extends Component<Props, State> {
                             color: "#D0DBE8",
                             textAlign: "center"
                         }}>
-                        {this.props.item.name}
+                        {this.props.item.item.name}
                     </ControlText>
 
                     <View style={{ flexDirection: "row" }}>
@@ -59,16 +69,16 @@ export default class ControlSlider extends Component<Props, State> {
                                 style={{ flex: 1, height: 40 }}
                                 minimumValue={
                                     TypeActions.getMin(
-                                        this.props.item.typeId
+                                        this.props.item.item.typeId
                                     ) || 0
                                 }
                                 maximumValue={
                                     TypeActions.getMax(
-                                        this.props.item.typeId
+                                        this.props.item.item.typeId
                                     ) || 0
                                 }
                                 step={1}
-                                value={this.props.item.value}
+                                value={this.props.item.item.value}
                                 thumbTintColor="#FF7500"
                                 minimumTrackTintColor="#FF7500"
                                 maximumTrackTintColor="#D0DBE8"
@@ -78,16 +88,33 @@ export default class ControlSlider extends Component<Props, State> {
                             />
                         )}
                         <H4 style={{ marginHorizontal: 5 }}>
-                            {this.props.item.value}
+                            {this.props.item.item.value}
                         </H4>
                     </View>
                 </View>
+                <TouchableOpacity onPress={this.onEdit} style={{ width: 40 }}>
+                    <Icon
+                        style={{ paddingTop: 6 }}
+                        name={"square-edit-outline"}
+                        size={34}
+                        color={"#D0DBE8"}
+                    />
+                </TouchableOpacity>
             </View>
         );
     }
     onSlidingComplete = async (value: any) => {
         this.setState({ loading: true });
-        await ControlActions.changeControl(this.props.item.id, value);
+        let { index, item } = this.props.item;
+        let control = item;
+        control.value = value;
+        await ControlActions.changeControl(index, control);
         this.setState({ loading: false });
+    };
+
+    onEdit = async () => {
+        let control: Control = toJS(this.props.item.item);
+        await Stores.propsStore.setControl(control);
+        await NavigationService.navigate(Scenes.AddControl);
     };
 }

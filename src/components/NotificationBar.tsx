@@ -8,7 +8,8 @@ const ContainerNotification = styled.View({
     height: 40,
     flexDirection: "row",
     backgroundColor: "transparent",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 10
 });
 
 export interface NotificationBarProps {

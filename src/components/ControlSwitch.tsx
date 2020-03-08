@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { View, ActivityIndicator } from "react-native";
-import { Control, ControlText } from "./StyledComponent";
+import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import { ControlView, ControlText } from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import _ from "underscore";
-import Stores from "../stores/mobxStores";
 import ControlActions from "../actions/ControlActions";
 import TypeActions from "../actions/TypeActions";
-import { Type, Control as Con } from "../stores/models";
+import NavigationService from "../navigation/NavigationService";
+import Scenes from "../navigation/Scenes";
+import { Control } from "../stores/models";
+import { toJS } from "mobx";
+import Stores from "../stores/mobxStores";
 
 interface Props {
-    item: Con;
+    item: any;
 }
 interface State {
     loading: boolean;
@@ -26,44 +28,64 @@ export default class ControlSwitch extends Component<Props, State> {
 
     render() {
         return (
-            <TouchableOpacity onPress={this.onPress}>
-                <View style={{ flexDirection: "row" }}>
-                    <Control>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity
+                    onPress={this.onPress}
+                    style={{ flex: 1, flexDirection: "row" }}>
+                    <ControlView>
                         {this.state.loading ? (
                             <ActivityIndicator size={40} color={"#D0DBE8"} />
                         ) : (
                             <Icon
                                 name={
-                                    TypeActions.getIcon(this.props.item.id) ||
-                                    ""
+                                    TypeActions.getIcon(
+                                        this.props.item.item.id
+                                    ) || ""
                                 }
                                 size={40}
                                 color={
-                                    this.props.item.value
+                                    this.props.item.item.value
                                         ? "#FF7500"
                                         : "#D0DBE8"
                                 }
                             />
                         )}
-                    </Control>
+                    </ControlView>
                     <ControlText
                         style={{
+                            flex: 1,
                             alignSelf: "center",
                             marginLeft: 20,
-                            color: this.props.item.value ? "#FF7500" : "#D0DBE8"
+                            color: this.props.item.item.value
+                                ? "#FF7500"
+                                : "#D0DBE8"
                         }}>
-                        {this.props.item.name}
+                        {this.props.item.item.name}
                     </ControlText>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.onEdit} style={{ width: 40 }}>
+                    <Icon
+                        style={{ paddingTop: 6 }}
+                        name={"square-edit-outline"}
+                        size={34}
+                        color={"#D0DBE8"}
+                    />
+                </TouchableOpacity>
+            </View>
         );
     }
     onPress = async () => {
         this.setState({ loading: true });
-        await ControlActions.changeControl(
-            this.props.item.id,
-            !this.props.item.value
-        );
+        let { index, item } = this.props.item;
+        let control = item;
+        control.value = !item.value;
+        await ControlActions.changeControl(index, control);
         this.setState({ loading: false });
+    };
+
+    onEdit = async () => {
+        let control: Control = toJS(this.props.item.item);
+        await Stores.propsStore.setControl(control);
+        await NavigationService.navigate(Scenes.AddControl);
     };
 }

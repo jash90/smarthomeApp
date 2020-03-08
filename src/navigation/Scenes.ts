@@ -7,6 +7,7 @@ enum Scenes {
     Login = "Login",
     Profile = "Profile",
     Register = "Register",
-    Room = "Room"
+    Room = "Room",
+    AddControl = "AddControl"
 }
 export default Scenes;

@@ -42,6 +42,13 @@ export default class AppStore {
         this.controls = controls;
     }
 
+    @action setControl(index: number, control: Control) {
+        this.controls[index].name = control.name;
+        this.controls[index].typeId = control.typeId;
+        this.controls[index].value = control.value;
+        this.controls[index].roomId = control.roomId;
+    }
+
     @action setRooms(rooms: Room[]) {
         this.rooms = rooms;
     }

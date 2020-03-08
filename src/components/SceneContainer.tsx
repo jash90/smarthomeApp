@@ -1,5 +1,5 @@
 import React, { Props } from "react";
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styled from "styled-components/native";
 import Color from "../utils/Color";
@@ -31,6 +31,7 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
                 flex: 1,
                 backgroundColor: Color.primaryColor
             }}>
+            <StatusBar barStyle="light-content" backgroundColor="#3D4151" />
             <SafeView>
                 <NotificationBar
                     icon={icon}

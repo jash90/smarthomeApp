@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { FlatList } from "react-native";
 
 export const SeparatorWidth = styled.View({
     width: 15
@@ -69,7 +70,7 @@ export const FlatButton = styled.TouchableOpacity({
     height: 50
 });
 
-export const Room = styled.View({
+export const RoomView = styled.View({
     width: 100,
     height: 100,
     borderRadius: 20,
@@ -83,7 +84,7 @@ export const RoomText = styled(H4)({
     padding: 0
 });
 
-export const Control = styled(Room)({
+export const ControlView = styled(RoomView)({
     backgroundColor: "#282C3A",
     width: 70,
     height: 70,
@@ -94,7 +95,8 @@ export const Control = styled(Room)({
 });
 
 export const ControlText = styled(H4)({
-    color: "#D0DBE8"
+    color: "#D0DBE8",
+    padding: 0
 });
 
 export const Input = styled.TextInput({
@@ -132,4 +134,16 @@ export const SaveText = styled.Text({
     color: "#D0DBE6",
     fontSize: 12,
     alignSelf: "center"
+});
+
+export const HorizontalList = styled(FlatList).attrs({
+    showsHorizontalScrollIndicator: false,
+    showsVerticalScrollIndicator: false,
+    horizontal: true,
+    contentContainerStyle: {
+        paddingLeft: 20
+    }
+})({
+    flexGrow: 0,
+    marginHorizontal: -20
 });

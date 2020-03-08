@@ -1,17 +1,19 @@
 import { action, observable } from "mobx";
 import Scenes from "../../navigation/Scenes";
+import { Control, Room } from "../models";
 
 export default class PropsStore {
     @observable
-    code: string = "";
-    @observable
-    routeName: Scenes = Scenes.Home;
+    control: Control | null = null;
 
-    @action setCode(code: string) {
-        this.code = code;
+    @observable
+    room: Room | null = null;
+
+    @action setControl(control: Control) {
+        this.control = control;
     }
 
-    @action setRouteName(routeName: Scenes) {
-        this.routeName = routeName;
+    @action setRoom(room: Room) {
+        this.room = room;
     }
 }

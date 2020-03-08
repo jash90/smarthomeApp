@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Register from "./Register";
 import Room from "./Room";
 import Start from "./Start";
+import AddControl from "./AddControl";
 
 export {
     Home,
@@ -17,5 +18,6 @@ export {
     Profile,
     Room,
     EditProfile,
-    Loading
+    Loading,
+    AddControl
 };

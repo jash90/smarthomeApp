@@ -19,7 +19,8 @@ import {
     SeparatorHeight,
     SeparatorWidth,
     WelcomeText,
-    Room
+    RoomView,
+    HorizontalList
 } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
@@ -34,7 +35,7 @@ import ControlSwitch from "../components/ControlSwitch";
 import ControlSlider from "../components/ControlSlider";
 import _ from "underscore";
 import { Clazz, Serialize } from "../serialize/index";
-import { Group } from "../stores/models";
+import { Group, Control } from "../stores/models";
 import TypeActions from "../actions/TypeActions";
 
 interface State {
@@ -74,7 +75,7 @@ class Home extends Component<{}, State> {
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H4>Rooms</H4>
                     <TouchableOpacity onPress={this.onAdd}>
                         <H4
@@ -86,35 +87,22 @@ class Home extends Component<{}, State> {
                             +
                         </H4>
                     </TouchableOpacity>
-                </View>
-                <FlatList
-                    horizontal
+                </View> */}
+                {/* <HorizontalList
                     data={Store.appStore.rooms}
-                    style={{
-                        height: 140,
-                        flexGrow: 0,
-                        marginHorizontal: -20
-                    }}
-                    contentContainerStyle={{
-                        paddingLeft: 20,
-                        paddingRight: 20,
-                        width: "100%"
-                    }}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
                     ListEmptyComponent={this.renderEmpty}
-                    keyExtractor={item => String(item.id)}
+                    keyExtractor={(item: any) => String(item.id)}
                     ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={({ item }) => {
+                    renderItem={({ item }: any) => {
                         return (
                             <TouchableOpacity onPress={this.onRoom}>
-                                <Room>
+                                <RoomView>
                                     <RoomText>{item.name}</RoomText>
-                                </Room>
+                                </RoomView>
                             </TouchableOpacity>
                         );
                     }}
-                />
+                /> */}
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H4>Controls</H4>
                     <TouchableOpacity onPress={this.onAdd}>
@@ -130,13 +118,16 @@ class Home extends Component<{}, State> {
                 </View>
                 <FlatList
                     data={Store.appStore.controls}
-                    keyExtractor={item => String(item.id)}
+                    keyExtractor={(item: any) => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListEmptyComponent={this.renderEmpty}
-                    renderItem={({ item }) => {
-                        if (TypeActions.getGroup(item.typeId) == Group.slider) {
+                    renderItem={item => {
+                        if (
+                            TypeActions.getGroup(item.item.typeId) ==
+                            Group.slider
+                        ) {
                             return <ControlSlider item={item} />;
                         } else {
                             return <ControlSwitch item={item} />;
@@ -156,7 +147,7 @@ class Home extends Component<{}, State> {
     };
 
     onAdd = () => {
-        NavigationService.navigate(Scenes.Room);
+        NavigationService.navigate(Scenes.AddControl);
     };
 
     getControls = async () => {
