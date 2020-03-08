@@ -1,30 +1,48 @@
 import React, { Component } from "react";
-import { State, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { View, ActivityIndicator } from "react-native";
 import { Control, ControlText } from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import _ from "underscore";
+import Stores from "../stores/mobxStores";
+import ControlActions from "../actions/ControlActions";
+import TypeActions from "../actions/TypeActions";
+import { Type, Control as Con } from "../stores/models";
 
 interface Props {
-    icon: string;
-    name: string;
-    value: boolean;
+    item: Con;
+}
+interface State {
     loading: boolean;
-    onPress?: any;
 }
 
-export default class ControlSwitch extends Component<Props> {
+export default class ControlSwitch extends Component<Props, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            loading: false
+        };
+    }
+
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.onPress}>
+            <TouchableOpacity onPress={this.onPress}>
                 <View style={{ flexDirection: "row" }}>
                     <Control>
-                        {this.props.loading ? (
+                        {this.state.loading ? (
                             <ActivityIndicator size={40} color={"#D0DBE8"} />
                         ) : (
                             <Icon
-                                name={this.props.icon}
+                                name={
+                                    TypeActions.getIcon(this.props.item.id) ||
+                                    ""
+                                }
                                 size={40}
-                                color={this.props.value ? "#FF7500" : "#D0DBE8"}
+                                color={
+                                    this.props.item.value
+                                        ? "#FF7500"
+                                        : "#D0DBE8"
+                                }
                             />
                         )}
                     </Control>
@@ -32,12 +50,20 @@ export default class ControlSwitch extends Component<Props> {
                         style={{
                             alignSelf: "center",
                             marginLeft: 20,
-                            color: this.props.value ? "#FF7500" : "#D0DBE8"
+                            color: this.props.item.value ? "#FF7500" : "#D0DBE8"
                         }}>
-                        {this.props.name}
+                        {this.props.item.name}
                     </ControlText>
                 </View>
             </TouchableOpacity>
         );
     }
+    onPress = async () => {
+        this.setState({ loading: true });
+        await ControlActions.changeControl(
+            this.props.item.id,
+            !this.props.item.value
+        );
+        this.setState({ loading: false });
+    };
 }

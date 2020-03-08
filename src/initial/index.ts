@@ -2,6 +2,8 @@ import AsyncStoreUtil from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
 import axios from "../api/Axios";
+import TypeApi from "../api/TypeApi";
+import { Clazz, Serialize } from "../serialize";
 
 export default class Initial {
     public static async AppStore() {
@@ -22,11 +24,15 @@ export default class Initial {
             Stores.appStore.setSavedEmail(savedEmail);
             Stores.appStore.setFirstOpen(firstOpen);
             Stores.appStore.setLogged(logged);
+            const response = await TypeApi.getTypes();
+            const types = response.data;
+            await Serialize.this(Clazz.types, types);
+            Stores.appStore.setTypes(types);
             if (logged) {
                 Stores.authStore.setUser(JSON.parse(user));
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${JSON.parse(user).token}`;
+                axios.defaults.headers.common["Authorization"] = `Bearer ${
+                    JSON.parse(user).token
+                }`;
             }
         } catch (error) {
             console.log(error);

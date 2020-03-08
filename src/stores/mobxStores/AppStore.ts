@@ -1,5 +1,5 @@
 import { action, observable } from "mobx";
-
+import { Room, Control, Type } from "../models";
 export default class AppStore {
     @observable
     rememberEmail: boolean = false;
@@ -12,6 +12,15 @@ export default class AppStore {
 
     @observable
     logged: boolean = false;
+
+    @observable
+    rooms: Room[] = [];
+
+    @observable
+    controls: Control[] = [];
+
+    @observable
+    types: Type[] = [];
 
     @action setRememberEmail(rememberEmail: boolean) {
         this.rememberEmail = rememberEmail;
@@ -27,5 +36,17 @@ export default class AppStore {
 
     @action setLogged(logged: boolean) {
         this.logged = logged;
+    }
+
+    @action setControls(controls: Control[]) {
+        this.controls = controls;
+    }
+
+    @action setRooms(rooms: Room[]) {
+        this.rooms = rooms;
+    }
+
+    @action setTypes(types: Type[]) {
+        this.types = types;
     }
 }

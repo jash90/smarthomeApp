@@ -10,17 +10,16 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
-    Control,
     ControlText,
     H1,
     H2,
     H4,
     PersonText,
-    Room,
     RoomText,
     SeparatorHeight,
     SeparatorWidth,
-    WelcomeText
+    WelcomeText,
+    Room
 } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
@@ -33,26 +32,28 @@ import ErrorUtil from "../api/ErrorUtil";
 import RoomsApi from "../api/RoomsApi";
 import ControlSwitch from "../components/ControlSwitch";
 import ControlSlider from "../components/ControlSlider";
+import _ from "underscore";
+import { Clazz, Serialize } from "../serialize/index";
+import { Group } from "../stores/models";
+import TypeActions from "../actions/TypeActions";
 
 interface State {
-    controls: any[];
     loadingControl: boolean;
-    rooms: any[];
     loadingRoom: boolean;
+    loading: boolean;
 }
 
 class Home extends Component<{}, State> {
     constructor(props: any) {
         super(props);
         this.state = {
-            controls: [],
-            rooms: [],
             loadingControl: true,
-            loadingRoom: false
+            loadingRoom: false,
+            loading: false
         };
     }
 
-    componentWillMount = async () => {
+    UNSAFE_componentWillMount = async () => {
         this.getControls();
         this.getRooms();
     };
@@ -88,10 +89,9 @@ class Home extends Component<{}, State> {
                 </View>
                 <FlatList
                     horizontal
-                    data={this.state.rooms}
+                    data={Store.appStore.rooms}
                     style={{
                         height: 140,
-
                         flexGrow: 0,
                         marginHorizontal: -20
                     }}
@@ -103,14 +103,13 @@ class Home extends Component<{}, State> {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={this.renderEmpty}
-                    keyExtractor={item => String(item)}
+                    keyExtractor={item => String(item.id)}
                     ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={item => {
+                    renderItem={({ item }) => {
                         return (
                             <TouchableOpacity onPress={this.onRoom}>
                                 <Room>
-                                    <RoomText>{`Room ${item.index +
-                                        1}`}</RoomText>
+                                    <RoomText>{item.name}</RoomText>
                                 </Room>
                             </TouchableOpacity>
                         );
@@ -130,34 +129,17 @@ class Home extends Component<{}, State> {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={this.state.controls}
+                    data={Store.appStore.controls}
                     keyExtractor={item => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListEmptyComponent={this.renderEmpty}
-                    renderItem={item => {
-                        if (item.item.type) {
-                            return (
-                                <ControlSlider
-                                    name={item.item.name}
-                                    icon={item.item.icon}
-                                    value={item.item.value}
-                                    min={item.item.min}
-                                    max={item.item.max}
-                                    onValueChange={(value: any) =>
-                                        this.changeValue(item, value)
-                                    }
-                                />
-                            );
+                    renderItem={({ item }) => {
+                        if (TypeActions.getGroup(item.typeId) == Group.slider) {
+                            return <ControlSlider item={item} />;
                         } else {
-                            return (
-                                <ControlSwitch
-                                    name={item.item.name}
-                                    icon={item.item.icon}
-                                    value={item.item.value}
-                                />
-                            );
+                            return <ControlSwitch item={item} />;
                         }
                     }}
                 />
@@ -182,23 +164,9 @@ class Home extends Component<{}, State> {
             this.setState({ loadingControl: true });
             const response = await ControlApi.getControls();
             if (response.status === 200) {
-                const controls = [
-                    {
-                        id: 1,
-                        icon: "oil-temperature",
-                        name: "Temperature",
-                        value: 25,
-                        type: "slider",
-                        min: 16,
-                        max: 35
-                    },
-                    { id: 2, icon: "lightbulb", name: "Lamp 2", value: false },
-                    { id: 3, icon: "power-plug", name: "Plug", value: true },
-                    { id: 4, icon: "door", name: "Door", value: true },
-                    { id: 5, icon: "garage", name: "Garage", value: false },
-                    { id: 6, icon: "water-pump", name: "Garden", value: true }
-                ];
-                this.setState({ controls });
+                const controls = response.data;
+                await Serialize.this(Clazz.controls, controls);
+                Store.appStore.setControls(controls);
             } else {
                 await ErrorUtil.errorService(response);
             }
@@ -214,7 +182,7 @@ class Home extends Component<{}, State> {
             this.setState({ loadingRoom: true });
             const response = await RoomsApi.getRooms();
             if (response.status === 200) {
-                this.setState({ rooms: response.data });
+                Store.appStore.setRooms(response.data);
             } else {
                 await ErrorUtil.errorService(response);
             }
@@ -225,10 +193,31 @@ class Home extends Component<{}, State> {
         }
     };
 
-    changeValue(item: any, value: any) {
-        const { controls } = this.state;
-        controls[item.index].value = value;
-        this.setState({ controls });
+    changeValueControl(item: any) {
+        // setTimeout(() => {
+        //     const { controls } = this.state;
+        //     controls[item.index].value = !item.item.value;
+        //     this.setState({ controls });
+        // }, 1000);
+    }
+
+    changeValueSlider(item: any, value: any) {
+        // const { controls } = this.state;
+        // controls[item.index].value = value;
+        // this.setState({ controls });
+        // try {
+        //     this.setState({ loadingRoom: true });
+        //     const response = await RoomsApi.getRooms();
+        //     if (response.status === 200) {
+        //         this.setState({ rooms: response.data });
+        //     } else {
+        //         await ErrorUtil.errorService(response);
+        //     }
+        //     this.setState({ loadingRoom: false });
+        // } catch (error) {
+        //     this.setState({ loadingRoom: false });
+        //     await ErrorUtil.errorService(error);
+        // }
     }
 }
-export default inject("authStore", "propsStore")(observer(Home));
+export default inject("authStore", "appStore")(observer(Home));
