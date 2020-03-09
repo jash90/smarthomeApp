@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/react-native/index.d.ts b/node_modules/@types/react-native/index.d.ts
+index e5ff751..967c323 100644
+--- a/node_modules/@types/react-native/index.d.ts
++++ b/node_modules/@types/react-native/index.d.ts
+@@ -8928,6 +8928,8 @@ declare global {
+         warn(message?: any, ...optionalParams: any[]): void;
+         trace(message?: any, ...optionalParams: any[]): void;
+         debug(message?: any, ...optionalParams: any[]): void;
++        group(message?: any, ...optionalParams: any[]): void;
++        groupEnd(): void;
+         table(...data: any[]): void;
+         disableYellowBox: boolean;
+         ignoredYellowBox: string[];
