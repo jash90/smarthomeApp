@@ -1,10 +1,7 @@
-import axios from "axios";
-import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
-import AsyncStore from "../stores/asyncStore/index";
 import Stores from "../stores/mobxStores";
-import { User, Control } from "../stores/models";
+import {Control} from "../stores/models";
 import ControlApi from "../api/ControlApi";
-import { Deserialize, Clazz, Serialize } from "../serialize";
+import {Clazz, Deserialize, Serialize} from "../serialize";
 
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {

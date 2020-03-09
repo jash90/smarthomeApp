@@ -15,7 +15,7 @@ const ContainerLogo = styled.View({
 export const Logo: React.FC = () => {
     return (
         <ContainerLogo>
-            <Icon name="home-assistant" size={100} color={"#FF7500"} />
+            <Icon name="home-assistant" size={100} color={"#FF7500"}/>
         </ContainerLogo>
     );
 };

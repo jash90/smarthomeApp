@@ -10,4 +10,5 @@ enum Scenes {
     Room = "Room",
     AddControl = "AddControl"
 }
+
 export default Scenes;

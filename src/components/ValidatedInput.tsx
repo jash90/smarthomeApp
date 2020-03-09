@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import {
-    TextInputProps,
-    Text
-} from "react-native";
-import { Input } from "./StyledComponent";
+import React, {Component} from "react";
+import {Text, TextInputProps} from "react-native";
+import {Input} from "./StyledComponent";
 
 interface Props extends TextInputProps {
     error?: boolean | null;
     errorText?: string;
 }
+
 interface State {
     validate: boolean;
 }
@@ -20,13 +18,14 @@ export default class ValidatedInput extends Component<Props, State> {
             validate: false
         };
     }
+
     static defaultProps = {
         underlineColorAndroid: "transparent",
         value: "text"
     };
 
     public validate() {
-        this.setState({ validate: true });
+        this.setState({validate: true});
     }
 
     public static validate(refs: any[]): boolean {
@@ -66,8 +65,9 @@ export default class ValidatedInput extends Component<Props, State> {
             </>
         );
     }
+
     onChangeText = (text: string) => {
-        this.setState({ validate: false });
+        this.setState({validate: false});
         if (this.props.onChangeText) this.props.onChangeText(text);
     };
 }

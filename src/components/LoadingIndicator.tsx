@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { ActivityIndicator, View } from "react-native";
-import { H2 } from "./StyledComponent";
+import {H2} from "./StyledComponent";
 
 const Container = styled.View`
     width: 100%;
@@ -21,7 +19,7 @@ const Indicator = styled.ActivityIndicator`
 export const LoadingIndicator: React.FC = () => {
     return (
         <Container>
-            <Indicator />
+            <Indicator/>
             <H2>Loading...</H2>
         </Container>
     );

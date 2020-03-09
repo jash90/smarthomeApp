@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { View, ActivityIndicator, TouchableOpacity } from "react-native";
-import { ControlView, ControlText } from "./StyledComponent";
+import React, {Component} from "react";
+import {ActivityIndicator, TouchableOpacity, View} from "react-native";
+import {ControlText, ControlView} from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import _ from "underscore";
 import ControlActions from "../actions/ControlActions";
 import TypeActions from "../actions/TypeActions";
 import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
-import { Control } from "../stores/models";
-import { toJS } from "mobx";
+import {Control} from "../stores/models";
+import {toJS} from "mobx";
 import Stores from "../stores/mobxStores";
 
 interface Props {
     item: any;
 }
+
 interface State {
     loading: boolean;
 }
@@ -28,13 +28,13 @@ export default class ControlSwitch extends Component<Props, State> {
 
     render() {
         return (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity
                     onPress={this.onPress}
-                    style={{ flex: 1, flexDirection: "row" }}>
+                    style={{flex: 1, flexDirection: "row"}}>
                     <ControlView>
                         {this.state.loading ? (
-                            <ActivityIndicator size={40} color={"#D0DBE8"} />
+                            <ActivityIndicator size={40} color={"#D0DBE8"}/>
                         ) : (
                             <Icon
                                 name={
@@ -63,9 +63,9 @@ export default class ControlSwitch extends Component<Props, State> {
                         {this.props.item.item.name}
                     </ControlText>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.onEdit} style={{ width: 40 }}>
+                <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
                     <Icon
-                        style={{ paddingTop: 6 }}
+                        style={{paddingTop: 6}}
                         name={"square-edit-outline"}
                         size={34}
                         color={"#D0DBE8"}
@@ -74,13 +74,14 @@ export default class ControlSwitch extends Component<Props, State> {
             </View>
         );
     }
+
     onPress = async () => {
-        this.setState({ loading: true });
-        let { index, item } = this.props.item;
+        this.setState({loading: true});
+        let {index, item} = this.props.item;
         let control = item;
         control.value = !item.value;
         await ControlActions.changeControl(index, control);
-        this.setState({ loading: false });
+        this.setState({loading: false});
     };
 
     onEdit = async () => {

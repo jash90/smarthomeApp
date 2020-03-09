@@ -1,6 +1,5 @@
-import { action, observable } from "mobx";
-import Scenes from "../../navigation/Scenes";
-import { Control, Room } from "../models";
+import {action, observable} from "mobx";
+import {Control, Room} from "../models";
 
 export default class PropsStore {
     @observable

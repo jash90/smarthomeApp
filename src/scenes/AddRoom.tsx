@@ -1,37 +1,20 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
-import {
-    FlatList,
-    View,
-    Text,
-    TouchableOpacity,
-    ActivityIndicator
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { ScreenContainer } from "../components/SceneContainer";
-import {
-    ControlView,
-    ControlText,
-    H4,
-    SeparatorHeight,
-    Title,
-    HorizontalList,
-    ButtonText,
-    Button
-} from "../components/StyledComponent";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {ActivityIndicator, FlatList, TouchableOpacity, View} from "react-native";
+import {ScreenContainer} from "../components/SceneContainer";
+import {Button, ButtonText, H4, SeparatorHeight} from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
 import AppStore from "../stores/mobxStores/AppStore";
 import ValidatedInput from "../components/ValidatedInput";
-import TypeUtil from "../utils/TypeUtil";
 import ControlActions from "../actions/ControlActions";
-import { Control, Group } from "../stores/models";
+import {Control, Group} from "../stores/models";
 import Stores from "../stores/mobxStores";
 import Toast from "react-native-simple-toast";
 import TypeActions from "../actions/TypeActions";
 import ControlSlider from "../components/ControlSlider";
 import ControlSwitch from "../components/ControlSwitch";
-import { LoadingIndicator } from "../components/LoadingIndicator";
-import { NoItems } from "../components/NoItems";
+import {LoadingIndicator} from "../components/LoadingIndicator";
+import {NoItems} from "../components/NoItems";
 
 interface Props {
     appStore: AppStore;
@@ -50,6 +33,7 @@ interface State {
 
 class AddRoom extends Component<Props, State> {
     public nameInput: ValidatedInput | null | undefined;
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -66,7 +50,7 @@ class AddRoom extends Component<Props, State> {
     componentDidMount = async () => {
         console.log(this.props);
         if (!!Stores.propsStore.control) {
-            let { name, typeId, value, roomId } = Stores.propsStore.control;
+            let {name, typeId, value, roomId} = Stores.propsStore.control;
             this.setState({
                 name,
                 typeId,
@@ -88,11 +72,11 @@ class AddRoom extends Component<Props, State> {
                     ref={ref => (this.nameInput = ref)}
                     placeholder={"Name"}
                     value={this.state.name}
-                    onChangeText={(name: any) => this.setState({ name })}
+                    onChangeText={(name: any) => this.setState({name})}
                     error={this.state.name.length == 0}
                     errorText={"Uzupełnił nazwę"}
                 />
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
                     <H4>Controls</H4>
                     <TouchableOpacity>
                         <H4
@@ -117,13 +101,13 @@ class AddRoom extends Component<Props, State> {
                             TypeActions.getGroup(item.item.typeId) ==
                             Group.slider
                         ) {
-                            return <ControlSlider item={item} />;
+                            return <ControlSlider item={item}/>;
                         } else {
-                            return <ControlSwitch item={item} />;
+                            return <ControlSwitch item={item}/>;
                         }
                     }}
                 />
-                <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                <View style={{flex: 1, justifyContent: "flex-end"}}>
                     {Stores.propsStore.control !== null && (
                         <Button onPress={this.onRemove}>
                             {this.state.loading && (
@@ -164,7 +148,7 @@ class AddRoom extends Component<Props, State> {
             const index = Stores.appStore.controls.findIndex(
                 (c: Control) => c.id == Stores.propsStore.control?.id
             );
-            let { name, typeId, value, roomId } = this.state;
+            let {name, typeId, value, roomId} = this.state;
             const control: Control = new Control({
                 id: Stores.propsStore.control.id,
                 name,
@@ -205,14 +189,15 @@ class AddRoom extends Component<Props, State> {
     };
 
     renderSeparator = () => {
-        return <SeparatorHeight />;
+        return <SeparatorHeight/>;
     };
 
     renderEmpty = () => {
         if (this.state.loadingControl) {
-            return <LoadingIndicator />;
+            return <LoadingIndicator/>;
         }
-        return <NoItems />;
+        return <NoItems/>;
     };
 }
+
 export default inject("appStore")(observer(AddRoom));

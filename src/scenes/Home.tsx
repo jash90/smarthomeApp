@@ -1,41 +1,29 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {FlatList, TouchableOpacity, View} from "react-native";
+import {ScreenContainer} from "../components/SceneContainer";
 import {
-    ActivityIndicator,
-    FlatList,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { ScreenContainer } from "../components/SceneContainer";
-import {
-    ControlText,
-    H1,
-    H2,
     H4,
+    HorizontalList,
     PersonText,
     RoomText,
+    RoomView,
     SeparatorHeight,
     SeparatorWidth,
-    WelcomeText,
-    RoomView,
-    HorizontalList
+    WelcomeText
 } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
 import Store from "../stores/mobxStores";
 import ControlApi from "../api/ControlApi";
-import Loading from "./Loading";
-import { LoadingIndicator } from "../components/LoadingIndicator";
-import { NoItems } from "../components/NoItems";
+import {LoadingIndicator} from "../components/LoadingIndicator";
+import {NoItems} from "../components/NoItems";
 import ErrorUtil from "../api/ErrorUtil";
 import RoomsApi from "../api/RoomsApi";
 import ControlSwitch from "../components/ControlSwitch";
 import ControlSlider from "../components/ControlSlider";
-import _ from "underscore";
-import { Clazz, Serialize } from "../serialize/index";
-import { Group, Control } from "../stores/models";
+import {Clazz, Serialize} from "../serialize/index";
+import {Group} from "../stores/models";
 import TypeActions from "../actions/TypeActions";
 
 interface State {
@@ -60,14 +48,14 @@ class Home extends Component<{}, State> {
     };
 
     renderSeparator = () => {
-        return <SeparatorHeight />;
+        return <SeparatorHeight/>;
     };
 
     renderEmpty = () => {
         if (this.state.loadingControl) {
-            return <LoadingIndicator />;
+            return <LoadingIndicator/>;
         }
-        return <NoItems />;
+        return <NoItems/>;
     };
 
     render() {
@@ -75,7 +63,7 @@ class Home extends Component<{}, State> {
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
                     <H4>Rooms</H4>
                     <TouchableOpacity onPress={this.onAddRoom}>
                         <H4
@@ -92,8 +80,8 @@ class Home extends Component<{}, State> {
                     data={Store.appStore.rooms}
                     ListEmptyComponent={this.renderEmpty}
                     keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={({ item }: any) => {
+                    ItemSeparatorComponent={() => <SeparatorWidth/>}
+                    renderItem={({item}: any) => {
                         return (
                             <TouchableOpacity onPress={this.onRoom}>
                                 <RoomView>
@@ -103,7 +91,7 @@ class Home extends Component<{}, State> {
                         );
                     }}
                 />
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
                     <H4>Controls</H4>
                     <TouchableOpacity onPress={this.onAddControl}>
                         <H4
@@ -128,9 +116,9 @@ class Home extends Component<{}, State> {
                             TypeActions.getGroup(item.item.typeId) ==
                             Group.slider
                         ) {
-                            return <ControlSlider item={item} />;
+                            return <ControlSlider item={item}/>;
                         } else {
-                            return <ControlSwitch item={item} />;
+                            return <ControlSwitch item={item}/>;
                         }
                     }}
                 />
@@ -156,7 +144,7 @@ class Home extends Component<{}, State> {
 
     getControls = async () => {
         try {
-            this.setState({ loadingControl: true });
+            this.setState({loadingControl: true});
             const response = await ControlApi.getControls();
             if (response.status === 200) {
                 const controls = response.data;
@@ -165,25 +153,25 @@ class Home extends Component<{}, State> {
             } else {
                 await ErrorUtil.errorService(response);
             }
-            this.setState({ loadingControl: false });
+            this.setState({loadingControl: false});
         } catch (error) {
-            this.setState({ loadingControl: false });
+            this.setState({loadingControl: false});
             await ErrorUtil.errorService(error);
         }
     };
 
     getRooms = async () => {
         try {
-            this.setState({ loadingRoom: true });
+            this.setState({loadingRoom: true});
             const response = await RoomsApi.getRooms();
             if (response.status === 200) {
                 Store.appStore.setRooms(response.data);
             } else {
                 await ErrorUtil.errorService(response);
             }
-            this.setState({ loadingRoom: false });
+            this.setState({loadingRoom: false});
         } catch (error) {
-            this.setState({ loadingRoom: false });
+            this.setState({loadingRoom: false});
             await ErrorUtil.errorService(error);
         }
     };
@@ -215,4 +203,5 @@ class Home extends Component<{}, State> {
         // }
     }
 }
+
 export default inject("authStore", "appStore")(observer(Home));

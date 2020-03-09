@@ -1,5 +1,6 @@
-import { action, observable } from "mobx";
-import { Room, Control, Type } from "../models";
+import {action, observable} from "mobx";
+import {Control, Room, Type} from "../models";
+
 export default class AppStore {
     @observable
     rememberEmail: boolean = false;

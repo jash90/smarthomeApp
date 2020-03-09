@@ -1,15 +1,15 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
-import { Platform, View } from "react-native";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {Platform, View} from "react-native";
 import AuthActions from "../actions/AuthActions";
 import AuthApi from "../api/AuthApi";
 import ErrorUtil from "../api/ErrorUtil";
-import { ScreenContainer } from "../components/SceneContainer";
-import { Button, ButtonText, Title } from "../components/StyledComponent";
+import {ScreenContainer} from "../components/SceneContainer";
+import {Button, ButtonText, Title} from "../components/StyledComponent";
 import ValidatedInput from "../components/ValidatedInput";
 import NavigationService from "../navigation/NavigationService";
-import { Navigators } from "../navigation/navigators/Enum";
-import { regexEmail } from "../utils/Const";
+import {Navigators} from "../navigation/navigators/Enum";
+import {regexEmail} from "../utils/Const";
 
 interface State {
     login: string;
@@ -37,7 +37,7 @@ class Register extends Component<{}, State> {
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
-                <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                <View style={{flex: 1, justifyContent: "flex-end"}}>
                     <Title>Register</Title>
                     <View
                         style={{
@@ -49,7 +49,7 @@ class Register extends Component<{}, State> {
                             placeholder={"Firstname"}
                             value={this.state.firstname}
                             onChangeText={firstname =>
-                                this.setState({ firstname })
+                                this.setState({firstname})
                             }
                             error={this.state.firstname.length === 0}
                             errorText={"Uzupełnił firstname"}
@@ -59,7 +59,7 @@ class Register extends Component<{}, State> {
                             placeholder={"Lastname"}
                             value={this.state.lastname}
                             onChangeText={lastname =>
-                                this.setState({ lastname })
+                                this.setState({lastname})
                             }
                             error={this.state.lastname.length === 0}
                             errorText={"Uzupełnił lastname"}
@@ -68,7 +68,7 @@ class Register extends Component<{}, State> {
                             ref={ref => (this.loginInput = ref)}
                             placeholder={"Email"}
                             value={this.state.login}
-                            onChangeText={login => this.setState({ login })}
+                            onChangeText={login => this.setState({login})}
                             error={
                                 !regexEmail.test(this.state.login) &&
                                 this.state.login.length === 0
@@ -81,7 +81,7 @@ class Register extends Component<{}, State> {
                             secureTextEntry
                             value={this.state.password}
                             onChangeText={password =>
-                                this.setState({ password })
+                                this.setState({password})
                             }
                             error={this.state.password.length <= 4}
                             errorText={"Uzupełnił password"}
@@ -94,13 +94,14 @@ class Register extends Component<{}, State> {
             </ScreenContainer>
         );
     }
+
     onBack = () => {
         NavigationService.goBack();
     };
 
     onRegister = async () => {
         try {
-            const { login, password, firstname, lastname } = this.state;
+            const {login, password, firstname, lastname} = this.state;
             if (
                 !ValidatedInput.validate([
                     this.firstnameInput,
@@ -128,4 +129,5 @@ class Register extends Component<{}, State> {
         }
     };
 }
+
 export default inject("authStore", "propsStore")(observer(Register));

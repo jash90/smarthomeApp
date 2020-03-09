@@ -4,22 +4,23 @@ class Serialize {
             clazz
                 .find((clazzz: any) => clazzz.name == clazzName)
                 .serializable.forEach((element: string) => {
-                    if (Array.isArray(variables)) {
-                        variables.map((variable: any) => {
-                            variable[element] = JSON.parse(variable[element]);
-                        });
-                    } else {
-                        variables[element] = JSON.parse(variables[element]);
-                    }
-                });
+                if (Array.isArray(variables)) {
+                    variables.map((variable: any) => {
+                        variable[element] = JSON.parse(variable[element]);
+                    });
+                } else {
+                    variables[element] = JSON.parse(variables[element]);
+                }
+            });
         } catch (error) {
             console.log(error);
         }
     }
 }
+
 const clazz: any[] = [
-    { name: "types", serializable: ["values"] },
-    { name: "controls", serializable: ["value"] }
+    {name: "types", serializable: ["values"]},
+    {name: "controls", serializable: ["value"]}
 ];
 
 class Deserialize {
@@ -28,22 +29,23 @@ class Deserialize {
             clazz
                 .find((clazzz: any) => clazzz.name == clazzName)
                 .serializable.forEach((element: string) => {
-                    if (Array.isArray(variables)) {
-                        variables.map((variable: any) => {
-                            variable[element] = String(variable[element]);
-                        });
-                    } else {
-                        variables[element] = String(variables[element]);
-                    }
-                });
+                if (Array.isArray(variables)) {
+                    variables.map((variable: any) => {
+                        variable[element] = String(variable[element]);
+                    });
+                } else {
+                    variables[element] = String(variables[element]);
+                }
+            });
         } catch (error) {
             console.log(error);
         }
     }
 }
+
 enum Clazz {
     types = "types",
     controls = "controls"
 }
 
-export { Serialize, Deserialize, Clazz };
+export {Serialize, Deserialize, Clazz};

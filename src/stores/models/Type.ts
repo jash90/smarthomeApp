@@ -1,4 +1,4 @@
-import { Group } from ".";
+import {Group} from ".";
 
 export default class Type {
     id: number = 0;
@@ -9,6 +9,7 @@ export default class Type {
     min?: number = 0;
     max?: number = 0;
     userId?: number = 0;
+
     constructor(options?: {
         id: number;
         icon: string;

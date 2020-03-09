@@ -4,6 +4,7 @@ export default class User {
     lastname: string = "";
     email: string = "";
     token: string = "";
+
     constructor(options?: {
         id: number;
         firstname: string;

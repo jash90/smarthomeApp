@@ -1,15 +1,15 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { Logo } from "../components/Logo";
-import { ScreenContainer } from "../components/SceneContainer";
-import { H1, Title } from "../components/StyledComponent";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {View} from "react-native";
+import {Logo} from "../components/Logo";
+import {ScreenContainer} from "../components/SceneContainer";
+import {Title} from "../components/StyledComponent";
 import Initial from "../initial";
 import NavigationService from "../navigation/NavigationService";
-import { Navigators } from "../navigation/navigators/Enum";
+import {Navigators} from "../navigation/navigators/Enum";
 import Scenes from "../navigation/Scenes";
 import Stores from "../stores/mobxStores";
-import { LoadingIndicator } from "../components/LoadingIndicator";
+import {LoadingIndicator} from "../components/LoadingIndicator";
 
 class Loading extends Component {
     componentDidMount = async () => {
@@ -27,9 +27,9 @@ class Loading extends Component {
         return (
             <ScreenContainer>
                 <Title>SmartHome</Title>
-                <View style={{ flex: 1, justifyContent: "flex-end" }}>
-                    <View style={{ flex: 1, justifyContent: "center" }}>
-                        <Logo />
+                <View style={{flex: 1, justifyContent: "flex-end"}}>
+                    <View style={{flex: 1, justifyContent: "center"}}>
+                        <Logo/>
                     </View>
                     <View
                         style={{

@@ -5,6 +5,7 @@ export default class Control {
     typeId: number = 0;
     userId: number = 0;
     roomId: number = 0;
+
     constructor(options?: {
         id: number;
         name: string;

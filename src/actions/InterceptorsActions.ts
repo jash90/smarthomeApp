@@ -14,6 +14,7 @@ export default class Interceptors {
         console.groupEnd();
         return request;
     }
+
     public static handleResponse(response: any) {
         console.group(
             `[Network]: Response ${response.status} ${String(
@@ -29,6 +30,7 @@ export default class Interceptors {
         console.groupEnd();
         return response;
     }
+
     public static handleError(error: any) {
         console.group(
             `[Network]: Error ${String(error.config.method).toUpperCase()} => ${

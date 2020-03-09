@@ -1,8 +1,4 @@
-import axios from "axios";
-import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
-import AsyncStore from "../stores/asyncStore/index";
 import Stores from "../stores/mobxStores";
-import { User } from "../stores/models";
 
 export default class TypeActions {
     public static getIcon(id: number) {

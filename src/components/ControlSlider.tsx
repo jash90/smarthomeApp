@@ -1,19 +1,20 @@
-import React, { Component } from "react";
-import { View, ActivityIndicator, TouchableOpacity } from "react-native";
-import { ControlView, ControlText, H4 } from "./StyledComponent";
+import React, {Component} from "react";
+import {ActivityIndicator, TouchableOpacity, View} from "react-native";
+import {ControlText, ControlView, H4} from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Slider from "@react-native-community/slider";
-import _ from "underscore";
 import TypeActions from "../actions/TypeActions";
 import ControlActions from "../actions/ControlActions";
-import { toJS } from "mobx";
+import {toJS} from "mobx";
 import Stores from "../stores/mobxStores";
-import { Control } from "../stores/models";
+import {Control} from "../stores/models";
 import Scenes from "../navigation/Scenes";
 import NavigationService from "../navigation/NavigationService";
+
 interface Props {
     item: any;
 }
+
 interface State {
     loading: boolean;
 }
@@ -28,7 +29,7 @@ export default class ControlSlider extends Component<Props, State> {
 
     render() {
         return (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
                 <ControlView>
                     <Icon
                         name={
@@ -56,9 +57,9 @@ export default class ControlSlider extends Component<Props, State> {
                         {this.props.item.item.name}
                     </ControlText>
 
-                    <View style={{ flexDirection: "row" }}>
+                    <View style={{flexDirection: "row"}}>
                         {this.state.loading ? (
-                            <View style={{ flex: 1 }}>
+                            <View style={{flex: 1}}>
                                 <ActivityIndicator
                                     size={40}
                                     color={"#FF7500"}
@@ -66,7 +67,7 @@ export default class ControlSlider extends Component<Props, State> {
                             </View>
                         ) : (
                             <Slider
-                                style={{ flex: 1, height: 40 }}
+                                style={{flex: 1, height: 40}}
                                 minimumValue={
                                     TypeActions.getMin(
                                         this.props.item.item.typeId
@@ -87,14 +88,14 @@ export default class ControlSlider extends Component<Props, State> {
                                 }
                             />
                         )}
-                        <H4 style={{ marginHorizontal: 5 }}>
+                        <H4 style={{marginHorizontal: 5}}>
                             {this.props.item.item.value}
                         </H4>
                     </View>
                 </View>
-                <TouchableOpacity onPress={this.onEdit} style={{ width: 40 }}>
+                <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
                     <Icon
-                        style={{ paddingTop: 6 }}
+                        style={{paddingTop: 6}}
                         name={"square-edit-outline"}
                         size={34}
                         color={"#D0DBE8"}
@@ -103,13 +104,14 @@ export default class ControlSlider extends Component<Props, State> {
             </View>
         );
     }
+
     onSlidingComplete = async (value: any) => {
-        this.setState({ loading: true });
-        let { index, item } = this.props.item;
+        this.setState({loading: true});
+        let {index, item} = this.props.item;
         let control = item;
         control.value = value;
         await ControlActions.changeControl(index, control);
-        this.setState({ loading: false });
+        this.setState({loading: false});
     };
 
     onEdit = async () => {

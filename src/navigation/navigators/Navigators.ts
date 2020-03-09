@@ -1,6 +1,7 @@
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import {createAppContainer} from "react-navigation";
+import {createStackNavigator} from "react-navigation-stack";
 import {
+    AddControl,
     AddRoom,
     EditProfile,
     Home,
@@ -9,10 +10,9 @@ import {
     Profile,
     Register,
     Room,
-    Start,
-    AddControl
+    Start
 } from "../../scenes/index";
-import { Navigators } from "./Enum";
+import {Navigators} from "./Enum";
 
 const AuthNavigator = createStackNavigator(
     {
@@ -52,4 +52,4 @@ const AppNavigator = createStackNavigator(
 
 const RootNavigator = createAppContainer(AppNavigator);
 
-export { RootNavigator };
+export {RootNavigator};

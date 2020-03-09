@@ -1,12 +1,12 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
-import { View } from "react-native";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {View} from "react-native";
 import Toast from "react-native-simple-toast";
 import AuthActions from "../actions/AuthActions";
-import { UserApi } from "../api";
+import {UserApi} from "../api";
 import ErrorUtil from "../api/ErrorUtil";
-import { ScreenContainer } from "../components/SceneContainer";
-import { Button, ButtonText, H1, Input } from "../components/StyledComponent";
+import {ScreenContainer} from "../components/SceneContainer";
+import {Button, ButtonText, H1, Input} from "../components/StyledComponent";
 import ValidatedInput from "../components/ValidatedInput";
 import NavigationService from "../navigation/NavigationService";
 import Store from "../stores/mobxStores";
@@ -35,17 +35,17 @@ class EditProfile extends Component<{}, State> {
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
-                <View style={{ flex: 1, alignItems: "center" }}>
+                <View style={{flex: 1, alignItems: "center"}}>
                     <H1>Edit Profile</H1>
                     <Input
                         placeholder={"Firstname"}
                         value={this.state.firstname}
-                        onChangeText={firstname => this.setState({ firstname })}
+                        onChangeText={firstname => this.setState({firstname})}
                     />
                     <Input
                         placeholder={"Lastname"}
                         value={this.state.lastname}
-                        onChangeText={lastname => this.setState({ lastname })}
+                        onChangeText={lastname => this.setState({lastname})}
                     />
                     <Button onPress={this.saveProfile}>
                         <ButtonText>Save Profile</ButtonText>
@@ -54,14 +54,14 @@ class EditProfile extends Component<{}, State> {
                     <Input
                         placeholder={"Password"}
                         value={this.state.password}
-                        onChangeText={password => this.setState({ password })}
+                        onChangeText={password => this.setState({password})}
                         secureTextEntry
                     />
                     <Input
                         placeholder={"Repeat password"}
                         value={this.state.repeatPassword}
                         onChangeText={repeatPassword =>
-                            this.setState({ repeatPassword })
+                            this.setState({repeatPassword})
                         }
                         secureTextEntry
                     />
@@ -72,13 +72,14 @@ class EditProfile extends Component<{}, State> {
             </ScreenContainer>
         );
     }
+
     onBack = () => {
         NavigationService.goBack();
     };
 
     saveProfile = async () => {
         try {
-            const { firstname, lastname } = this.state;
+            const {firstname, lastname} = this.state;
             const response = await UserApi.edit(firstname, lastname);
             if (response.status === 200) {
                 AuthActions.setUser(response.data);
@@ -92,7 +93,7 @@ class EditProfile extends Component<{}, State> {
     };
     savePassword = async () => {
         try {
-            const { password, repeatPassword } = this.state;
+            const {password, repeatPassword} = this.state;
             const response = await UserApi.editPassword(
                 password,
                 repeatPassword
@@ -100,7 +101,7 @@ class EditProfile extends Component<{}, State> {
             if (response.status === 200) {
                 AuthActions.setUser(response.data);
                 Toast.show("Password changes.");
-                this.setState({ password: "", repeatPassword: "" });
+                this.setState({password: "", repeatPassword: ""});
             } else {
                 ErrorUtil.errorService(response);
             }
@@ -109,4 +110,5 @@ class EditProfile extends Component<{}, State> {
         }
     };
 }
+
 export default inject("authStore", "propsStore")(observer(EditProfile));

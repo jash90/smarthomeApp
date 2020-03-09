@@ -1,5 +1,5 @@
 import axios from "./Axios";
-import { Control } from "../stores/models";
+import {Control} from "../stores/models";
 
 export default class ControlApi {
     public static async getControls() {

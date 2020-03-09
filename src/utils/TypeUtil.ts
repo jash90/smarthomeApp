@@ -10,6 +10,7 @@ export default class TypeUtil {
         }
         return value;
     }
+
     public static parseValues(value: any) {
         if (value == undefined) return value;
 

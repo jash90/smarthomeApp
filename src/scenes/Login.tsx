@@ -1,21 +1,16 @@
-import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
-import { View } from "react-native";
+import {inject, observer} from "mobx-react";
+import React, {Component} from "react";
+import {View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthActions from "../actions/AuthActions";
 import AuthApi from "../api/AuthApi";
 import axios from "../api/Axios";
 import ErrorUtil from "../api/ErrorUtil";
-import { ScreenContainer } from "../components/SceneContainer";
-import {
-    Button,
-    ButtonText,
-    FlatButton,
-    Title
-} from "../components/StyledComponent";
+import {ScreenContainer} from "../components/SceneContainer";
+import {Button, ButtonText, FlatButton, Title} from "../components/StyledComponent";
 import ValidatedInput from "../components/ValidatedInput";
 import NavigationService from "../navigation/NavigationService";
-import { Navigators } from "../navigation/navigators/Enum";
+import {Navigators} from "../navigation/navigators/Enum";
 import Scenes from "../navigation/Scenes";
 import AsyncStore from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
@@ -46,8 +41,8 @@ class Login extends Component<{}, State> {
         return (
             <ScreenContainer>
                 <Title>Login</Title>
-                <View style={{ flex: 1, justifyContent: "flex-end" }}>
-                    <View style={{ flex: 1, justifyContent: "center" }}>
+                <View style={{flex: 1, justifyContent: "flex-end"}}>
+                    <View style={{flex: 1, justifyContent: "center"}}>
                         <ValidatedInput
                             ref={ref => (this.loginInput = ref)}
                             placeholder={"Email"}
@@ -55,7 +50,7 @@ class Login extends Component<{}, State> {
                             error={this.state.login.length === 0}
                             errorText={"Uzupełnij login"}
                             onChangeText={login => {
-                                this.setState({ login });
+                                this.setState({login});
                             }}
                         />
                         <ValidatedInput
@@ -66,7 +61,7 @@ class Login extends Component<{}, State> {
                             errorText={"Uzupełnij hasło"}
                             secureTextEntry
                             onChangeText={password =>
-                                this.setState({ password })
+                                this.setState({password})
                             }
                         />
                         <View
@@ -83,7 +78,7 @@ class Login extends Component<{}, State> {
                                     }
                                     size={24}
                                     color={"#d0dbe6"}
-                                    style={{ alignSelf: "center" }}
+                                    style={{alignSelf: "center"}}
                                 />
                                 <ButtonText>Save email</ButtonText>
                             </FlatButton>
@@ -102,7 +97,7 @@ class Login extends Component<{}, State> {
 
     onLogin = async () => {
         try {
-            const { login, password } = this.state;
+            const {login, password} = this.state;
             if (
                 !ValidatedInput.validate([this.loginInput, this.passwordInput])
             ) {
@@ -113,7 +108,7 @@ class Login extends Component<{}, State> {
                 await AuthActions.setUser(response.data);
                 axios.defaults.headers.common[
                     "Authorization"
-                ] = `Bearer ${response.data.token}`;
+                    ] = `Bearer ${response.data.token}`;
                 if (Stores.appStore.rememberEmail) {
                     Stores.appStore.setSavedEmail(this.state.login);
                     await AsyncStore.save(

@@ -3,7 +3,7 @@ import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
 import axios from "../api/Axios";
 import TypeApi from "../api/TypeApi";
-import { Clazz, Serialize } from "../serialize";
+import {Clazz, Serialize} from "../serialize";
 
 export default class Initial {
     public static async AppStore() {
