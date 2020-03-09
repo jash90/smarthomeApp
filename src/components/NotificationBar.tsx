@@ -24,21 +24,22 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
                                                                     icon
                                                                 }) => {
     return (
-        <ContainerNotification>
-            <TouchableOpacity style={{padding: 5}} onPress={onBackPress}>
-                {onBackPress && (
-                    <Icon name="arrow-left" size={35} color={"white"}/>
-                )}
-            </TouchableOpacity>
+            <ContainerNotification>
+                <TouchableOpacity style={{padding: 5}} onPress={onBackPress}>
+                    {onBackPress && (
+                            <Icon name="arrow-left" size={35} color={"white"}/>
+                    )}
+                </TouchableOpacity>
 
-            <TouchableOpacity
-                style={{paddingHorizontal: 10, paddingVertical: 5}}
-                onPress={onRightPress}>
-                {onRightPress && !icon && (
-                    <Icon name={"content-save"} size={35} color={"white"}/>
-                )}
-                {icon && <Icon name={`${icon}`} size={35} color={"white"}/>}
-            </TouchableOpacity>
-        </ContainerNotification>
+                <TouchableOpacity
+                        style={{paddingHorizontal: 10, paddingVertical: 5}}
+                        onPress={onRightPress}
+                >
+                    {onRightPress && !icon && (
+                            <Icon name={"content-save"} size={35} color={"white"}/>
+                    )}
+                    {icon && <Icon name={`${icon}`} size={35} color={"white"}/>}
+                </TouchableOpacity>
+            </ContainerNotification>
     );
 };

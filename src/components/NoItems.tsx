@@ -12,8 +12,8 @@ const Container = styled.View`
 
 export const NoItems: React.FC = () => {
     return (
-        <Container>
-            <Text> No items</Text>
-        </Container>
+            <Container>
+                <Text> No items</Text>
+            </Container>
     );
 };

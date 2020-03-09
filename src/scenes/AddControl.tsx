@@ -61,137 +61,142 @@ class AddControl extends Component<Props, State> {
 
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <H4>Name</H4>
-                <ValidatedInput
-                    ref={ref => (this.nameInput = ref)}
-                    placeholder={"Name"}
-                    value={this.state.name}
-                    onChangeText={(name: any) => this.setState({name})}
-                    error={this.state.name.length == 0}
-                    errorText={"Uzupełnił nazwę"}
-                />
-                <H4>Type</H4>
-                <HorizontalList
-                    data={this.props.appStore.types}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight/>}
-                    renderItem={({item}: any) => {
-                        const color =
-                            item.id === this.state.typeId
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.setState({typeId: item.id})
-                                }>
-                                <View style={{flexDirection: "row"}}>
-                                    <ControlView>
-                                        <Icon
-                                            name={item.icon}
-                                            size={40}
-                                            color={color}
-                                        />
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <H4>Value</H4>
-                <HorizontalList
-                    data={
-                        this.props.appStore.types
-                            .find(t => t.id == this.state.typeId)
-                            ?.values.map((type: any) =>
-                            TypeUtil.stringifyValue(type)
-                        ) || []
-                    }
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight/>}
-                    renderItem={({item}: any) => {
-                        const color =
-                            item === TypeUtil.stringifyValue(this.state.value)
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() => this.setState({value: item})}>
-                                <View style={{flexDirection: "row"}}>
-                                    <ControlView>
-                                        <Text
-                                            style={{
-                                                fontSize: 36,
-                                                color: color
-                                            }}>
-                                            {item}
-                                        </Text>
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <H4>Rooms</H4>
-                <HorizontalList
-                    data={this.props.appStore.rooms}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight/>}
-                    renderItem={({item}: any) => {
-                        const color =
-                            item.id === this.state.roomId
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.setState({
-                                        roomId: this.state.roomId
-                                            ? null
-                                            : item.id
-                                    })
-                                }>
-                                <View style={{flexDirection: "row"}}>
-                                    <ControlView>
-                                        <Text
-                                            numberOfLines={2}
-                                            style={{
-                                                fontSize: 14,
-                                                color: color,
-                                                padding: 10
-                                            }}>
-                                            {item.name}
-                                        </Text>
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    {Stores.propsStore.control !== null && (
-                        <Button onPress={this.onRemove}>
-                            {this.state.loading && (
-                                <ActivityIndicator
-                                    size={"small"}
-                                    color={"#d0dbe6"}
-                                />
-                            )}
-                            <ButtonText>Remove</ButtonText>
-                        </Button>
-                    )}
-                    <Button onPress={this.onSave}>
-                        {this.state.loading && (
-                            <ActivityIndicator
-                                size={"small"}
-                                color={"#d0dbe6"}
-                            />
+                <ScreenContainer onBackPress={this.onBack}>
+                    <H4>Name</H4>
+                    <ValidatedInput
+                            ref={ref => (this.nameInput = ref)}
+                            placeholder={"Name"}
+                            value={this.state.name}
+                            onChangeText={(name: any) => this.setState({name})}
+                            error={this.state.name.length == 0}
+                            errorText={"Uzupełnił nazwę"}
+                    />
+                    <H4>Type</H4>
+                    <HorizontalList
+                            data={this.props.appStore.types}
+                            keyExtractor={(item: any) => String(item.id)}
+                            ItemSeparatorComponent={() => <SeparatorHeight/>}
+                            renderItem={({item}: any) => {
+                                const color =
+                                        item.id === this.state.typeId
+                                                ? "#FF7500"
+                                                : "#D0DBE8";
+                                return (
+                                        <TouchableOpacity
+                                                onPress={() =>
+                                                        this.setState({typeId: item.id})
+                                                }
+                                        >
+                                            <View style={{flexDirection: "row"}}>
+                                                <ControlView>
+                                                    <Icon
+                                                            name={item.icon}
+                                                            size={40}
+                                                            color={color}
+                                                    />
+                                                </ControlView>
+                                            </View>
+                                        </TouchableOpacity>
+                                );
+                            }}
+                    />
+                    <H4>Value</H4>
+                    <HorizontalList
+                            data={
+                                this.props.appStore.types
+                                        .find(t => t.id == this.state.typeId)
+                                        ?.values.map((type: any) =>
+                                        TypeUtil.stringifyValue(type)
+                                ) || []
+                            }
+                            keyExtractor={(item: any) => String(item.id)}
+                            ItemSeparatorComponent={() => <SeparatorHeight/>}
+                            renderItem={({item}: any) => {
+                                const color =
+                                        item === TypeUtil.stringifyValue(this.state.value)
+                                                ? "#FF7500"
+                                                : "#D0DBE8";
+                                return (
+                                        <TouchableOpacity
+                                                onPress={() => this.setState({value: item})}
+                                        >
+                                            <View style={{flexDirection: "row"}}>
+                                                <ControlView>
+                                                    <Text
+                                                            style={{
+                                                                fontSize: 36,
+                                                                color: color
+                                                            }}
+                                                    >
+                                                        {item}
+                                                    </Text>
+                                                </ControlView>
+                                            </View>
+                                        </TouchableOpacity>
+                                );
+                            }}
+                    />
+                    <H4>Rooms</H4>
+                    <HorizontalList
+                            data={this.props.appStore.rooms}
+                            keyExtractor={(item: any) => String(item.id)}
+                            ItemSeparatorComponent={() => <SeparatorHeight/>}
+                            renderItem={({item}: any) => {
+                                const color =
+                                        item.id === this.state.roomId
+                                                ? "#FF7500"
+                                                : "#D0DBE8";
+                                return (
+                                        <TouchableOpacity
+                                                onPress={() =>
+                                                        this.setState({
+                                                            roomId: this.state.roomId
+                                                                    ? null
+                                                                    : item.id
+                                                        })
+                                                }
+                                        >
+                                            <View style={{flexDirection: "row"}}>
+                                                <ControlView>
+                                                    <Text
+                                                            numberOfLines={2}
+                                                            style={{
+                                                                fontSize: 14,
+                                                                color: color,
+                                                                padding: 10
+                                                            }}
+                                                    >
+                                                        {item.name}
+                                                    </Text>
+                                                </ControlView>
+                                            </View>
+                                        </TouchableOpacity>
+                                );
+                            }}
+                    />
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        {Stores.propsStore.control !== null && (
+                                <Button onPress={this.onRemove}>
+                                    {this.state.loading && (
+                                            <ActivityIndicator
+                                                    size={"small"}
+                                                    color={"#d0dbe6"}
+                                            />
+                                    )}
+                                    <ButtonText>Remove</ButtonText>
+                                </Button>
                         )}
-                        <ButtonText>Save</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                        <Button onPress={this.onSave}>
+                            {this.state.loading && (
+                                    <ActivityIndicator
+                                            size={"small"}
+                                            color={"#d0dbe6"}
+                                    />
+                            )}
+                            <ButtonText>Save</ButtonText>
+                        </Button>
+                    </View>
+                </ScreenContainer>
         );
     }
 
@@ -208,7 +213,7 @@ class AddControl extends Component<Props, State> {
             Toast.show(`Control ${this.state.name} added.`);
         } else {
             const index = Stores.appStore.controls.findIndex(
-                (c: Control) => c.id == Stores.propsStore.control?.id
+                    (c: Control) => c.id == Stores.propsStore.control?.id
             );
             let {name, typeId, value, roomId} = this.state;
             const control: Control = new Control({

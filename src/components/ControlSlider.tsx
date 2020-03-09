@@ -29,79 +29,81 @@ export default class ControlSlider extends Component<Props, State> {
 
     render() {
         return (
-            <View style={{flexDirection: "row", alignItems: "center"}}>
-                <ControlView>
-                    <Icon
-                        name={
-                            TypeActions.getIcon(this.props.item.item.typeId) ||
-                            ""
-                        }
-                        size={40}
-                        color={"#FF7500"}
-                    />
-                </ControlView>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <ControlView>
+                        <Icon
+                                name={
+                                    TypeActions.getIcon(this.props.item.item.typeId) ||
+                                    ""
+                                }
+                                size={40}
+                                color={"#FF7500"}
+                        />
+                    </ControlView>
 
-                <View
-                    style={{
-                        flexDirection: "column",
-                        flex: 1,
-                        justifyContent: "flex-start"
-                    }}>
-                    <ControlText
-                        style={{
-                            width: "100%",
-                            alignSelf: "center",
-                            color: "#D0DBE8",
-                            textAlign: "center"
-                        }}>
-                        {this.props.item.item.name}
-                    </ControlText>
+                    <View
+                            style={{
+                                flexDirection: "column",
+                                flex: 1,
+                                justifyContent: "flex-start"
+                            }}
+                    >
+                        <ControlText
+                                style={{
+                                    width: "100%",
+                                    alignSelf: "center",
+                                    color: "#D0DBE8",
+                                    textAlign: "center"
+                                }}
+                        >
+                            {this.props.item.item.name}
+                        </ControlText>
 
-                    <View style={{flexDirection: "row"}}>
-                        {this.state.loading ? (
-                            <View style={{flex: 1}}>
-                                <ActivityIndicator
-                                    size={40}
-                                    color={"#FF7500"}
-                                />
-                            </View>
-                        ) : (
-                            <Slider
-                                style={{flex: 1, height: 40}}
-                                minimumValue={
-                                    TypeActions.getMin(
-                                        this.props.item.item.typeId
-                                    ) || 0
-                                }
-                                maximumValue={
-                                    TypeActions.getMax(
-                                        this.props.item.item.typeId
-                                    ) || 0
-                                }
-                                step={1}
-                                value={this.props.item.item.value}
-                                thumbTintColor="#FF7500"
-                                minimumTrackTintColor="#FF7500"
-                                maximumTrackTintColor="#D0DBE8"
-                                onSlidingComplete={(value: any) =>
-                                    this.onSlidingComplete(value)
-                                }
-                            />
-                        )}
-                        <H4 style={{marginHorizontal: 5}}>
-                            {this.props.item.item.value}
-                        </H4>
+                        <View style={{flexDirection: "row"}}>
+                            {this.state.loading ? (
+                                    <View style={{flex: 1}}>
+                                        <ActivityIndicator
+                                                size={40}
+                                                color={"#FF7500"}
+                                        />
+                                    </View>
+                            ) : (
+                                    <Slider
+                                            style={{flex: 1, height: 40}}
+                                            minimumValue={
+                                                TypeActions.getMin(
+                                                        this.props.item.item.typeId
+                                                ) || 0
+                                            }
+                                            maximumValue={
+                                                TypeActions.getMax(
+                                                        this.props.item.item.typeId
+                                                ) || 0
+                                            }
+                                            step={1}
+                                            value={this.props.item.item.value}
+                                            thumbTintColor="#FF7500"
+                                            minimumTrackTintColor="#FF7500"
+                                            maximumTrackTintColor="#D0DBE8"
+                                            onSlidingComplete={(value: any) =>
+                                                    this.onSlidingComplete(value)
+                                            }
+                                    />
+                            )}
+                            <H4 style={{marginHorizontal: 5}}>
+                                {this.props.item.item.value}
+                            </H4>
+                        </View>
                     </View>
+                    <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
+                        <Icon
+                                style={{paddingTop: 6}}
+                                name={"square-edit-outline"}
+                                size={34}
+                                color={"#D0DBE8"}
+                        />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
-                    <Icon
-                        style={{paddingTop: 6}}
-                        name={"square-edit-outline"}
-                        size={34}
-                        color={"#D0DBE8"}
-                    />
-                </TouchableOpacity>
-            </View>
         );
     }
 

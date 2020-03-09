@@ -34,42 +34,42 @@ class EditProfile extends Component<{}, State> {
 
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <View style={{flex: 1, alignItems: "center"}}>
-                    <H1>Edit Profile</H1>
-                    <Input
-                        placeholder={"Firstname"}
-                        value={this.state.firstname}
-                        onChangeText={firstname => this.setState({firstname})}
-                    />
-                    <Input
-                        placeholder={"Lastname"}
-                        value={this.state.lastname}
-                        onChangeText={lastname => this.setState({lastname})}
-                    />
-                    <Button onPress={this.saveProfile}>
-                        <ButtonText>Save Profile</ButtonText>
-                    </Button>
-                    <H1>Edit Password</H1>
-                    <Input
-                        placeholder={"Password"}
-                        value={this.state.password}
-                        onChangeText={password => this.setState({password})}
-                        secureTextEntry
-                    />
-                    <Input
-                        placeholder={"Repeat password"}
-                        value={this.state.repeatPassword}
-                        onChangeText={repeatPassword =>
-                            this.setState({repeatPassword})
-                        }
-                        secureTextEntry
-                    />
-                    <Button onPress={this.savePassword}>
-                        <ButtonText>Save Password</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                <ScreenContainer onBackPress={this.onBack}>
+                    <View style={{flex: 1, alignItems: "center"}}>
+                        <H1>Edit Profile</H1>
+                        <Input
+                                placeholder={"Firstname"}
+                                value={this.state.firstname}
+                                onChangeText={firstname => this.setState({firstname})}
+                        />
+                        <Input
+                                placeholder={"Lastname"}
+                                value={this.state.lastname}
+                                onChangeText={lastname => this.setState({lastname})}
+                        />
+                        <Button onPress={this.saveProfile}>
+                            <ButtonText>Save Profile</ButtonText>
+                        </Button>
+                        <H1>Edit Password</H1>
+                        <Input
+                                placeholder={"Password"}
+                                value={this.state.password}
+                                onChangeText={password => this.setState({password})}
+                                secureTextEntry
+                        />
+                        <Input
+                                placeholder={"Repeat password"}
+                                value={this.state.repeatPassword}
+                                onChangeText={repeatPassword =>
+                                        this.setState({repeatPassword})
+                                }
+                                secureTextEntry
+                        />
+                        <Button onPress={this.savePassword}>
+                            <ButtonText>Save Password</ButtonText>
+                        </Button>
+                    </View>
+                </ScreenContainer>
         );
     }
 
@@ -95,8 +95,8 @@ class EditProfile extends Component<{}, State> {
         try {
             const {password, repeatPassword} = this.state;
             const response = await UserApi.editPassword(
-                password,
-                repeatPassword
+                    password,
+                    repeatPassword
             );
             if (response.status === 200) {
                 AuthActions.setUser(response.data);

@@ -16,17 +16,17 @@ class Start extends Component {
 
     render() {
         return (
-            <ScreenContainer>
-                <Title>SmartHome</Title>
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                        <Logo/>
+                <ScreenContainer>
+                    <Title>SmartHome</Title>
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        <View style={{flex: 1, justifyContent: "center"}}>
+                            <Logo/>
+                        </View>
+                        <Button onPress={this.onLogin}>
+                            <ButtonText>Login</ButtonText>
+                        </Button>
                     </View>
-                    <Button onPress={this.onLogin}>
-                        <ButtonText>Login</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                </ScreenContainer>
         );
     }
 

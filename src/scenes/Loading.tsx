@@ -25,22 +25,23 @@ class Loading extends Component {
 
     render() {
         return (
-            <ScreenContainer>
-                <Title>SmartHome</Title>
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                        <Logo/>
+                <ScreenContainer>
+                    <Title>SmartHome</Title>
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        <View style={{flex: 1, justifyContent: "center"}}>
+                            <Logo/>
+                        </View>
+                        <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                        >
+                            <LoadingIndicator/>
+                        </View>
                     </View>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "center"
-                        }}>
-                        <LoadingIndicator/>
-                    </View>
-                </View>
-            </ScreenContainer>
+                </ScreenContainer>
         );
     }
 }

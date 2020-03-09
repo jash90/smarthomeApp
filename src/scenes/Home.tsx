@@ -60,69 +60,71 @@ class Home extends Component<{}, State> {
 
     render() {
         return (
-            <ScreenContainer icon="account" onRightPress={this.onProfile}>
-                <WelcomeText>Hello,</WelcomeText>
-                <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <H4>Rooms</H4>
-                    <TouchableOpacity onPress={this.onAddRoom}>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
-                            }}>
-                            +
-                        </H4>
-                    </TouchableOpacity>
-                </View>
-                <HorizontalList
-                    data={Store.appStore.rooms}
-                    ListEmptyComponent={this.renderEmpty}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorWidth/>}
-                    renderItem={({item}: any) => {
-                        return (
-                            <TouchableOpacity onPress={this.onRoom}>
-                                <RoomView>
-                                    <RoomText>{item.name}</RoomText>
-                                </RoomView>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <H4>Controls</H4>
-                    <TouchableOpacity onPress={this.onAddControl}>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
-                            }}>
-                            +
-                        </H4>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    data={Store.appStore.controls}
-                    keyExtractor={(item: any) => String(item.id)}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    ListEmptyComponent={this.renderEmpty}
-                    renderItem={item => {
-                        if (
-                            TypeActions.getGroup(item.item.typeId) ==
-                            Group.slider
-                        ) {
-                            return <ControlSlider item={item}/>;
-                        } else {
-                            return <ControlSwitch item={item}/>;
-                        }
-                    }}
-                />
-            </ScreenContainer>
+                <ScreenContainer icon="account" onRightPress={this.onProfile}>
+                    <WelcomeText>Hello,</WelcomeText>
+                    <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <H4>Rooms</H4>
+                        <TouchableOpacity onPress={this.onAddRoom}>
+                            <H4
+                                    style={{
+                                        color: "orange",
+                                        fontSize: 24,
+                                        marginHorizontal: 5
+                                    }}
+                            >
+                                +
+                            </H4>
+                        </TouchableOpacity>
+                    </View>
+                    <HorizontalList
+                            data={Store.appStore.rooms}
+                            ListEmptyComponent={this.renderEmpty}
+                            keyExtractor={(item: any) => String(item.id)}
+                            ItemSeparatorComponent={() => <SeparatorWidth/>}
+                            renderItem={({item}: any) => {
+                                return (
+                                        <TouchableOpacity onPress={this.onRoom}>
+                                            <RoomView>
+                                                <RoomText>{item.name}</RoomText>
+                                            </RoomView>
+                                        </TouchableOpacity>
+                                );
+                            }}
+                    />
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <H4>Controls</H4>
+                        <TouchableOpacity onPress={this.onAddControl}>
+                            <H4
+                                    style={{
+                                        color: "orange",
+                                        fontSize: 24,
+                                        marginHorizontal: 5
+                                    }}
+                            >
+                                +
+                            </H4>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                            data={Store.appStore.controls}
+                            keyExtractor={(item: any) => String(item.id)}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            ListEmptyComponent={this.renderEmpty}
+                            renderItem={item => {
+                                if (
+                                        TypeActions.getGroup(item.item.typeId) ==
+                                        Group.slider
+                                ) {
+                                    return <ControlSlider item={item}/>;
+                                } else {
+                                    return <ControlSwitch item={item}/>;
+                                }
+                            }}
+                    />
+                </ScreenContainer>
         );
     }
 

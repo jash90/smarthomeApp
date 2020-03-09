@@ -41,28 +41,29 @@ export default class ValidatedInput extends Component<Props, State> {
 
     render() {
         return (
-            <>
-                <Input
-                    autoCapitalize={this.props.autoCapitalize}
-                    underlineColorAndroid={this.props.underlineColorAndroid}
-                    placeholder={this.props.placeholder}
-                    secureTextEntry={this.props.secureTextEntry}
-                    onChangeText={this.onChangeText}
-                    value={this.props.value}
-                    multiline={this.props.multiline}
-                />
-                {this.props.error && this.state.validate && (
-                    <Text
-                        style={{
-                            fontSize: 12,
-                            color: "red",
-                            paddingVertical: 2,
-                            paddingLeft: 15
-                        }}>
-                        {this.props.errorText}
-                    </Text>
-                )}
-            </>
+                <>
+                    <Input
+                            autoCapitalize={this.props.autoCapitalize}
+                            underlineColorAndroid={this.props.underlineColorAndroid}
+                            placeholder={this.props.placeholder}
+                            secureTextEntry={this.props.secureTextEntry}
+                            onChangeText={this.onChangeText}
+                            value={this.props.value}
+                            multiline={this.props.multiline}
+                    />
+                    {this.props.error && this.state.validate && (
+                            <Text
+                                    style={{
+                                        fontSize: 12,
+                                        color: "red",
+                                        paddingVertical: 2,
+                                        paddingLeft: 15
+                                    }}
+                            >
+                                {this.props.errorText}
+                            </Text>
+                    )}
+                </>
         );
     }
 

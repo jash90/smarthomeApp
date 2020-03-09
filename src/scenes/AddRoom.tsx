@@ -66,70 +66,71 @@ class AddRoom extends Component<Props, State> {
 
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <H4>Name</H4>
-                <ValidatedInput
-                    ref={ref => (this.nameInput = ref)}
-                    placeholder={"Name"}
-                    value={this.state.name}
-                    onChangeText={(name: any) => this.setState({name})}
-                    error={this.state.name.length == 0}
-                    errorText={"Uzupełnił nazwę"}
-                />
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <H4>Controls</H4>
-                    <TouchableOpacity>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
-                            }}>
-                            +
-                        </H4>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    data={Stores.appStore.controls}
-                    keyExtractor={(item: any) => String(item.id)}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    ListEmptyComponent={this.renderEmpty}
-                    renderItem={item => {
-                        if (
-                            TypeActions.getGroup(item.item.typeId) ==
-                            Group.slider
-                        ) {
-                            return <ControlSlider item={item}/>;
-                        } else {
-                            return <ControlSwitch item={item}/>;
-                        }
-                    }}
-                />
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    {Stores.propsStore.control !== null && (
-                        <Button onPress={this.onRemove}>
-                            {this.state.loading && (
-                                <ActivityIndicator
-                                    size={"small"}
-                                    color={"#d0dbe6"}
-                                />
-                            )}
-                            <ButtonText>Remove</ButtonText>
-                        </Button>
-                    )}
-                    <Button onPress={this.onSave}>
-                        {this.state.loading && (
-                            <ActivityIndicator
-                                size={"small"}
-                                color={"#d0dbe6"}
-                            />
+                <ScreenContainer onBackPress={this.onBack}>
+                    <H4>Name</H4>
+                    <ValidatedInput
+                            ref={ref => (this.nameInput = ref)}
+                            placeholder={"Name"}
+                            value={this.state.name}
+                            onChangeText={(name: any) => this.setState({name})}
+                            error={this.state.name.length == 0}
+                            errorText={"Uzupełnił nazwę"}
+                    />
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <H4>Controls</H4>
+                        <TouchableOpacity>
+                            <H4
+                                    style={{
+                                        color: "orange",
+                                        fontSize: 24,
+                                        marginHorizontal: 5
+                                    }}
+                            >
+                                +
+                            </H4>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                            data={Stores.appStore.controls}
+                            keyExtractor={(item: any) => String(item.id)}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            ListEmptyComponent={this.renderEmpty}
+                            renderItem={item => {
+                                if (
+                                        TypeActions.getGroup(item.item.typeId) ==
+                                        Group.slider
+                                ) {
+                                    return <ControlSlider item={item}/>;
+                                } else {
+                                    return <ControlSwitch item={item}/>;
+                                }
+                            }}
+                    />
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        {Stores.propsStore.control !== null && (
+                                <Button onPress={this.onRemove}>
+                                    {this.state.loading && (
+                                            <ActivityIndicator
+                                                    size={"small"}
+                                                    color={"#d0dbe6"}
+                                            />
+                                    )}
+                                    <ButtonText>Remove</ButtonText>
+                                </Button>
                         )}
-                        <ButtonText>Save</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                        <Button onPress={this.onSave}>
+                            {this.state.loading && (
+                                    <ActivityIndicator
+                                            size={"small"}
+                                            color={"#d0dbe6"}
+                                    />
+                            )}
+                            <ButtonText>Save</ButtonText>
+                        </Button>
+                    </View>
+                </ScreenContainer>
         );
     }
 
@@ -146,7 +147,7 @@ class AddRoom extends Component<Props, State> {
             Toast.show(`Control ${this.state.name} added.`);
         } else {
             const index = Stores.appStore.controls.findIndex(
-                (c: Control) => c.id == Stores.propsStore.control?.id
+                    (c: Control) => c.id == Stores.propsStore.control?.id
             );
             let {name, typeId, value, roomId} = this.state;
             const control: Control = new Control({

@@ -39,59 +39,60 @@ class Login extends Component<{}, State> {
 
     render() {
         return (
-            <ScreenContainer>
-                <Title>Login</Title>
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                        <ValidatedInput
-                            ref={ref => (this.loginInput = ref)}
-                            placeholder={"Email"}
-                            value={this.state.login}
-                            error={this.state.login.length === 0}
-                            errorText={"Uzupełnij login"}
-                            onChangeText={login => {
-                                this.setState({login});
-                            }}
-                        />
-                        <ValidatedInput
-                            ref={ref => (this.passwordInput = ref)}
-                            placeholder={"Password"}
-                            value={this.state.password}
-                            error={this.state.password.length === 0}
-                            errorText={"Uzupełnij hasło"}
-                            secureTextEntry
-                            onChangeText={password =>
-                                this.setState({password})
-                            }
-                        />
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between"
-                            }}>
-                            <FlatButton onPress={this.rememberEmail}>
-                                <Icon
-                                    name={
-                                        Stores.appStore.rememberEmail
-                                            ? "check-box-outline"
-                                            : "checkbox-blank-outline"
+                <ScreenContainer>
+                    <Title>Login</Title>
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        <View style={{flex: 1, justifyContent: "center"}}>
+                            <ValidatedInput
+                                    ref={ref => (this.loginInput = ref)}
+                                    placeholder={"Email"}
+                                    value={this.state.login}
+                                    error={this.state.login.length === 0}
+                                    errorText={"Uzupełnij login"}
+                                    onChangeText={login => {
+                                        this.setState({login});
+                                    }}
+                            />
+                            <ValidatedInput
+                                    ref={ref => (this.passwordInput = ref)}
+                                    placeholder={"Password"}
+                                    value={this.state.password}
+                                    error={this.state.password.length === 0}
+                                    errorText={"Uzupełnij hasło"}
+                                    secureTextEntry
+                                    onChangeText={password =>
+                                            this.setState({password})
                                     }
-                                    size={24}
-                                    color={"#d0dbe6"}
-                                    style={{alignSelf: "center"}}
-                                />
-                                <ButtonText>Save email</ButtonText>
-                            </FlatButton>
-                            <FlatButton onPress={this.onRegister}>
-                                <ButtonText>Create account</ButtonText>
-                            </FlatButton>
+                            />
+                            <View
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between"
+                                    }}
+                            >
+                                <FlatButton onPress={this.rememberEmail}>
+                                    <Icon
+                                            name={
+                                                Stores.appStore.rememberEmail
+                                                        ? "check-box-outline"
+                                                        : "checkbox-blank-outline"
+                                            }
+                                            size={24}
+                                            color={"#d0dbe6"}
+                                            style={{alignSelf: "center"}}
+                                    />
+                                    <ButtonText>Save email</ButtonText>
+                                </FlatButton>
+                                <FlatButton onPress={this.onRegister}>
+                                    <ButtonText>Create account</ButtonText>
+                                </FlatButton>
+                            </View>
                         </View>
+                        <Button onPress={this.onLogin}>
+                            <ButtonText>Login</ButtonText>
+                        </Button>
                     </View>
-                    <Button onPress={this.onLogin}>
-                        <ButtonText>Login</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                </ScreenContainer>
         );
     }
 
@@ -99,7 +100,7 @@ class Login extends Component<{}, State> {
         try {
             const {login, password} = this.state;
             if (
-                !ValidatedInput.validate([this.loginInput, this.passwordInput])
+                    !ValidatedInput.validate([this.loginInput, this.passwordInput])
             ) {
                 return;
             }
@@ -107,13 +108,13 @@ class Login extends Component<{}, State> {
             if (response.status === 200 && !!response.data?.token) {
                 await AuthActions.setUser(response.data);
                 axios.defaults.headers.common[
-                    "Authorization"
-                    ] = `Bearer ${response.data.token}`;
+                        "Authorization"
+                        ] = `Bearer ${response.data.token}`;
                 if (Stores.appStore.rememberEmail) {
                     Stores.appStore.setSavedEmail(this.state.login);
                     await AsyncStore.save(
-                        AsyncStoreKeys.savedEmail,
-                        this.state.login
+                            AsyncStoreKeys.savedEmail,
+                            this.state.login
                     );
                 }
                 NavigationService.navigate(Navigators.Account);

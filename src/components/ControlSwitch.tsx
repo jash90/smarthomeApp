@@ -28,50 +28,52 @@ export default class ControlSwitch extends Component<Props, State> {
 
     render() {
         return (
-            <View style={{flexDirection: "row", alignItems: "center"}}>
-                <TouchableOpacity
-                    onPress={this.onPress}
-                    style={{flex: 1, flexDirection: "row"}}>
-                    <ControlView>
-                        {this.state.loading ? (
-                            <ActivityIndicator size={40} color={"#D0DBE8"}/>
-                        ) : (
-                            <Icon
-                                name={
-                                    TypeActions.getIcon(
-                                        this.props.item.item.id
-                                    ) || ""
-                                }
-                                size={40}
-                                color={
-                                    this.props.item.item.value
-                                        ? "#FF7500"
-                                        : "#D0DBE8"
-                                }
-                            />
-                        )}
-                    </ControlView>
-                    <ControlText
-                        style={{
-                            flex: 1,
-                            alignSelf: "center",
-                            marginLeft: 20,
-                            color: this.props.item.item.value
-                                ? "#FF7500"
-                                : "#D0DBE8"
-                        }}>
-                        {this.props.item.item.name}
-                    </ControlText>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
-                    <Icon
-                        style={{paddingTop: 6}}
-                        name={"square-edit-outline"}
-                        size={34}
-                        color={"#D0DBE8"}
-                    />
-                </TouchableOpacity>
-            </View>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <TouchableOpacity
+                            onPress={this.onPress}
+                            style={{flex: 1, flexDirection: "row"}}
+                    >
+                        <ControlView>
+                            {this.state.loading ? (
+                                    <ActivityIndicator size={40} color={"#D0DBE8"}/>
+                            ) : (
+                                    <Icon
+                                            name={
+                                                TypeActions.getIcon(
+                                                        this.props.item.item.id
+                                                ) || ""
+                                            }
+                                            size={40}
+                                            color={
+                                                this.props.item.item.value
+                                                        ? "#FF7500"
+                                                        : "#D0DBE8"
+                                            }
+                                    />
+                            )}
+                        </ControlView>
+                        <ControlText
+                                style={{
+                                    flex: 1,
+                                    alignSelf: "center",
+                                    marginLeft: 20,
+                                    color: this.props.item.item.value
+                                            ? "#FF7500"
+                                            : "#D0DBE8"
+                                }}
+                        >
+                            {this.props.item.item.name}
+                        </ControlText>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.onEdit} style={{width: 40}}>
+                        <Icon
+                                style={{paddingTop: 6}}
+                                name={"square-edit-outline"}
+                                size={34}
+                                color={"#D0DBE8"}
+                        />
+                    </TouchableOpacity>
+                </View>
         );
     }
 

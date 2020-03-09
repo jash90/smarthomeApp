@@ -9,38 +9,38 @@ import NavigationService from "../navigation/NavigationService";
 class Room extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <Title>Kitchen</Title>
-                <H4>Controls</H4>
-                <FlatList
-                    data={[
-                        {icon: "lightbulb", text: "Lamp 2"},
-                        {icon: "power-plug", text: "Plug"},
-                        {icon: "door", text: "Door"},
-                        {icon: "garage", text: "Garage"},
-                        {icon: "water-pump", text: "Garden"},
-                        {icon: "oil-temperature", text: "Temperature"}
-                    ]}
-                    keyExtractor={item => String(item)}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={() => <SeparatorHeight/>}
-                    renderItem={({item}) => {
-                        return (
-                            <View style={{flexDirection: "row"}}>
-                                <ControlView>
-                                    <Icon
-                                        name={item.icon}
-                                        size={40}
-                                        color="#D0DBE8"
-                                    />
-                                </ControlView>
-                                <ControlText>{item.text}</ControlText>
-                            </View>
-                        );
-                    }}
-                />
-            </ScreenContainer>
+                <ScreenContainer onBackPress={this.onBack}>
+                    <Title>Kitchen</Title>
+                    <H4>Controls</H4>
+                    <FlatList
+                            data={[
+                                {icon: "lightbulb", text: "Lamp 2"},
+                                {icon: "power-plug", text: "Plug"},
+                                {icon: "door", text: "Door"},
+                                {icon: "garage", text: "Garage"},
+                                {icon: "water-pump", text: "Garden"},
+                                {icon: "oil-temperature", text: "Temperature"}
+                            ]}
+                            keyExtractor={item => String(item)}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={() => <SeparatorHeight/>}
+                            renderItem={({item}) => {
+                                return (
+                                        <View style={{flexDirection: "row"}}>
+                                            <ControlView>
+                                                <Icon
+                                                        name={item.icon}
+                                                        size={40}
+                                                        color="#D0DBE8"
+                                                />
+                                            </ControlView>
+                                            <ControlText>{item.text}</ControlText>
+                                        </View>
+                                );
+                            }}
+                    />
+                </ScreenContainer>
         );
     }
 

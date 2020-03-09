@@ -11,18 +11,18 @@ import Store from "../stores/mobxStores";
 class Profile extends Component {
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <WelcomeText>Hello,</WelcomeText>
-                <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View style={{flex: 1, justifyContent: "flex-end"}}>
-                    <Button onPress={this.onEditProfile}>
-                        <ButtonText>Edit Profile</ButtonText>
-                    </Button>
-                    <Button onPress={this.onLogout}>
-                        <ButtonText>Logout</ButtonText>
-                    </Button>
-                </View>
-            </ScreenContainer>
+                <ScreenContainer onBackPress={this.onBack}>
+                    <WelcomeText>Hello,</WelcomeText>
+                    <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
+                    <View style={{flex: 1, justifyContent: "flex-end"}}>
+                        <Button onPress={this.onEditProfile}>
+                            <ButtonText>Edit Profile</ButtonText>
+                        </Button>
+                        <Button onPress={this.onLogout}>
+                            <ButtonText>Logout</ButtonText>
+                        </Button>
+                    </View>
+                </ScreenContainer>
         );
     }
 

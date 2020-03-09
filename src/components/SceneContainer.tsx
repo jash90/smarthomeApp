@@ -24,23 +24,24 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
                                                                     icon
                                                                 }: ScreenContainerProps) => {
     return (
-        <LinearGradient
-            colors={["#3D4151", "#1C202C", "#141824"]}
-            start={{x: 0.0, y: 0}}
-            end={{x: 1.0, y: 1.0}}
-            style={{
-                flex: 1,
-                backgroundColor: Color.primaryColor
-            }}>
-            <StatusBar barStyle="light-content" backgroundColor="#3D4151"/>
-            <SafeView>
-                <NotificationBar
-                    icon={icon}
-                    onBackPress={onBackPress}
-                    onRightPress={onRightPress}
-                />
-                <Container>{children}</Container>
-            </SafeView>
-        </LinearGradient>
+            <LinearGradient
+                    colors={["#3D4151", "#1C202C", "#141824"]}
+                    start={{x: 0.0, y: 0}}
+                    end={{x: 1.0, y: 1.0}}
+                    style={{
+                        flex: 1,
+                        backgroundColor: Color.primaryColor
+                    }}
+            >
+                <StatusBar barStyle="light-content" backgroundColor="#3D4151"/>
+                <SafeView>
+                    <NotificationBar
+                            icon={icon}
+                            onBackPress={onBackPress}
+                            onRightPress={onRightPress}
+                    />
+                    <Container>{children}</Container>
+                </SafeView>
+            </LinearGradient>
     );
 };
