@@ -2,7 +2,7 @@ enum Scenes {
     Home = "Home",
     Loading = "Loading",
     Start = "Start",
-    Add = "Add",
+    AddRoom = "AddRoom",
     EditProfile = "EditProfile",
     Login = "Login",
     Profile = "Profile",

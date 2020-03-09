@@ -1,4 +1,4 @@
-import Add from "./Add";
+import AddRoom from "./AddRoom";
 import EditProfile from "./EditProfile";
 import Home from "./Home";
 import Loading from "./Loading";
@@ -14,7 +14,7 @@ export {
     Start,
     Login,
     Register,
-    Add,
+    AddRoom,
     Profile,
     Room,
     EditProfile,

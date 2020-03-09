@@ -4,12 +4,12 @@ import { Control, Room } from "../models";
 
 export default class PropsStore {
     @observable
-    control: Control | null = null;
+    control: Control = new Control();
 
     @observable
-    room: Room | null = null;
+    room: Room = new Room();
 
-    @action setControl(control: Control | null) {
+    @action setControl(control: Control) {
         this.control = control;
     }
 

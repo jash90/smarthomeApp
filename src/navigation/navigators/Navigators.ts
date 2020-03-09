@@ -1,7 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
-    Add,
+    AddRoom,
     EditProfile,
     Home,
     Loading,
@@ -28,7 +28,7 @@ const AccountNavigator = createStackNavigator(
     {
         Home,
         Room,
-        Add,
+        AddRoom,
         AddControl,
         EditProfile,
         Profile

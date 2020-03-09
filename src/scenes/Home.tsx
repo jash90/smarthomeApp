@@ -75,9 +75,9 @@ class Home extends Component<{}, State> {
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
                 <WelcomeText>Hello,</WelcomeText>
                 <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H4>Rooms</H4>
-                    <TouchableOpacity onPress={this.onAdd}>
+                    <TouchableOpacity onPress={this.onAddRoom}>
                         <H4
                             style={{
                                 color: "orange",
@@ -87,8 +87,8 @@ class Home extends Component<{}, State> {
                             +
                         </H4>
                     </TouchableOpacity>
-                </View> */}
-                {/* <HorizontalList
+                </View>
+                <HorizontalList
                     data={Store.appStore.rooms}
                     ListEmptyComponent={this.renderEmpty}
                     keyExtractor={(item: any) => String(item.id)}
@@ -102,10 +102,10 @@ class Home extends Component<{}, State> {
                             </TouchableOpacity>
                         );
                     }}
-                /> */}
+                />
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H4>Controls</H4>
-                    <TouchableOpacity onPress={this.onAdd}>
+                    <TouchableOpacity onPress={this.onAddControl}>
                         <H4
                             style={{
                                 color: "orange",
@@ -146,8 +146,12 @@ class Home extends Component<{}, State> {
         NavigationService.navigate(Scenes.Room);
     };
 
-    onAdd = () => {
+    onAddControl = () => {
         NavigationService.navigate(Scenes.AddControl);
+    };
+
+    onAddRoom = () => {
+        NavigationService.navigate(Scenes.AddRoom);
     };
 
     getControls = async () => {

@@ -1,36 +1,10 @@
-interface User {
-    id: number;
-    firstname: string;
-    lastname: string;
-    email: string;
-    token: string;
-}
+import User from "./User";
 
-interface Room {
-    id: number;
-    name: string;
-    userId: number;
-}
+import Room from "./Room";
 
-interface Control {
-    id: number;
-    name: string;
-    value: any;
-    typeId: number;
-    userId?: string;
-    roomId?: number | null;
-}
+import Control from "./Control";
 
-interface Type {
-    id: number;
-    icon: string;
-    name: string;
-    values: any;
-    group: Group;
-    min?: number;
-    max?: number;
-    userId?: string;
-}
+import Type from "./Type";
 
 enum Group {
     switch = "switch",

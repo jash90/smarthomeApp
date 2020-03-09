@@ -24,13 +24,18 @@ import AppStore from "../stores/mobxStores/AppStore";
 import ValidatedInput from "../components/ValidatedInput";
 import TypeUtil from "../utils/TypeUtil";
 import ControlActions from "../actions/ControlActions";
-import { Control } from "../stores/models";
+import { Control, Group } from "../stores/models";
 import Stores from "../stores/mobxStores";
 import Toast from "react-native-simple-toast";
+import TypeActions from "../actions/TypeActions";
+import ControlSlider from "../components/ControlSlider";
+import ControlSwitch from "../components/ControlSwitch";
+import { LoadingIndicator } from "../components/LoadingIndicator";
+import { NoItems } from "../components/NoItems";
 
 interface Props {
     appStore: AppStore;
-    control?: Control;
+    control?: Control | undefined;
 }
 
 interface State {
@@ -40,9 +45,10 @@ interface State {
     roomId: number;
     loading: boolean;
     loadingRemove: boolean;
+    loadingControl: boolean;
 }
 
-class AddControl extends Component<Props, State> {
+class AddRoom extends Component<Props, State> {
     public nameInput: ValidatedInput | null | undefined;
     constructor(props: any) {
         super(props);
@@ -52,7 +58,8 @@ class AddControl extends Component<Props, State> {
             value: null,
             roomId: 0,
             loading: false,
-            loadingRemove: false
+            loadingRemove: false,
+            loadingControl: false
         };
     }
 
@@ -85,102 +92,35 @@ class AddControl extends Component<Props, State> {
                     error={this.state.name.length == 0}
                     errorText={"Uzupełnił nazwę"}
                 />
-                <H4>Type</H4>
-                <HorizontalList
-                    data={this.props.appStore.types}
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <H4>Controls</H4>
+                    <TouchableOpacity>
+                        <H4
+                            style={{
+                                color: "orange",
+                                fontSize: 24,
+                                marginHorizontal: 5
+                            }}>
+                            +
+                        </H4>
+                    </TouchableOpacity>
+                </View>
+                <FlatList
+                    data={Stores.appStore.controls}
                     keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }: any) => {
-                        const color =
-                            item.id === this.state.typeId
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.setState({ typeId: item.id })
-                                }>
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Icon
-                                            name={item.icon}
-                                            size={40}
-                                            color={color}
-                                        />
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <H4>Value</H4>
-                <HorizontalList
-                    data={
-                        this.props.appStore.types
-                            .find(t => t.id == this.state.typeId)
-                            ?.values.map((type: any) =>
-                                TypeUtil.stringifyValue(type)
-                            ) || []
-                    }
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }: any) => {
-                        const color =
-                            item === TypeUtil.stringifyValue(this.state.value)
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() => this.setState({ value: item })}>
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Text
-                                            style={{
-                                                fontSize: 36,
-                                                color: color
-                                            }}>
-                                            {item}
-                                        </Text>
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <H4>Rooms</H4>
-                <HorizontalList
-                    data={this.props.appStore.rooms}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }: any) => {
-                        const color =
-                            item.id === this.state.roomId
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.setState({
-                                        roomId: this.state.roomId
-                                            ? null
-                                            : item.id
-                                    })
-                                }>
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Text
-                                            numberOfLines={2}
-                                            style={{
-                                                fontSize: 14,
-                                                color: color,
-                                                padding: 10
-                                            }}>
-                                            {item.name}
-                                        </Text>
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListEmptyComponent={this.renderEmpty}
+                    renderItem={item => {
+                        if (
+                            TypeActions.getGroup(item.item.typeId) ==
+                            Group.slider
+                        ) {
+                            return <ControlSlider item={item} />;
+                        } else {
+                            return <ControlSwitch item={item} />;
+                        }
                     }}
                 />
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
@@ -263,5 +203,16 @@ class AddControl extends Component<Props, State> {
         });
         this.clear();
     };
+
+    renderSeparator = () => {
+        return <SeparatorHeight />;
+    };
+
+    renderEmpty = () => {
+        if (this.state.loadingControl) {
+            return <LoadingIndicator />;
+        }
+        return <NoItems />;
+    };
 }
-export default inject("appStore")(observer(AddControl));
+export default inject("appStore")(observer(AddRoom));
