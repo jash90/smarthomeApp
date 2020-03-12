@@ -1,44 +1,90 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
 import { ControlText, ControlView, H4, SeparatorHeight, Title } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
+import Stores from "../stores/mobxStores";
+import PropsStore from "../stores/mobxStores/PropsStore";
+import AuthStore from "../stores/mobxStores/AuthStore";
+import TypeActions from "../actions/TypeActions";
+import ControlSlider from "../components/ControlSlider";
+import ControlSwitch from "../components/ControlSwitch";
+import { Group } from "../stores/models";
+import { LoadingIndicator } from "../components/LoadingIndicator";
+import { NoItems } from "../components/NoItems";
+import Scenes from "../navigation/Scenes";
 
-class Room extends Component {
+interface Props {
+    authStore: AuthStore;
+    propsStore: PropsStore;
+}
+
+interface State {
+    loadingControl: boolean;
+}
+
+class Room extends Component<Props, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            loadingControl: false,
+        };
+    }
+
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
-                <Title>Kitchen</Title>
-                <H4>Controls</H4>
+                <Title>{this.props.propsStore.room?.name}</Title>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <H4>Controls</H4>
+                    <TouchableOpacity onPress={this.onAddRoom}>
+                        <H4
+                            style={{
+                                color: "orange",
+                                fontSize: 24,
+                                marginHorizontal: 5
+                            }}
+                        >
+                            +
+                            </H4>
+                    </TouchableOpacity>
+                </View>
                 <FlatList
-                    data={[
-                        { icon: "lightbulb", text: "Lamp 2" },
-                        { icon: "power-plug", text: "Plug" },
-                        { icon: "door", text: "Door" },
-                        { icon: "garage", text: "Garage" },
-                        { icon: "water-pump", text: "Garden" },
-                        { icon: "oil-temperature", text: "Temperature" }
-                    ]}
-                    keyExtractor={item => String(item)}
+                    data={this.props.propsStore.room.controls}
+                    keyExtractor={(item: any) => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }) => {
-                        return (
-                            <View style={{ flexDirection: "row" }}>
-                                <ControlView>
-                                    <Icon name={item.icon} size={40} color="#D0DBE8" />
-                                </ControlView>
-                                <ControlText>{item.text}</ControlText>
-                            </View>
-                        );
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListEmptyComponent={this.renderEmpty}
+                    renderItem={item => {
+                        if (TypeActions.getGroup(item.item.typeId) == Group.slider) {
+                            return <ControlSlider item={item} />;
+                        } else {
+                            return <ControlSwitch item={item} />;
+                        }
                     }}
                 />
             </ScreenContainer>
         );
     }
+
+
+    renderSeparator = () => {
+        return <SeparatorHeight />;
+    };
+
+    renderEmpty = () => {
+        if (this.state.loadingControl) {
+            return <LoadingIndicator />;
+        }
+        return <NoItems />;
+    };
+
+    onAddRoom = () => {
+        NavigationService.navigate(Scenes.AddRoom);
+    };
 
     onBack = () => {
         NavigationService.goBack();

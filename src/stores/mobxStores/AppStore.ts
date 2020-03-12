@@ -1,5 +1,5 @@
-import {action, observable} from "mobx";
-import {Control, Room, Type} from "../models";
+import { action, observable } from "mobx";
+import { Control, Room, Type } from "../models";
 
 export default class AppStore {
     @observable
@@ -48,6 +48,12 @@ export default class AppStore {
         this.controls[index].typeId = control.typeId;
         this.controls[index].value = control.value;
         this.controls[index].roomId = control.roomId;
+    }
+
+    @action setRoom(index: number, room: Room) {
+        this.rooms[index].id = room.id;
+        this.rooms[index].name = room.name;
+        this.rooms[index].controls = room.controls;
     }
 
     @action setRooms(rooms: Room[]) {

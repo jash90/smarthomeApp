@@ -19,12 +19,13 @@ import ControlApi from "../api/ControlApi";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { NoItems } from "../components/NoItems";
 import ErrorUtil from "../api/ErrorUtil";
-import RoomsApi from "../api/RoomsApi";
+import RoomsApi from "../api/RoomApi";
 import ControlSwitch from "../components/ControlSwitch";
 import ControlSlider from "../components/ControlSlider";
 import { Clazz, Serialize } from "../serialize/index";
-import { Group } from "../stores/models";
+import { Group, Control, Room } from "../stores/models";
 import TypeActions from "../actions/TypeActions";
+import Stores from "../stores/mobxStores";
 
 interface State {
     loadingControl: boolean;
@@ -84,7 +85,7 @@ class Home extends Component<{}, State> {
                     ItemSeparatorComponent={() => <SeparatorWidth />}
                     renderItem={({ item }: any) => {
                         return (
-                            <TouchableOpacity onPress={this.onRoom}>
+                            <TouchableOpacity onPress={() => this.onRoom(item)}>
                                 <RoomView>
                                     <RoomText>{item.name}</RoomText>
                                 </RoomView>
@@ -129,7 +130,8 @@ class Home extends Component<{}, State> {
         NavigationService.navigate(Scenes.Profile);
     };
 
-    onRoom = () => {
+    onRoom = async (room: Room) => {
+        await Stores.propsStore.setRoom(room);
         NavigationService.navigate(Scenes.Room);
     };
 
@@ -203,4 +205,4 @@ class Home extends Component<{}, State> {
     }
 }
 
-export default inject("authStore", "appStore")(observer(Home));
+export default inject("authStore", "appStore", "propsStore")(observer(Home));
