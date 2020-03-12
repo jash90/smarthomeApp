@@ -10,7 +10,7 @@ export default class Type {
     max?: number = 0;
     userId?: number = 0;
 
-    constructor(options?: {
+    constructor(options: {
         id: number;
         icon: string;
         name: string;
@@ -20,13 +20,13 @@ export default class Type {
         max?: number;
         userId?: number;
     }) {
-        this.id = options?.id || 0;
-        this.name = options?.name || "";
-        this.icon = options?.icon || "";
-        this.values = options?.values || null;
-        this.group = options?.group || Group.switch;
-        this.min = options?.min || 0;
-        this.max = options?.max || 0;
-        this.userId = options?.userId || 0;
+        this.id = options.id || 0;
+        this.name = options.name || "";
+        this.icon = options.icon || "";
+        this.values = options.values || null;
+        this.group = options.group || Group.switch;
+        this.min = options.min || 0;
+        this.max = options.max || 0;
+        this.userId = options.userId || 0;
     }
 }

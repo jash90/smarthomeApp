@@ -74,7 +74,7 @@ class Home extends Component<{}, State> {
                             }}
                         >
                             +
-                        </H4>
+                            </H4>
                     </TouchableOpacity>
                 </View>
                 <HorizontalList
@@ -103,7 +103,7 @@ class Home extends Component<{}, State> {
                             }}
                         >
                             +
-                        </H4>
+                            </H4>
                     </TouchableOpacity>
                 </View>
                 <FlatList
