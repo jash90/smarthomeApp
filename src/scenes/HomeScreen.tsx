@@ -33,7 +33,7 @@ interface State {
     loading: boolean;
 }
 
-class Home extends Component<{}, State> {
+class HomeScreen extends Component<{}, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -127,20 +127,20 @@ class Home extends Component<{}, State> {
     }
 
     onProfile = () => {
-        NavigationService.navigate(Scenes.Profile);
+        NavigationService.navigate(Scenes.ProfileScreen);
     };
 
     onRoom = async (room: Room) => {
         await Stores.propsStore.setRoom(room);
-        NavigationService.navigate(Scenes.Room);
+        NavigationService.navigate(Scenes.RoomScreen);
     };
 
     onAddControl = () => {
-        NavigationService.navigate(Scenes.AddControl);
+        NavigationService.navigate(Scenes.AddControlScreen);
     };
 
     onAddRoom = () => {
-        NavigationService.navigate(Scenes.AddRoom);
+        NavigationService.navigate(Scenes.AddRoomScreen);
     };
 
     getControls = async () => {
@@ -205,4 +205,4 @@ class Home extends Component<{}, State> {
     }
 }
 
-export default inject("authStore", "appStore", "propsStore")(observer(Home));
+export default inject("authStore", "appStore", "propsStore")(observer(HomeScreen));

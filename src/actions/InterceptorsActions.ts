@@ -2,7 +2,7 @@ export default class Interceptors {
     public static handleRequest(request: any) {
         console.group(
             `[Network]: Request ${String(request.method).toUpperCase()} => ${
-                request.url
+            request.url
             }`
         );
         console.group(`headers:`);
@@ -34,7 +34,7 @@ export default class Interceptors {
     public static handleError(error: any) {
         console.group(
             `[Network]: Error ${String(error.config.method).toUpperCase()} => ${
-                error.config.url
+            error.config.url
             }`
         );
         console.group(`headers:`);

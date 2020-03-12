@@ -3,7 +3,7 @@ import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
 import axios from "../api/Axios";
 import TypeApi from "../api/TypeApi";
-import {Clazz, Serialize} from "../serialize";
+import { Clazz, Serialize } from "../serialize";
 
 export default class Initial {
     public static async AppStore() {
@@ -32,7 +32,7 @@ export default class Initial {
                 Stores.authStore.setUser(JSON.parse(user));
                 axios.defaults.headers.common["Authorization"] = `Bearer ${
                     JSON.parse(user).token
-                }`;
+                    }`;
             }
         } catch (error) {
             console.log(error);

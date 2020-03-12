@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import {H2} from "./StyledComponent";
+import { H2 } from "./StyledComponent";
 
 const Container = styled.View`
     width: 100%;
@@ -18,9 +18,9 @@ const Indicator = styled.ActivityIndicator`
 
 export const LoadingIndicator: React.FC = () => {
     return (
-            <Container>
-                <Indicator/>
-                <H2>Loading...</H2>
-            </Container>
+        <Container>
+            <Indicator />
+            <H2>Loading...</H2>
+        </Container>
     );
 };

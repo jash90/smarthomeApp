@@ -4,4 +4,4 @@ enum Navigators {
     App = "App"
 }
 
-export {Navigators};
+export { Navigators };

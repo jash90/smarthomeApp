@@ -8,7 +8,7 @@ import NavigationService from "../navigation/NavigationService";
 import Scenes from "../navigation/Scenes";
 import Store from "../stores/mobxStores";
 
-class Profile extends Component {
+class ProfileScreen extends Component {
     render() {
         return (
             <ScreenContainer onBackPress={this.onBack}>
@@ -30,12 +30,12 @@ class Profile extends Component {
         NavigationService.goBack();
     };
     onEditProfile = () => {
-        NavigationService.navigate(Scenes.EditProfile);
+        NavigationService.navigate(Scenes.EditProfileScreen);
     };
     onLogout = () => {
         AuthActions.clearUser();
-        NavigationService.navigate(Scenes.Login);
+        NavigationService.navigate(Scenes.LoginScreen);
     };
 }
 
-export default inject("authStore", "propsStore")(observer(Profile));
+export default inject("authStore", "propsStore")(observer(ProfileScreen));

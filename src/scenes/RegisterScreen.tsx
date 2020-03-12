@@ -18,7 +18,7 @@ interface State {
     lastname: string;
 }
 
-class Register extends Component<{}, State> {
+class RegisterScreen extends Component<{}, State> {
     public loginInput: ValidatedInput | null | undefined;
     public passwordInput: ValidatedInput | null | undefined;
     public firstnameInput: ValidatedInput | null | undefined;
@@ -112,4 +112,4 @@ class Register extends Component<{}, State> {
     };
 }
 
-export default inject("authStore", "propsStore")(observer(Register));
+export default inject("authStore", "propsStore")(observer(RegisterScreen));

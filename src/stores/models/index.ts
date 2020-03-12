@@ -11,4 +11,4 @@ enum Group {
     slider = "slider"
 }
 
-export {User, Room, Control, Type, Group};
+export { User, Room, Control, Type, Group };

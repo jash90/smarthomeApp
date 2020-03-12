@@ -25,7 +25,7 @@ interface State {
     loadingControl: boolean;
 }
 
-class Room extends Component<Props, State> {
+class RoomScreen extends Component<Props, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -83,7 +83,7 @@ class Room extends Component<Props, State> {
     };
 
     onAddRoom = () => {
-        NavigationService.navigate(Scenes.AddRoom);
+        NavigationService.navigate(Scenes.AddRoomScreen);
     };
 
     onBack = () => {
@@ -91,4 +91,4 @@ class Room extends Component<Props, State> {
     };
 }
 
-export default inject("authStore", "propsStore")(observer(Room));
+export default inject("authStore", "propsStore")(observer(RoomScreen));

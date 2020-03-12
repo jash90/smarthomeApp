@@ -30,6 +30,6 @@ export default class LoanGameApi {
     }
 
     public static async search(email: string) {
-        return await axios.post(`/${this.apiName}/search`, {email});
+        return await axios.post(`/${this.apiName}/search`, { email });
     }
 }

@@ -1,7 +1,7 @@
 import Stores from "../stores/mobxStores";
-import {Control} from "../stores/models";
+import { Control } from "../stores/models";
 import ControlApi from "../api/ControlApi";
-import {Clazz, Deserialize, Serialize} from "../serialize";
+import { Clazz, Deserialize, Serialize } from "../serialize";
 
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {

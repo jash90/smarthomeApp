@@ -21,7 +21,7 @@ interface State {
     password: string;
 }
 
-class Login extends Component<{}, State> {
+class LoginScreen extends Component<{}, State> {
     public loginInput: ValidatedInput | null | undefined;
     public passwordInput: ValidatedInput | null | undefined;
 
@@ -129,8 +129,8 @@ class Login extends Component<{}, State> {
     };
 
     onRegister = () => {
-        NavigationService.navigate(Scenes.Register);
+        NavigationService.navigate(Scenes.RegisterScreen);
     };
 }
 
-export default inject("authStore", "propsStore", "appStore")(observer(Login));
+export default inject("authStore", "propsStore", "appStore")(observer(LoginScreen));

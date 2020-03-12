@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Text, TextInputProps} from "react-native";
-import {Input} from "./StyledComponent";
+import React, { Component } from "react";
+import { Text, TextInputProps } from "react-native";
+import { Input } from "./StyledComponent";
 
 interface Props extends TextInputProps {
     error?: boolean | null;
@@ -25,7 +25,7 @@ export default class ValidatedInput extends Component<Props, State> {
     };
 
     public validate() {
-        this.setState({validate: true});
+        this.setState({ validate: true });
     }
 
     public static validate(refs: any[]): boolean {
@@ -41,34 +41,34 @@ export default class ValidatedInput extends Component<Props, State> {
 
     render() {
         return (
-                <>
-                    <Input
-                            autoCapitalize={this.props.autoCapitalize}
-                            underlineColorAndroid={this.props.underlineColorAndroid}
-                            placeholder={this.props.placeholder}
-                            secureTextEntry={this.props.secureTextEntry}
-                            onChangeText={this.onChangeText}
-                            value={this.props.value}
-                            multiline={this.props.multiline}
-                    />
-                    {this.props.error && this.state.validate && (
-                            <Text
-                                    style={{
-                                        fontSize: 12,
-                                        color: "red",
-                                        paddingVertical: 2,
-                                        paddingLeft: 15
-                                    }}
-                            >
-                                {this.props.errorText}
-                            </Text>
-                    )}
-                </>
+            <>
+                <Input
+                    autoCapitalize={this.props.autoCapitalize}
+                    underlineColorAndroid={this.props.underlineColorAndroid}
+                    placeholder={this.props.placeholder}
+                    secureTextEntry={this.props.secureTextEntry}
+                    onChangeText={this.onChangeText}
+                    value={this.props.value}
+                    multiline={this.props.multiline}
+                />
+                {this.props.error && this.state.validate && (
+                    <Text
+                        style={{
+                            fontSize: 12,
+                            color: "red",
+                            paddingVertical: 2,
+                            paddingLeft: 15
+                        }}
+                    >
+                        {this.props.errorText}
+                    </Text>
+                )}
+            </>
         );
     }
 
     onChangeText = (text: string) => {
-        this.setState({validate: false});
+        this.setState({ validate: false });
         if (this.props.onChangeText) this.props.onChangeText(text);
     };
 }

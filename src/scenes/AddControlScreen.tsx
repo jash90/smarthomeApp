@@ -29,7 +29,7 @@ interface State {
     loadingRemove: boolean;
 }
 
-class AddControl extends Component<Props, State> {
+class AddControlScreen extends Component<Props, State> {
     public nameInput: ValidatedInput | null | undefined;
 
     constructor(props: any) {
@@ -258,4 +258,4 @@ class AddControl extends Component<Props, State> {
     };
 }
 
-export default inject("appStore", "propsStore")(observer(AddControl));
+export default inject("appStore", "propsStore")(observer(AddControlScreen));

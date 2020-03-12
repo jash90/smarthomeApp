@@ -1,23 +1,23 @@
-import AddRoom from "./AddRoom";
-import EditProfile from "./EditProfile";
-import Home from "./Home";
-import Loading from "./Loading";
-import Login from "./Login";
-import Profile from "./Profile";
-import Register from "./Register";
-import Room from "./Room";
-import Start from "./Start";
-import AddControl from "./AddControl";
+import AddRoomScreen from "./AddRoomScreen";
+import EditProfileScreen from "./EditProfileScreen";
+import HomeScreen from "./HomeScreen";
+import LoadingScreen from "./LoadingScreen";
+import LoginScreen from "./LoginScreen";
+import ProfileScreen from "./ProfileScreen";
+import RegisterScreen from "./RegisterScreen";
+import RoomScreen from "./RoomScreen";
+import StartScreen from "./StartScreen";
+import AddControlScreen from "./AddControlScreen";
 
 export {
-    Home,
-    Start,
-    Login,
-    Register,
-    AddRoom,
-    Profile,
-    Room,
-    EditProfile,
-    Loading,
-    AddControl
+    HomeScreen,
+    StartScreen,
+    LoginScreen,
+    RegisterScreen,
+    AddRoomScreen,
+    ProfileScreen,
+    RoomScreen,
+    EditProfileScreen,
+    LoadingScreen,
+    AddControlScreen
 };

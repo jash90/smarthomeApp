@@ -1,5 +1,5 @@
-import {NavigationActions, NavigationContainerComponent, StackActions} from "react-navigation";
-import {Navigators} from "./navigators/Enum";
+import { NavigationActions, NavigationContainerComponent, StackActions } from "react-navigation";
+import { Navigators } from "./navigators/Enum";
 import Scenes from "./Scenes";
 
 export default class NavigationService {
@@ -35,7 +35,7 @@ export default class NavigationService {
         console.log(`[Navigation]: RESET routename: ${routeName}`);
         const resetAction = StackActions.reset({
             index: 0,
-            actions: [NavigationActions.navigate({routeName})]
+            actions: [NavigationActions.navigate({ routeName })]
         });
         this.navigator.dispatch(resetAction);
     }

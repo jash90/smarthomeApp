@@ -27,7 +27,7 @@ interface State {
     loadingRemove: boolean;
 }
 
-class AddRoom extends Component<Props, State> {
+class AddRoomScreen extends Component<Props, State> {
     public nameInput: ValidatedInput | null | undefined;
 
     constructor(props: any) {
@@ -124,4 +124,4 @@ class AddRoom extends Component<Props, State> {
     };
 }
 
-export default inject("appStore")(observer(AddRoom));
+export default inject("appStore")(observer(AddRoomScreen));

@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import AsyncStore from "../stores/asyncStore/index";
 import Stores from "../stores/mobxStores";
-import {User} from "../stores/models";
+import { User } from "../stores/models";
 
 export default class AuthActions {
     public static async setUser(user: User) {

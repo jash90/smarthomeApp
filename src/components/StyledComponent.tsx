@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import {FlatList} from "react-native";
+import { FlatList } from "react-native";
 
 export const SeparatorWidth = styled.View({
     width: 15
