@@ -9,6 +9,7 @@ export default class Control {
     constructor(name: string = "", value: any = "", typeId: number = 0, userId: number = 0, roomId: number = 0, id: number = 0) {
         this.id = id || 0;
         this.name = name
+        this.value = value;
         this.typeId = typeId;
         this.userId = userId;
         this.roomId = roomId;

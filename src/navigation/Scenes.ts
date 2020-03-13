@@ -1,4 +1,4 @@
-enum Scenes {
+enum Screens {
     HomeScreen = "HomeScreen",
     LoadingScreen = "LoadingScreen",
     StartScreen = "StartScreen",
@@ -11,4 +11,4 @@ enum Scenes {
     AddControlScreen = "AddControlScreen"
 }
 
-export default Scenes;
+export default Screens;

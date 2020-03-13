@@ -9,7 +9,7 @@ import AppStore from "../stores/mobxStores/AppStore";
 import ValidatedInput from "../components/ValidatedInput";
 import TypeUtil from "../utils/TypeUtil";
 import ControlActions from "../actions/ControlActions";
-import { Control } from "../stores/models";
+import { Control, Type } from "../stores/models";
 import Stores from "../stores/mobxStores";
 import Toast from "react-native-simple-toast";
 import PropsStore from "../stores/mobxStores/PropsStore";
@@ -105,17 +105,13 @@ class AddControlScreen extends Component<Props, State> {
                 <H4>Value</H4>
                 <HorizontalList
                     data={
-                        this.props.appStore.types
-                            .find(t => t.id == this.state.typeId)
-                            ?.values.map((type: any) =>
-                                TypeUtil.stringifyValue(type)
-                            ) || []
+                        this.props.appStore.types.find((t: Type) => t.id === this.state.typeId)?.values
                     }
-                    keyExtractor={(item: any) => String(item.id)}
+                    keyExtractor={(item: any) => String(item)}
                     ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }: any) => {
                         const color =
-                            item === TypeUtil.stringifyValue(this.state.value)
+                            item === this.state.value
                                 ? "#FF7500"
                                 : "#D0DBE8";
                         return (
@@ -130,7 +126,7 @@ class AddControlScreen extends Component<Props, State> {
                                                 color: color
                                             }}
                                         >
-                                            {item}
+                                            {TypeUtil.stringifyValue(item)}
                                         </Text>
                                     </ControlView>
                                 </View>
@@ -177,7 +173,7 @@ class AddControlScreen extends Component<Props, State> {
                     }}
                 />
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
-                    {Stores.propsStore.control !== null && (
+                    {Stores.propsStore.control.id > 0 && (
                         <Button onPress={this.onRemove}>
                             {this.state.loading && (
                                 <ActivityIndicator
@@ -210,7 +206,7 @@ class AddControlScreen extends Component<Props, State> {
         this.setState({
             loading: true
         });
-        if (!Stores.propsStore.control) {
+        if (Stores.propsStore.control.id == 0) {
             await ControlActions.saveControl(this.state);
             Toast.show(`Control ${this.state.name} added.`);
         } else {
@@ -218,15 +214,7 @@ class AddControlScreen extends Component<Props, State> {
                 (c: Control) => c.id == Stores.propsStore.control?.id
             );
             let { name, typeId, value, roomId } = this.state;
-            const control: Control = new Control(
-                name,
-                typeId,
-                value,
-                roomId,
-                Stores.authStore.id,
-                Stores.propsStore.control.id,
-            );
-
+            const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
             await ControlActions.changeControl(index, control);
             Toast.show(`Control ${control.name} updated.`);
         }

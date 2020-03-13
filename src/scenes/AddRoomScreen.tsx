@@ -16,6 +16,7 @@ import ControlSwitch from "../components/ControlSwitch";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { NoItems } from "../components/NoItems";
 import RoomActions from '../actions/RoomActions';
+import { Navigators } from "../navigation/navigators/Enum";
 
 interface Props {
     appStore: AppStore;
@@ -49,7 +50,8 @@ class AddRoomScreen extends Component<Props, State> {
     };
 
     componentWillUnmount = async () => {
-        await Stores.propsStore.setRoom(new Room());
+        if (Stores.propsStore.room.id <= 0)
+            await Stores.propsStore.setRoom(new Room());
     };
 
     render() {
@@ -65,6 +67,17 @@ class AddRoomScreen extends Component<Props, State> {
                     errorText={"Uzupełnił nazwę"}
                 />
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                    {Stores.propsStore.room.id > 0 && (
+                        <Button onPress={this.onRemove}>
+                            {this.state.loading && (
+                                <ActivityIndicator
+                                    size={"small"}
+                                    color={"#d0dbe6"}
+                                />
+                            )}
+                            <ButtonText>Remove</ButtonText>
+                        </Button>
+                    )}
                     <Button onPress={this.onSave}>
                         {this.state.loading && (
                             <ActivityIndicator
@@ -87,7 +100,7 @@ class AddRoomScreen extends Component<Props, State> {
         this.setState({
             loading: true
         });
-        if (!Stores.propsStore.room) {
+        if (Stores.propsStore.room.id <= 0) {
             await RoomActions.saveRoom(new Room(this.state.name));
             Toast.show(`Room ${this.state.name} added.`);
         } else {
@@ -95,7 +108,8 @@ class AddRoomScreen extends Component<Props, State> {
                 (c: Room) => c.id == Stores.propsStore.room?.id
             );
             let { name } = this.state;
-            const room: Room = new Room(name);
+            let { userId, controls, id } = Stores.propsStore.room;
+            let room: Room = new Room(name, userId, controls, id);
             await RoomActions.changeControl(index, room);
             Toast.show(`Room ${room.name} updated.`);
         }
@@ -115,12 +129,14 @@ class AddRoomScreen extends Component<Props, State> {
         this.setState({
             loadingRemove: true
         });
-        await ControlActions.removeControl(Stores.propsStore.control?.id || 0);
-        Toast.show(`Control ${Stores.propsStore.control?.name} removed.`);
+        await RoomActions.removeRoom(Stores.propsStore.room.id);
+        Toast.show(`Room ${Stores.propsStore.room.name} removed.`);
         this.setState({
             loadingRemove: false
         });
         this.clear();
+        await Stores.propsStore.setRoom(new Room());
+        await NavigationService.reset(Navigators.Account);
     };
 }
 

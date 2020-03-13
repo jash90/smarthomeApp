@@ -7,7 +7,7 @@ import { Title } from "../components/StyledComponent";
 import Initial from "../initial";
 import NavigationService from "../navigation/NavigationService";
 import { Navigators } from "../navigation/navigators/Enum";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import Stores from "../stores/mobxStores";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 
@@ -15,7 +15,7 @@ class LoadingScreen extends Component {
     componentDidMount = async () => {
         await Initial.AppStore();
         if (Stores.appStore.firstOpen) {
-            NavigationService.reset(Scenes.StartScreen);
+            NavigationService.reset(Screens.StartScreen);
         } else if (Stores.appStore.logged) {
             NavigationService.reset(Navigators.Account);
         } else {

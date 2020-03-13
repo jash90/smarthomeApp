@@ -6,7 +6,9 @@ import { Clazz, Deserialize, Serialize } from "../serialize";
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {
         try {
+            console.log({ control });
             await Deserialize.this(Clazz.controls, control);
+            console.log({ control });
             const response = await ControlApi.updateControl(control);
             control = response.data;
             await Serialize.this(Clazz.controls, control);
@@ -21,7 +23,10 @@ export default class ControlActions {
             let control = value;
             await Deserialize.this(Clazz.controls, control);
             const response = await ControlApi.createControl(control);
-            Stores.appStore.controls.push(response.data);
+            let controls = Stores.appStore.controls;
+            controls.push(response.data);
+            Deserialize.this(Clazz.controls, controls);
+            Stores.appStore.setControls(controls);
         } catch (error) {
             console.log(error);
         }

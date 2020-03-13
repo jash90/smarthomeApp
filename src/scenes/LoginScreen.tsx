@@ -11,7 +11,7 @@ import { Button, ButtonText, FlatButton, Title } from "../components/StyledCompo
 import ValidatedInput from "../components/ValidatedInput";
 import NavigationService from "../navigation/NavigationService";
 import { Navigators } from "../navigation/navigators/Enum";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import AsyncStore from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
@@ -129,7 +129,7 @@ class LoginScreen extends Component<{}, State> {
     };
 
     onRegister = () => {
-        NavigationService.navigate(Scenes.RegisterScreen);
+        NavigationService.navigate(Screens.RegisterScreen);
     };
 }
 

@@ -8,7 +8,7 @@ import ControlActions from "../actions/ControlActions";
 import { toJS } from "mobx";
 import Stores from "../stores/mobxStores";
 import { Control } from "../stores/models";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import NavigationService from "../navigation/NavigationService";
 
 interface Props {
@@ -119,6 +119,6 @@ export default class ControlSlider extends Component<Props, State> {
     onEdit = async () => {
         let control: Control = toJS(this.props.item.item);
         await Stores.propsStore.setControl(control);
-        await NavigationService.navigate(Scenes.AddControl);
+        await NavigationService.navigate(Screens.AddControlScreen);
     };
 }

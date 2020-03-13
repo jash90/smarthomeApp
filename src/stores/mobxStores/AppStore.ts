@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, observable, IObservableArray } from "mobx";
 import { Control, Room, Type } from "../models";
 
 export default class AppStore {
@@ -14,14 +14,11 @@ export default class AppStore {
     @observable
     logged: boolean = false;
 
-    @observable
-    rooms: Room[] = [];
+    rooms: IObservableArray<Room> = observable([]);
 
-    @observable
-    controls: Control[] = [];
+    controls: IObservableArray<Control> = observable([]);
 
-    @observable
-    types: Type[] = [];
+    types: IObservableArray<Type> = observable([]);
 
     @action setRememberEmail(rememberEmail: boolean) {
         this.rememberEmail = rememberEmail;
@@ -40,27 +37,26 @@ export default class AppStore {
     }
 
     @action setControls(controls: Control[]) {
-        this.controls = controls;
+        this.controls.clear();
+        this.controls.push(...controls);
     }
 
     @action setControl(index: number, control: Control) {
-        this.controls[index].name = control.name;
-        this.controls[index].typeId = control.typeId;
-        this.controls[index].value = control.value;
-        this.controls[index].roomId = control.roomId;
+        let find = this.controls.find(c => c.id === control.id);
+        find = control;
     }
 
     @action setRoom(index: number, room: Room) {
-        this.rooms[index].id = room.id;
-        this.rooms[index].name = room.name;
-        this.rooms[index].controls = room.controls;
+        this.rooms[index] = room;
     }
 
     @action setRooms(rooms: Room[]) {
-        this.rooms = rooms;
+        this.rooms.clear();
+        this.rooms.push(...rooms);
     }
 
     @action setTypes(types: Type[]) {
-        this.types = types;
+        this.types.clear();
+        this.types.push(...types);
     }
 }

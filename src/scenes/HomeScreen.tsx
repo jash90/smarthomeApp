@@ -13,7 +13,7 @@ import {
     WelcomeText
 } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import Store from "../stores/mobxStores";
 import ControlApi from "../api/ControlApi";
 import { LoadingIndicator } from "../components/LoadingIndicator";
@@ -127,20 +127,20 @@ class HomeScreen extends Component<{}, State> {
     }
 
     onProfile = () => {
-        NavigationService.navigate(Scenes.ProfileScreen);
+        NavigationService.navigate(Screens.ProfileScreen);
     };
 
     onRoom = async (room: Room) => {
         await Stores.propsStore.setRoom(room);
-        NavigationService.navigate(Scenes.RoomScreen);
+        NavigationService.navigate(Screens.RoomScreen);
     };
 
     onAddControl = () => {
-        NavigationService.navigate(Scenes.AddControlScreen);
+        NavigationService.navigate(Screens.AddControlScreen);
     };
 
     onAddRoom = () => {
-        NavigationService.navigate(Scenes.AddRoomScreen);
+        NavigationService.navigate(Screens.AddRoomScreen);
     };
 
     getControls = async () => {

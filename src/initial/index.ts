@@ -27,6 +27,7 @@ export default class Initial {
             const response = await TypeApi.getTypes();
             const types = response.data;
             await Serialize.this(Clazz.types, types);
+            console.log(types);
             Stores.appStore.setTypes(types);
             if (logged) {
                 Stores.authStore.setUser(JSON.parse(user));

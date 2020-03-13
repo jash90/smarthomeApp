@@ -5,7 +5,7 @@ import AuthActions from "../actions/AuthActions";
 import { ScreenContainer } from "../components/SceneContainer";
 import { Button, ButtonText, PersonText, WelcomeText } from "../components/StyledComponent";
 import NavigationService from "../navigation/NavigationService";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import Store from "../stores/mobxStores";
 
 class ProfileScreen extends Component {
@@ -30,11 +30,11 @@ class ProfileScreen extends Component {
         NavigationService.goBack();
     };
     onEditProfile = () => {
-        NavigationService.navigate(Scenes.EditProfileScreen);
+        NavigationService.navigate(Screens.EditProfileScreen);
     };
     onLogout = () => {
         AuthActions.clearUser();
-        NavigationService.navigate(Scenes.LoginScreen);
+        NavigationService.navigate(Screens.LoginScreen);
     };
 }
 

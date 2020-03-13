@@ -1,6 +1,6 @@
 import { NavigationActions, NavigationContainerComponent, StackActions } from "react-navigation";
 import { Navigators } from "./navigators/Enum";
-import Scenes from "./Scenes";
+import Screens from "./Scenes";
 
 export default class NavigationService {
     static navigator: NavigationContainerComponent | any;
@@ -12,7 +12,7 @@ export default class NavigationService {
     }
 
     public static navigate(
-        routeName: Scenes | Navigators,
+        routeName: Screens | Navigators,
         params: any | null = null
     ) {
         console.log(
@@ -31,7 +31,7 @@ export default class NavigationService {
         this.navigator.dispatch(NavigationActions.back());
     }
 
-    public static reset(routeName: Scenes | Navigators) {
+    public static reset(routeName: Screens | Navigators) {
         console.log(`[Navigation]: RESET routename: ${routeName}`);
         const resetAction = StackActions.reset({
             index: 0,

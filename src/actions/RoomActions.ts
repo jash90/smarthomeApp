@@ -18,7 +18,9 @@ export default class RoomActions {
     public static async saveRoom(room: Room) {
         try {
             const response = await RoomApi.createRoom(room);
-            Stores.appStore.rooms.push(response.data);
+            let rooms = Stores.appStore.rooms;
+            rooms.push(response.data);
+            Stores.appStore.setRooms(rooms);
         } catch (error) {
             console.log(error);
         }

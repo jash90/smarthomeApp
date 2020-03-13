@@ -11,10 +11,10 @@ import AuthStore from "../stores/mobxStores/AuthStore";
 import TypeActions from "../actions/TypeActions";
 import ControlSlider from "../components/ControlSlider";
 import ControlSwitch from "../components/ControlSwitch";
-import { Group } from "../stores/models";
+import { Group, Room } from "../stores/models";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { NoItems } from "../components/NoItems";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 
 interface Props {
     authStore: AuthStore;
@@ -35,11 +35,11 @@ class RoomScreen extends Component<Props, State> {
 
     render() {
         return (
-            <ScreenContainer onBackPress={this.onBack}>
-                <Title>{this.props.propsStore.room?.name}</Title>
+            <ScreenContainer onBackPress={this.onBack} icon={"square-edit-outline"} onRightPress={this.onEdit}>
+                <Title>{this.props.propsStore.room.name}</Title>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <H4>Controls</H4>
-                    <TouchableOpacity onPress={this.onAddRoom}>
+                    <TouchableOpacity onPress={this.onAddControl}>
                         <H4
                             style={{
                                 color: "orange",
@@ -82,12 +82,18 @@ class RoomScreen extends Component<Props, State> {
         return <NoItems />;
     };
 
-    onAddRoom = () => {
-        NavigationService.navigate(Scenes.AddRoomScreen);
+    onAddControl = () => {
+        Stores.propsStore.control.roomId = Stores.propsStore.room.id;
+        NavigationService.navigate(Screens.AddControlScreen);
     };
 
     onBack = () => {
+        Stores.propsStore.setRoom(new Room());
         NavigationService.goBack();
+    };
+
+    onEdit = () => {
+        NavigationService.navigate(Screens.AddRoomScreen);
     };
 }
 

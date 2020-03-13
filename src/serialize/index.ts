@@ -32,6 +32,7 @@ class Deserialize {
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
                             variable[element] = String(variable[element]);
+                            console.log(String(variable[element]));
                         });
                     } else {
                         variables[element] = String(variables[element]);

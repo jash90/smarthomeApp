@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ControlActions from "../actions/ControlActions";
 import TypeActions from "../actions/TypeActions";
 import NavigationService from "../navigation/NavigationService";
-import Scenes from "../navigation/Scenes";
+import Screens from "../navigation/Scenes";
 import { Control } from "../stores/models";
 import { toJS } from "mobx";
 import Stores from "../stores/mobxStores";
@@ -89,6 +89,6 @@ export default class ControlSwitch extends Component<Props, State> {
     onEdit = async () => {
         let control: Control = toJS(this.props.item.item);
         await Stores.propsStore.setControl(control);
-        await NavigationService.navigate(Scenes.AddControl);
+        await NavigationService.navigate(Screens.AddControlScreen);
     };
 }
