@@ -1,13 +1,29 @@
 import { Group } from ".";
+import { observable } from "mobx";
 
 export default class Type {
+    @observable
     id: number = 0;
+
+    @observable
     icon: string = "";
+    
+    @observable
     name: string = "";
+    
+    @observable
     values: any = null;
+    
+    @observable
     group: Group = Group.switch;
+    
+    @observable
     min?: number = 0;
+    
+    @observable
     max?: number = 0;
+
+    @observable
     userId?: number = 0;
 
     constructor(
