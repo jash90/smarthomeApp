@@ -12,7 +12,7 @@ export default class ControlActions {
             const response = await ControlApi.updateControl(control);
             control = response.data;
             await Serialize.this(Clazz.controls, control);
-            Stores.appStore.setControl(index, control);
+            await Stores.appStore.setControl(index, control);
         } catch (error) {
             console.log(error);
         }
