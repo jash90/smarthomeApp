@@ -10,14 +10,6 @@ export default class ControlActions {
             await Deserialize.this(Clazz.controls, control);
             const response = await ControlApi.updateControl(control);
             control = response.data;
-            if (response.status === 200) {
-                await Serialize.this(Clazz.controls, control);
-                await Stores.appStore.setControl(index, control);
-            } else {
-                console.log(response);
-                await ErrorUtil.errorService(response);
-            }
-
         } catch (error) {
             console.log(error);
         }

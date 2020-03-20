@@ -13,6 +13,8 @@ import { Control, Type } from "../stores/models";
 import Stores from "../stores/mobxStores";
 import Toast from "react-native-simple-toast";
 import PropsStore from "../stores/mobxStores/PropsStore";
+import Screens from "../navigation/Scenes";
+import { Navigators } from "../navigation/navigators/Enum";
 
 interface Props {
     appStore: AppStore;
@@ -199,7 +201,7 @@ class AddControlScreen extends Component<Props, State> {
     }
 
     onBack = () => {
-        NavigationService.goBack();
+        NavigationService.reset(Navigators.Account);
     };
 
     onSave = async () => {
