@@ -42,8 +42,7 @@ export default class AppStore {
     }
 
     @action setControl(index: number, control: Control) {
-        let find = this.controls.find(c => c.id === control.id);
-        find = control;
+        this.controls[index] = control;
     }
 
     @action setRoom(index: number, room: Room) {

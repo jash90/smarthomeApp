@@ -26,6 +26,13 @@ import { Clazz, Serialize } from "../serialize/index";
 import { Group, Control, Room } from "../stores/models";
 import TypeActions from "../actions/TypeActions";
 import Stores from "../stores/mobxStores";
+import AppStore from '../stores/mobxStores/AppStore';
+import PropsStore from '../stores/mobxStores/PropsStore';
+
+interface Props {
+    appStore: AppStore;
+    propsStore: PropsStore;
+}
 
 interface State {
     loadingControl: boolean;
@@ -33,7 +40,7 @@ interface State {
     loading: boolean;
 }
 
-class HomeScreen extends Component<{}, State> {
+class HomeScreen extends Component<Props, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -108,7 +115,7 @@ class HomeScreen extends Component<{}, State> {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={Store.appStore.controls}
+                    data={this.props.appStore.controls}
                     keyExtractor={(item: any) => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}

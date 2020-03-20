@@ -2,17 +2,22 @@ import Stores from "../stores/mobxStores";
 import { Control } from "../stores/models";
 import ControlApi from "../api/ControlApi";
 import { Clazz, Deserialize, Serialize } from "../serialize";
+import ErrorUtil from "../api/ErrorUtil";
 
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {
         try {
-            console.log({ control });
             await Deserialize.this(Clazz.controls, control);
-            console.log({ control });
             const response = await ControlApi.updateControl(control);
             control = response.data;
-            await Serialize.this(Clazz.controls, control);
-            Stores.appStore.setControl(index, control);
+            if (response.status === 200) {
+                await Serialize.this(Clazz.controls, control);
+                await Stores.appStore.setControl(index, control);
+            } else {
+                console.log(response);
+                await ErrorUtil.errorService(response);
+            }
+
         } catch (error) {
             console.log(error);
         }
