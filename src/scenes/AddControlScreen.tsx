@@ -26,7 +26,7 @@ interface State {
     name: string;
     typeId: number;
     value: any;
-    roomId: number;
+    roomId: number | null;
     loading: boolean;
     loadingRemove: boolean;
 }
@@ -40,7 +40,7 @@ class AddControlScreen extends Component<Props, State> {
             name: "",
             typeId: 0,
             value: null,
-            roomId: 0,
+            roomId: null,
             loading: false,
             loadingRemove: false
         };
@@ -201,29 +201,38 @@ class AddControlScreen extends Component<Props, State> {
     }
 
     onBack = () => {
-        NavigationService.reset(Navigators.Account);
+        NavigationService.goBack();
     };
 
     onSave = async () => {
-        this.setState({
-            loading: true
-        });
-        if (Stores.propsStore.control.id == 0) {
-            await ControlActions.saveControl(this.state);
-            Toast.show(`Control ${this.state.name} added.`);
-        } else {
-            const index = Stores.appStore.controls.findIndex(
-                (c: Control) => c.id == Stores.propsStore.control?.id
-            );
-            let { name, typeId, value, roomId } = this.state;
-            const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
-            await ControlActions.changeControl(index, control);
-            Toast.show(`Control ${control.name} updated.`);
+        try {
+            this.setState({
+                loading: true
+            });
+            if (Stores.propsStore.control.id == 0) {
+                const { name, value, typeId, roomId } = this.state;
+                var item = { name, value, typeId };
+                if (Number(roomId) > 0)
+                    Object.assign(item, { name, value, typeId, roomId });
+                await ControlActions.saveControl(item);
+                Toast.show(`Control ${this.state.name} added.`);
+            } else {
+                const index = Stores.appStore.controls.findIndex(
+                    (c: Control) => c.id == Stores.propsStore.control?.id
+                );
+                let { name, typeId, value, roomId } = this.state;
+                const control: Control = new Control(name, value, typeId, Stores.authStore.id, Number(roomId), Stores.propsStore.control.id);
+                await ControlActions.changeControl(index, control);
+                Toast.show(`Control ${control.name} updated.`);
+            }
+            this.setState({
+                loading: false
+            });
+            if (!!Stores.propsStore.control) this.clear();
         }
-        this.setState({
-            loading: false
-        });
-        if (!!Stores.propsStore.control) this.clear();
+        catch (error) {
+            console.log({ dupa: error })
+        }
     };
 
     clear = () => {

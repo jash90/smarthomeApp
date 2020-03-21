@@ -7,23 +7,28 @@ import ErrorUtil from "../api/ErrorUtil";
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {
         try {
-            await Deserialize.this(Clazz.controls, control);
-            const response = await ControlApi.updateControl(control);
-            control = response.data;
+            let response: any = await ControlApi.updateControl(control);
+            if (!response.statusCode) {
+                Stores.appStore.updateControl(index, response.data);
+            } else {
+                ErrorUtil.errorService(response);
+            }
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 
-    public static async saveControl(value: any) {
+    public static async saveControl(control: any) {
         try {
-            let control = value;
             await Deserialize.this(Clazz.controls, control);
             const response = await ControlApi.createControl(control);
-            let controls = Stores.appStore.controls;
-            controls.push(response.data);
-            Deserialize.this(Clazz.controls, controls);
-            Stores.appStore.setControls(controls);
+            console.log(response);
+            if (response?.status == 200) {
+                await Serialize.this(Clazz.controls, response.data);
+                Stores.appStore.addControl(response.data);
+            } else {
+                ErrorUtil.errorService(response.data);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -32,10 +37,14 @@ export default class ControlActions {
     public static async removeControl(id: number) {
         try {
             const response = await ControlApi.removeControl(id);
-            const index = Stores.appStore.controls.findIndex(
-                (c: any) => c.id == id
-            );
-            Stores.appStore.controls.splice(index, 1);
+            if (response.status == 200) {
+                const index = Stores.appStore.controls.findIndex(
+                    (c: any) => c.id == id
+                );
+                Stores.appStore.controls.splice(index, 1);
+            } else {
+                ErrorUtil.errorService(response.data);
+            }
         } catch (error) {
             console.log(error);
         }

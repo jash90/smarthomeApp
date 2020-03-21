@@ -27,6 +27,7 @@ export default class ControlSwitch extends Component<Props, State> {
     }
 
     render() {
+        console.log(this.props.item);
         return (
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
@@ -40,7 +41,7 @@ export default class ControlSwitch extends Component<Props, State> {
                                 <Icon
                                     name={
                                         TypeActions.getIcon(
-                                            this.props.item.item.id
+                                            this.props.item.item.typeId
                                         ) || ""
                                     }
                                     size={40}
@@ -80,8 +81,8 @@ export default class ControlSwitch extends Component<Props, State> {
     onPress = async () => {
         this.setState({ loading: true });
         let { index, item } = this.props.item;
-        let control = item;
-        control.value = !item.value;
+        let { name, value, typeId, roomId, id, userId } = item;
+        let control = new Control(name, !value, typeId, userId, roomId, id);
         await ControlActions.changeControl(index, control);
         this.setState({ loading: false });
     };

@@ -3,13 +3,17 @@ import { Control, Room } from "../stores/models";
 import ControlApi from "../api/ControlApi";
 import { Clazz, Deserialize, Serialize } from "../serialize";
 import RoomApi from "../api/RoomApi";
+import ErrorUtil from "../api/ErrorUtil";
 
 export default class RoomActions {
     public static async changeControl(index: number, room: Room) {
         try {
             const response = await RoomApi.updateRoom(room);
-            room = response.data;
-            Stores.appStore.setRoom(index, room);
+            if (response.data.status == 200) {
+                room = response.data;
+            } else {
+                ErrorUtil.errorService(response.data);
+            }
         } catch (error) {
             console.log(error);
         }

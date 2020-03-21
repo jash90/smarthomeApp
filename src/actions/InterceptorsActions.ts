@@ -31,7 +31,7 @@ export default class Interceptors {
         return response;
     }
 
-    public static handleError(error: any) {
+    public static async handleError(error: any) {
         console.group(
             `[Network]: Error ${String(error.config.method).toUpperCase()} => ${
             error.config.url
@@ -56,6 +56,6 @@ export default class Interceptors {
         console.groupEnd();
         console.groupEnd();
         console.groupEnd();
-        return error;
+        return Promise.reject(error.response.data);
     }
 }

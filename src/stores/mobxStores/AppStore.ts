@@ -14,11 +14,11 @@ export default class AppStore {
     @observable
     logged: boolean = false;
 
-    rooms: IObservableArray<Room> = observable([]);
+    rooms: Room[] = observable([]);
 
-    controls: IObservableArray<Control> = observable([]);
+    controls: Control[] = observable([]);
 
-    types: IObservableArray<Type> = observable([]);
+    types: Type[] = observable([]);
 
     @action setRememberEmail(rememberEmail: boolean) {
         this.rememberEmail = rememberEmail;
@@ -37,12 +37,15 @@ export default class AppStore {
     }
 
     @action setControls(controls: Control[]) {
-        this.controls.clear();
-        this.controls.push(...controls);
+        this.controls = controls;
     }
 
-    @action setControl(index: number, control: Control) {
+    @action updateControl(index: number, control: Control) {
         this.controls[index] = control;
+    }
+
+    @action addControl(control: Control) {
+        this.controls.push(control);
     }
 
     @action setRoom(index: number, room: Room) {
@@ -50,12 +53,10 @@ export default class AppStore {
     }
 
     @action setRooms(rooms: Room[]) {
-        this.rooms.clear();
-        this.rooms.push(...rooms);
+        this.rooms = rooms;
     }
 
     @action setTypes(types: Type[]) {
-        this.types.clear();
-        this.types.push(...types);
+        this.types = types;
     }
 }
