@@ -1,5 +1,6 @@
 import NetInfo from "@react-native-community/netinfo";
 import Toast from "react-native-simple-toast";
+import HttpStatus from "http-status";
 
 export default class ErrorUtil {
     public static async errorService(error: any) {
@@ -8,11 +9,11 @@ export default class ErrorUtil {
             connectionInfo.type !== "none" && connectionInfo.type !== "unknown";
         if (!internetConnectionStatus) {
             Toast.show("Brak połączenia z internetem", Toast.LONG);
-        } else if (error.response?.status === 409) {
+        } else if (error.response?.status === HttpStatus.CONFLICT) {
             Toast.show(`Podany email jest już zajęty.`, Toast.LONG);
-        } else if (error.response?.status === 400) {
+        } else if (error.response?.status === HttpStatus.FORBIDDEN) {
             Toast.show(`Niepoprawny login lub hasło.`, Toast.LONG);
-        } else if (error.response?.status === 401) {
+        } else if (error.response?.status === HttpStatus.UNAUTHORIZED) {
             Toast.show(`Odmowa dostępu`, Toast.LONG);
         } else if (error) {
             Toast.show(
