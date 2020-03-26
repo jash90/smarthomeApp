@@ -141,9 +141,9 @@ export const HorizontalList = styled(FlatList).attrs({
     showsVerticalScrollIndicator: false,
     horizontal: true,
     contentContainerStyle: {
-        paddingLeft: 20
+        paddingHorizontal: 20,
     }
 })({
     flexGrow: 0,
-    marginHorizontal: -20
+    marginHorizontal: -20,
 });

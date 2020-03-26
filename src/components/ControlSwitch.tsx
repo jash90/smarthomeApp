@@ -27,7 +27,6 @@ export default class ControlSwitch extends Component<Props, State> {
     }
 
     render() {
-        console.log(this.props.item);
         return (
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity

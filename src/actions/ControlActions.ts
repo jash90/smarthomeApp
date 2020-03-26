@@ -8,11 +8,7 @@ export default class ControlActions {
     public static async changeControl(index: number, control: Control) {
         try {
             let response: any = await ControlApi.updateControl(control);
-            if (!response.statusCode) {
-                Stores.appStore.updateControl(index, response.data);
-            } else {
-                ErrorUtil.errorService(response);
-            }
+            Stores.appStore.updateControl(response.data);
         } catch (error) {
             ErrorUtil.errorService(error);
         }
@@ -22,31 +18,22 @@ export default class ControlActions {
         try {
             await Deserialize.this(Clazz.controls, control);
             const response = await ControlApi.createControl(control);
-            console.log(response);
-            if (response?.status == 200) {
-                await Serialize.this(Clazz.controls, response.data);
-                Stores.appStore.addControl(response.data);
-            } else {
-                ErrorUtil.errorService(response.data);
-            }
+            await Serialize.this(Clazz.controls, response.data);
+            Stores.appStore.setControls(response.data);
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 
     public static async removeControl(id: number) {
         try {
             const response = await ControlApi.removeControl(id);
-            if (response.status == 200) {
-                const index = Stores.appStore.controls.findIndex(
-                    (c: any) => c.id == id
-                );
-                Stores.appStore.controls.splice(index, 1);
-            } else {
-                ErrorUtil.errorService(response.data);
-            }
+            const index = Stores.appStore.controls.findIndex(
+                (c: any) => c.id == id
+            );
+            Stores.appStore.controls.splice(index, 1);
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 }

@@ -1,4 +1,6 @@
 import Stores from "../stores/mobxStores";
+import TypeApi from "../api/TypeApi";
+import { Serialize, Clazz } from "../serialize";
 
 export default class TypeActions {
     public static getIcon(id: number) {
@@ -15,5 +17,12 @@ export default class TypeActions {
 
     public static getGroup(id: number) {
         return Stores.appStore.types.find(type => type.id == id)?.group;
+    }
+
+    public static async dowloadTypes() {
+        const response = await TypeApi.getTypes();
+        const types = response.data;
+        await Serialize.this(Clazz.types, types);
+        Stores.appStore.setTypes(types);
     }
 }

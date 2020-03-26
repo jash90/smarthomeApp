@@ -17,6 +17,7 @@ import { LoadingIndicator } from "../components/LoadingIndicator";
 import { NoItems } from "../components/NoItems";
 import RoomActions from '../actions/RoomActions';
 import { Navigators } from "../navigation/navigators/Enum";
+import { toJS } from "mobx";
 
 interface Props {
     appStore: AppStore;
@@ -102,7 +103,6 @@ class AddRoomScreen extends Component<Props, State> {
         });
         if (Stores.propsStore.room.id <= 0) {
             await RoomActions.saveRoom(new Room(this.state.name));
-            Toast.show(`Room ${this.state.name} added.`);
         } else {
             const index = Stores.appStore.rooms.findIndex(
                 (c: Room) => c.id == Stores.propsStore.room?.id
@@ -111,7 +111,6 @@ class AddRoomScreen extends Component<Props, State> {
             let { userId, controls, id } = Stores.propsStore.room;
             let room: Room = new Room(name, userId, controls, id);
             await RoomActions.changeControl(index, room);
-            Toast.show(`Room ${room.name} updated.`);
         }
         this.setState({
             loading: false

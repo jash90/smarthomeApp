@@ -47,7 +47,6 @@ class AddControlScreen extends Component<Props, State> {
     }
 
     componentDidMount = async () => {
-        console.log(this.props);
         if (!!Stores.propsStore.control) {
             let { name, typeId, value, roomId } = Stores.propsStore.control;
             this.setState({
@@ -231,7 +230,7 @@ class AddControlScreen extends Component<Props, State> {
             if (!!Stores.propsStore.control) this.clear();
         }
         catch (error) {
-            console.log({ dupa: error })
+
         }
     };
 

@@ -15,6 +15,7 @@ import Screens from "../navigation/Scenes";
 import AsyncStore from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
+import TypeActions from '../actions/TypeActions';
 
 interface State {
     login: string;
@@ -32,10 +33,6 @@ class LoginScreen extends Component<{}, State> {
             password: ""
         };
     }
-
-    componentDidMount = () => {
-        console.log(Stores.appStore.savedEmail);
-    };
 
     render() {
         return (
@@ -99,17 +96,15 @@ class LoginScreen extends Component<{}, State> {
                 return;
             }
             const response = await AuthApi.login(login, password);
-            if (response.status === 200 && !!response.data?.token) {
-                await AuthActions.setUser(response.data);
-                axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-                if (Stores.appStore.rememberEmail) {
-                    Stores.appStore.setSavedEmail(this.state.login);
-                    await AsyncStore.save(AsyncStoreKeys.savedEmail, this.state.login);
-                }
-                NavigationService.navigate(Navigators.Account);
-            } else {
-                await ErrorUtil.errorService(response);
+            console.log(response);
+            await AuthActions.setUser(response.data);
+            await TypeActions.dowloadTypes();
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+            if (Stores.appStore.rememberEmail) {
+                Stores.appStore.setSavedEmail(this.state.login);
+                await AsyncStore.save(AsyncStoreKeys.savedEmail, this.state.login);
             }
+            NavigationService.reset(Navigators.Account);
         } catch (error) {
             await ErrorUtil.errorService(error);
         }

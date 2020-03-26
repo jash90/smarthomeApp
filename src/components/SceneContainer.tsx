@@ -2,7 +2,7 @@ import React, { Props } from "react";
 import { StatusBar, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styled from "styled-components/native";
-import Color from "../utils/Color";
+import Color from "../config/Color";
 import { NotificationBar, NotificationBarProps } from "./NotificationBar";
 
 const SafeView = styled.SafeAreaView`

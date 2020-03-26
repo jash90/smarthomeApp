@@ -4,29 +4,28 @@ import ControlApi from "../api/ControlApi";
 import { Clazz, Deserialize, Serialize } from "../serialize";
 import RoomApi from "../api/RoomApi";
 import ErrorUtil from "../api/ErrorUtil";
+import Toast from "react-native-simple-toast";
 
 export default class RoomActions {
     public static async changeControl(index: number, room: Room) {
         try {
             const response = await RoomApi.updateRoom(room);
-            if (response.data.status == 200) {
-                room = response.data;
-            } else {
-                ErrorUtil.errorService(response.data);
-            }
+            room = response.data;
+            Stores.propsStore.setRoom(room);
+            Stores.appStore.setRoom(room);
+            Toast.show(`Room ${room.name} updated.`);
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 
     public static async saveRoom(room: Room) {
         try {
             const response = await RoomApi.createRoom(room);
-            let rooms = Stores.appStore.rooms;
-            rooms.push(response.data);
-            Stores.appStore.setRooms(rooms);
+            Stores.appStore.setRooms([response.data, ...Stores.appStore.rooms]);
+            Toast.show(`Room ${response.data.name} added.`);
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 
@@ -38,7 +37,7 @@ export default class RoomActions {
             );
             Stores.appStore.rooms.splice(index, 1);
         } catch (error) {
-            console.log(error);
+            ErrorUtil.errorService(error);
         }
     }
 }

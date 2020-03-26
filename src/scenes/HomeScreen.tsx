@@ -1,6 +1,6 @@
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View, ScrollView } from "react-native";
 import { ScreenContainer } from "../components/SceneContainer";
 import {
     H4,
@@ -28,7 +28,7 @@ import TypeActions from "../actions/TypeActions";
 import Stores from "../stores/mobxStores";
 import AppStore from '../stores/mobxStores/AppStore';
 import PropsStore from '../stores/mobxStores/PropsStore';
-
+import styled from "styled-components/native"
 interface Props {
     appStore: AppStore;
     propsStore: PropsStore;
@@ -39,6 +39,10 @@ interface State {
     loadingRoom: boolean;
     loading: boolean;
 }
+const Container = styled.View`
+flex: 1;
+margin: 0 40px;
+`;
 
 class HomeScreen extends Component<Props, State> {
     constructor(props: any) {
@@ -69,66 +73,73 @@ class HomeScreen extends Component<Props, State> {
     render() {
         return (
             <ScreenContainer icon="account" onRightPress={this.onProfile}>
-                <WelcomeText>Hello,</WelcomeText>
-                <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <H4>Rooms</H4>
-                    <TouchableOpacity onPress={this.onAddRoom}>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
-                            }}
-                        >
-                            +
+                <ScrollView style={{ marginTop: 10, marginHorizontal: -40 }} showsVerticalScrollIndicator={false}>
+                    <Container>
+                        <WelcomeText>Hello,</WelcomeText>
+                        <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <H4>Rooms</H4>
+                            <TouchableOpacity onPress={this.onAddRoom}>
+                                <H4
+                                    style={{
+                                        color: "orange",
+                                        fontSize: 24,
+                                        marginHorizontal: 5
+                                    }}
+                                >
+                                    +
                             </H4>
-                    </TouchableOpacity>
-                </View>
-                <HorizontalList
-                    data={Store.appStore.rooms}
-                    ListEmptyComponent={this.renderEmpty}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorWidth />}
-                    renderItem={({ item }: any) => {
-                        return (
-                            <TouchableOpacity onPress={() => this.onRoom(item)}>
-                                <RoomView>
-                                    <RoomText>{item.name}</RoomText>
-                                </RoomView>
                             </TouchableOpacity>
-                        );
-                    }}
-                />
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <H4>Controls</H4>
-                    <TouchableOpacity onPress={this.onAddControl}>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
+                        </View>
+                        <HorizontalList
+                            data={Stores.appStore.rooms}
+                            ListEmptyComponent={this.renderEmpty}
+                            keyExtractor={(item: any) => String(item.id)}
+                            extraData={Stores.propsStore.room}
+                            ItemSeparatorComponent={() => <SeparatorWidth />}
+                            renderItem={({ item }: any) => {
+                                return (
+                                    <TouchableOpacity onPress={() => this.onRoom(item)}>
+                                        <RoomView>
+                                            <RoomText>{item.name}</RoomText>
+                                        </RoomView>
+                                    </TouchableOpacity>
+                                );
                             }}
-                        >
-                            +
+                        />
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <H4>Controls</H4>
+                            <TouchableOpacity onPress={this.onAddControl}>
+                                <H4
+                                    style={{
+                                        color: "orange",
+                                        fontSize: 24,
+                                        marginHorizontal: 5
+                                    }}
+                                >
+                                    +
                             </H4>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    data={this.props.appStore.controls}
-                    keyExtractor={(item: any) => String(item.id)}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    ListEmptyComponent={this.renderEmpty}
-                    renderItem={item => {
-                        if (TypeActions.getGroup(item.item.typeId) == Group.slider) {
-                            return <ControlSlider item={item} />;
-                        } else {
-                            return <ControlSwitch item={item} />;
-                        }
-                    }}
-                />
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList
+                            data={this.props.appStore.controls}
+                            keyExtractor={(item: any) => String(item.id)}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            extraData={Stores.propsStore.control}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            ListEmptyComponent={this.renderEmpty}
+                            renderItem={item => {
+                                if (TypeActions.getGroup(item.item.typeId) == Group.slider) {
+                                    return <ControlSlider item={item} />;
+                                } else {
+                                    return <ControlSwitch item={item} />;
+                                }
+                            }}
+                        />
+                    </Container>
+                </ScrollView>
+
             </ScreenContainer>
         );
     }

@@ -40,19 +40,23 @@ export default class AppStore {
         this.controls = controls;
     }
 
-    @action updateControl(index: number, control: Control) {
-        this.controls[index] = control;
+    @action updateControl(control: Control) {
+        let oldcontrol = this.controls.find(c => c.id === control.id);
+        oldcontrol = control;
     }
 
     @action addControl(control: Control) {
         this.controls.push(control);
     }
 
-    @action setRoom(index: number, room: Room) {
-        this.rooms[index] = room;
+    @action setRoom(room: Room) {
+        let oldroom = this.rooms.find(r => r.id === room.id);
+        if (oldroom)
+            oldroom.name = room.name;
     }
 
     @action setRooms(rooms: Room[]) {
+        this.rooms = [];
         this.rooms = rooms;
     }
 
