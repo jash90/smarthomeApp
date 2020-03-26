@@ -7,7 +7,9 @@ import ErrorUtil from "../api/ErrorUtil";
 export default class ControlActions {
     public static async changeControl(index: number, control: Control) {
         try {
+            await Deserialize.this(Clazz.controls, control);
             let response: any = await ControlApi.updateControl(control);
+            await Serialize.this(Clazz.controls, response.data);
             Stores.appStore.updateControl(response.data);
         } catch (error) {
             ErrorUtil.errorService(error);

@@ -7,7 +7,7 @@ import { Clazz, Serialize } from "../serialize";
 import ErrorUtil from "../api/ErrorUtil";
 import { AxiosResponse } from "axios";
 import TypeActions from "../actions/TypeActions";
-
+import _ from "underscore";
 export default class Initial {
     public static async AppStore() {
         try {
