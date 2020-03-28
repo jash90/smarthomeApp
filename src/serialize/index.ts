@@ -6,12 +6,10 @@ class Serialize {
                 .serializable.forEach((element: string) => {
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
-
                             if (variable[element]) variable[element] = JSON.parse(variable[element]);
                         });
                     } else {
-                        if (variables[element])
-                            variables[element] = JSON.parse(variables[element]);
+                        variables[element] = JSON.parse(variables[element]);
                     }
                 });
         } catch (error) {
@@ -22,7 +20,7 @@ class Serialize {
 
 const clazz: any[] = [
     { name: "type", serializable: ["values"] },
-    { name: "control", serializable: ["value", "roomId"] },
+    { name: "control", serializable: ["value"] },
 ];
 
 class Deserialize {
@@ -33,12 +31,10 @@ class Deserialize {
                 .serializable.forEach((element: string) => {
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
-                            if (variable[element])
-                                variable[element] = String(variable[element]);
+                            variable[element] = String(variable[element]);
                         });
                     } else {
-                        if (variables[element])
-                            variables[element] = String(variables[element]);
+                        variables[element] = String(variables[element]);
                     }
                 });
         } catch (error) {

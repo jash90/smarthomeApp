@@ -17,9 +17,9 @@ export default class Control {
     userId: number = 0;
 
     @observable
-    roomId: number = 0;
+    roomId: number | null = 0;
 
-    constructor(name: string = "", value: any = "", typeId: number = 0, userId: number = 0, roomId: number = 0, id: number = 0) {
+    constructor(name: string = "", value: any = "", typeId: number = 0, userId: number = 0, roomId: number | null = null, id: number = 0) {
         this.id = id || 0;
         this.name = name
         this.value = value;

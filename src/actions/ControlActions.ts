@@ -8,9 +8,7 @@ import Toast from "react-native-simple-toast";
 export default class ControlActions {
     public static async changeControl(oldcontrol: Control) {
         try {
-            console.log({ oldcontrol });
             await Deserialize.this(Clazz.control, oldcontrol);
-            console.log({ oldcontrol });
             let response: any = await ControlApi.updateControl(oldcontrol);
             const newcontrol: Control = response.data;
             await Serialize.this(Clazz.control, newcontrol);

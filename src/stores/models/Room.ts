@@ -10,7 +10,7 @@ export default class Room {
 
     @observable
     userId: number = 0;
- 
+
     @observable
     controls: Control[] = [];
 

@@ -211,16 +211,11 @@ class AddControlScreen extends Component<Props, State> {
             });
             if (Stores.propsStore.control.id == 0) {
                 const { name, value, typeId, roomId } = this.state;
-                var item = { name, value, typeId };
-                if (Number(roomId) > 0)
-                    Object.assign(item, { name, value, typeId, roomId });
+                var item = { name, value, typeId, roomId };
                 await ControlActions.saveControl(toJS(item));
             } else {
-                const index = Stores.appStore.controls.findIndex(
-                    (c: Control) => c.id == Stores.propsStore.control?.id
-                );
                 let { name, typeId, value, roomId } = this.state;
-                const control: Control = new Control(name, value, typeId, Stores.authStore.id, Number(roomId), Stores.propsStore.control.id);
+                const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
                 await ControlActions.changeControl(toJS(control));
             }
             this.setState({
