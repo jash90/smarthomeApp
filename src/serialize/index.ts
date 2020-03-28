@@ -1,9 +1,12 @@
+import Toast from 'react-native-simple-toast';
 class Serialize {
     public static async this(clazzName: Clazz, variables: any) {
+        let field;
         try {
             clazz
                 .find((clazzz: any) => clazzz.name == clazzName)
                 .serializable.forEach((element: string) => {
+                    field = element;
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
                             if (variable[element]) variable[element] = JSON.parse(variable[element]);
@@ -13,7 +16,7 @@ class Serialize {
                     }
                 });
         } catch (error) {
-            console.log(error);
+            Toast.show(`Error Serialize : Class ${clazzName} field ${field}`, Toast.LONG);
         }
     }
 }
@@ -25,10 +28,12 @@ const clazz: any[] = [
 
 class Deserialize {
     public static async this(clazzName: Clazz, variables: any) {
+        let field;
         try {
             clazz
                 .find((clazzz: any) => clazzz.name == clazzName)
                 .serializable.forEach((element: string) => {
+                    field = element;
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
                             variable[element] = String(variable[element]);
@@ -38,7 +43,7 @@ class Deserialize {
                     }
                 });
         } catch (error) {
-            console.log(error);
+            Toast.show(`Error Deserialize : Class ${clazzName} field ${field}`, Toast.LONG);
         }
     }
 }

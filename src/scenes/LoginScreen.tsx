@@ -96,7 +96,6 @@ class LoginScreen extends Component<{}, State> {
                 return;
             }
             const response = await AuthApi.login(login, password);
-            console.log(response);
             await AuthActions.setUser(response.data);
             await TypeActions.dowloadTypes();
             axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;

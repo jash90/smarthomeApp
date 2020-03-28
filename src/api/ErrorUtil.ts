@@ -7,7 +7,6 @@ import { Navigators } from "../navigation/navigators/Enum";
 import StringUtil from "../utils/StringUtil";
 export default class ErrorUtil {
     public static async errorService(error: any) {
-        console.log({ errorii: error });
         const connectionInfo = await NetInfo.fetch();
         const internetConnectionStatus =
             connectionInfo.type !== "none" && connectionInfo.type !== "unknown";
