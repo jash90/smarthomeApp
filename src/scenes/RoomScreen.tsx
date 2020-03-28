@@ -52,7 +52,7 @@ class RoomScreen extends Component<Props, State> {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={this.props.propsStore.room.controls}
+                    data={Stores.appStore.controls.filter(c => c.roomId == this.props.propsStore.room.id)}
                     keyExtractor={(item: any) => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}

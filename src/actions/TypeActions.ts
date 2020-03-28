@@ -22,7 +22,7 @@ export default class TypeActions {
     public static async dowloadTypes() {
         const response = await TypeApi.getTypes();
         const types = response.data;
-        await Serialize.this(Clazz.types, types);
+        await Serialize.this(Clazz.type, types);
         Stores.appStore.setTypes(types);
     }
 }

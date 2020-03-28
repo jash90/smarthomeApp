@@ -1,4 +1,4 @@
-import { action, observable, IObservableArray } from "mobx";
+import { action, observable, IObservableArray, toJS } from "mobx";
 import { Control, Room, Type } from "../models";
 
 export default class AppStore {
@@ -42,11 +42,27 @@ export default class AppStore {
 
     @action updateControl(control: Control) {
         let oldcontrol = this.controls.find(c => c.id === control.id);
-        oldcontrol = control;
+        if (oldcontrol) {
+            oldcontrol.id = control.id;
+            oldcontrol.name = control.name;
+            oldcontrol.value = control.value;
+            oldcontrol.roomId = control.roomId;
+            oldcontrol.typeId = control.typeId;
+        }
     }
 
     @action addControl(control: Control) {
-        this.controls.push(control);
+        const controls: Control[] = [control, ...this.controls];
+        this.controls = [];
+        this.controls = controls;
+    }
+
+    @action removeControl(control: Control) {
+        const index = this.controls.findIndex(c => c.id === control.id)
+        const controls: Control[] = this.controls;
+        controls.splice(index, 1);
+        this.controls = [];
+        this.controls = controls;
     }
 
     @action setRoom(room: Room) {

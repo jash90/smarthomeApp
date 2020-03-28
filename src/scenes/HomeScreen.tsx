@@ -122,7 +122,7 @@ class HomeScreen extends Component<Props, State> {
                             </TouchableOpacity>
                         </View>
                         <FlatList
-                            data={this.props.appStore.controls}
+                            data={this.props.appStore.controls.filter(c => c.roomId === null)}
                             keyExtractor={(item: any) => String(item.id)}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
@@ -165,13 +165,9 @@ class HomeScreen extends Component<Props, State> {
         try {
             this.setState({ loadingControl: true });
             const response = await ControlApi.getControls();
-            if (response.status === 200) {
-                const controls = response.data;
-                await Serialize.this(Clazz.controls, controls);
-                Store.appStore.setControls(controls);
-            } else {
-                await ErrorUtil.errorService(response);
-            }
+            const controls = response.data;
+            await Serialize.this(Clazz.control, controls);
+            Store.appStore.setControls(controls);
             this.setState({ loadingControl: false });
         } catch (error) {
             this.setState({ loadingControl: false });
@@ -183,44 +179,13 @@ class HomeScreen extends Component<Props, State> {
         try {
             this.setState({ loadingRoom: true });
             const response = await RoomsApi.getRooms();
-            if (response.status === 200) {
-                Store.appStore.setRooms(response.data);
-            } else {
-                await ErrorUtil.errorService(response);
-            }
+            Store.appStore.setRooms(response.data);
             this.setState({ loadingRoom: false });
         } catch (error) {
             this.setState({ loadingRoom: false });
             await ErrorUtil.errorService(error);
         }
     };
-
-    changeValueControl(item: any) {
-        // setTimeout(() => {
-        //     const { controls } = this.state;
-        //     controls[item.index].value = !item.item.value;
-        //     this.setState({ controls });
-        // }, 1000);
-    }
-
-    changeValueSlider(item: any, value: any) {
-        // const { controls } = this.state;
-        // controls[item.index].value = value;
-        // this.setState({ controls });
-        // try {
-        //     this.setState({ loadingRoom: true });
-        //     const response = await RoomsApi.getRooms();
-        //     if (response.status === 200) {
-        //         this.setState({ rooms: response.data });
-        //     } else {
-        //         await ErrorUtil.errorService(response);
-        //     }
-        //     this.setState({ loadingRoom: false });
-        // } catch (error) {
-        //     this.setState({ loadingRoom: false });
-        //     await ErrorUtil.errorService(error);
-        // }
-    }
 }
 
 export default inject("authStore", "appStore", "propsStore")(observer(HomeScreen));

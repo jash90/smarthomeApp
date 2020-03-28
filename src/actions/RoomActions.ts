@@ -21,6 +21,7 @@ export default class RoomActions {
 
     public static async saveRoom(room: Room) {
         try {
+
             const response = await RoomApi.createRoom(room);
             Stores.appStore.setRooms([response.data, ...Stores.appStore.rooms]);
             Toast.show(`Room ${response.data.name} added.`);
@@ -36,6 +37,7 @@ export default class RoomActions {
                 (c: any) => c.id == id
             );
             Stores.appStore.rooms.splice(index, 1);
+            Toast.show(`Room ${Stores.propsStore.room.name} removed.`);
         } catch (error) {
             ErrorUtil.errorService(error);
         }

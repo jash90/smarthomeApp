@@ -15,6 +15,7 @@ import Toast from "react-native-simple-toast";
 import PropsStore from "../stores/mobxStores/PropsStore";
 import Screens from "../navigation/Scenes";
 import { Navigators } from "../navigation/navigators/Enum";
+import { toJS } from "mobx";
 
 interface Props {
     appStore: AppStore;
@@ -213,16 +214,14 @@ class AddControlScreen extends Component<Props, State> {
                 var item = { name, value, typeId };
                 if (Number(roomId) > 0)
                     Object.assign(item, { name, value, typeId, roomId });
-                await ControlActions.saveControl(item);
-                Toast.show(`Control ${this.state.name} added.`);
+                await ControlActions.saveControl(toJS(item));
             } else {
                 const index = Stores.appStore.controls.findIndex(
                     (c: Control) => c.id == Stores.propsStore.control?.id
                 );
                 let { name, typeId, value, roomId } = this.state;
                 const control: Control = new Control(name, value, typeId, Stores.authStore.id, Number(roomId), Stores.propsStore.control.id);
-                await ControlActions.changeControl(index, control);
-                Toast.show(`Control ${control.name} updated.`);
+                await ControlActions.changeControl(toJS(control));
             }
             this.setState({
                 loading: false
@@ -248,7 +247,6 @@ class AddControlScreen extends Component<Props, State> {
             loadingRemove: true
         });
         await ControlActions.removeControl(Stores.propsStore.control?.id || 0);
-        Toast.show(`Control ${Stores.propsStore.control?.name} removed.`);
         this.setState({
             loadingRemove: false
         });

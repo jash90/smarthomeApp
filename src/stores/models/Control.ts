@@ -6,16 +6,16 @@ export default class Control {
 
     @observable
     name: string = "";
-    
+
     @observable
     value: any = null;
-    
+
     @observable
     typeId: number = 0;
-    
+
     @observable
     userId: number = 0;
-    
+
     @observable
     roomId: number = 0;
 

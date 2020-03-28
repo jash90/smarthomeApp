@@ -51,7 +51,7 @@ class AddRoomScreen extends Component<Props, State> {
     };
 
     componentWillUnmount = async () => {
-        if (Stores.propsStore.room.id <= 0)
+        if (Number(Stores.propsStore.room.id) <= 0)
             await Stores.propsStore.setRoom(new Room());
     };
 
@@ -129,7 +129,7 @@ class AddRoomScreen extends Component<Props, State> {
             loadingRemove: true
         });
         await RoomActions.removeRoom(Stores.propsStore.room.id);
-        Toast.show(`Room ${Stores.propsStore.room.name} removed.`);
+
         this.setState({
             loadingRemove: false
         });

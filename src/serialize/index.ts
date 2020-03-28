@@ -6,10 +6,12 @@ class Serialize {
                 .serializable.forEach((element: string) => {
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
-                            variable[element] = JSON.parse(variable[element]);
+
+                            if (variable[element]) variable[element] = JSON.parse(variable[element]);
                         });
                     } else {
-                        variables[element] = JSON.parse(variables[element]);
+                        if (variables[element])
+                            variables[element] = JSON.parse(variables[element]);
                     }
                 });
         } catch (error) {
@@ -19,8 +21,8 @@ class Serialize {
 }
 
 const clazz: any[] = [
-    { name: "types", serializable: ["values"] },
-    { name: "controls", serializable: ["value"] }
+    { name: "type", serializable: ["values"] },
+    { name: "control", serializable: ["value", "roomId"] },
 ];
 
 class Deserialize {
@@ -31,10 +33,12 @@ class Deserialize {
                 .serializable.forEach((element: string) => {
                     if (Array.isArray(variables)) {
                         variables.map((variable: any) => {
-                            variable[element] = String(variable[element]);
+                            if (variable[element])
+                                variable[element] = String(variable[element]);
                         });
                     } else {
-                        variables[element] = String(variables[element]);
+                        if (variables[element])
+                            variables[element] = String(variables[element]);
                     }
                 });
         } catch (error) {
@@ -44,8 +48,8 @@ class Deserialize {
 }
 
 enum Clazz {
-    types = "types",
-    controls = "controls"
+    type = "type",
+    control = "control"
 }
 
 export { Serialize, Deserialize, Clazz };
