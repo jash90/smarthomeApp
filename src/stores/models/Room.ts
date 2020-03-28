@@ -11,13 +11,9 @@ export default class Room {
     @observable
     userId: number = 0;
 
-    @observable
-    controls: Control[] = [];
-
-    constructor(name: string = "", userId?: number, controls?: Control[], id?: number) {
+    constructor(name: string = "", userId?: number, id?: number) {
         this.id = id || 0;
         this.name = name;
         this.userId = userId || 0;
-        this.controls = controls || [];
     }
 }

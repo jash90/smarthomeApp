@@ -53,6 +53,7 @@ class RoomScreen extends Component<Props, State> {
                 </View>
                 <FlatList
                     data={Stores.appStore.controls.filter(c => c.roomId == this.props.propsStore.room.id)}
+                    extraData={Stores.propsStore.control}
                     keyExtractor={(item: any) => String(item.id)}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}

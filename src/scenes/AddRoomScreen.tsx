@@ -25,7 +25,7 @@ interface Props {
 
 interface State {
     name: string;
-    loading: boolean;
+    loadingEdit: boolean;
     loadingRemove: boolean;
 }
 
@@ -36,7 +36,7 @@ class AddRoomScreen extends Component<Props, State> {
         super(props);
         this.state = {
             name: "",
-            loading: false,
+            loadingEdit: false,
             loadingRemove: false,
         };
     }
@@ -70,7 +70,7 @@ class AddRoomScreen extends Component<Props, State> {
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     {Stores.propsStore.room.id > 0 && (
                         <Button onPress={this.onRemove}>
-                            {this.state.loading && (
+                            {this.state.loadingRemove && (
                                 <ActivityIndicator
                                     size={"small"}
                                     color={"#d0dbe6"}
@@ -80,7 +80,7 @@ class AddRoomScreen extends Component<Props, State> {
                         </Button>
                     )}
                     <Button onPress={this.onSave}>
-                        {this.state.loading && (
+                        {this.state.loadingEdit && (
                             <ActivityIndicator
                                 size={"small"}
                                 color={"#d0dbe6"}
@@ -99,7 +99,7 @@ class AddRoomScreen extends Component<Props, State> {
 
     onSave = async () => {
         this.setState({
-            loading: true
+            loadingEdit: true
         });
         if (Stores.propsStore.room.id <= 0) {
             await RoomActions.saveRoom(new Room(this.state.name));
@@ -108,14 +108,14 @@ class AddRoomScreen extends Component<Props, State> {
                 (c: Room) => c.id == Stores.propsStore.room?.id
             );
             let { name } = this.state;
-            let { userId, controls, id } = Stores.propsStore.room;
-            let room: Room = new Room(name, userId, controls, id);
+            let { userId, id } = Stores.propsStore.room;
+            let room: Room = new Room(name, userId, id);
             await RoomActions.changeControl(index, room);
         }
         this.setState({
-            loading: false
+            loadingEdit: false
         });
-        if (!!Stores.propsStore.control) this.clear();
+        if (Number(Stores.propsStore.room.id) <= 0) this.clear();
     };
 
     clear = () => {

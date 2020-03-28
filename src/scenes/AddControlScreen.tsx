@@ -28,7 +28,7 @@ interface State {
     typeId: number;
     value: any;
     roomId: number | null;
-    loading: boolean;
+    loadingEdit: boolean;
     loadingRemove: boolean;
 }
 
@@ -42,7 +42,7 @@ class AddControlScreen extends Component<Props, State> {
             typeId: 0,
             value: null,
             roomId: null,
-            loading: false,
+            loadingEdit: false,
             loadingRemove: false
         };
     }
@@ -177,7 +177,7 @@ class AddControlScreen extends Component<Props, State> {
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     {Stores.propsStore.control.id > 0 && (
                         <Button onPress={this.onRemove}>
-                            {this.state.loading && (
+                            {this.state.loadingRemove && (
                                 <ActivityIndicator
                                     size={"small"}
                                     color={"#d0dbe6"}
@@ -187,7 +187,7 @@ class AddControlScreen extends Component<Props, State> {
                         </Button>
                     )}
                     <Button onPress={this.onSave}>
-                        {this.state.loading && (
+                        {this.state.loadingEdit && (
                             <ActivityIndicator
                                 size={"small"}
                                 color={"#d0dbe6"}
@@ -205,27 +205,22 @@ class AddControlScreen extends Component<Props, State> {
     };
 
     onSave = async () => {
-        try {
-            this.setState({
-                loading: true
-            });
-            if (Stores.propsStore.control.id == 0) {
-                const { name, value, typeId, roomId } = this.state;
-                var item = { name, value, typeId, roomId };
-                await ControlActions.saveControl(toJS(item));
-            } else {
-                let { name, typeId, value, roomId } = this.state;
-                const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
-                await ControlActions.changeControl(toJS(control));
-            }
-            this.setState({
-                loading: false
-            });
-            if (!!Stores.propsStore.control) this.clear();
+        this.setState({
+            loadingEdit: true
+        });
+        if (Stores.propsStore.control.id == 0) {
+            const { name, value, typeId, roomId } = this.state;
+            var item = { name, value, typeId, roomId };
+            await ControlActions.saveControl(toJS(item));
+        } else {
+            let { name, typeId, value, roomId } = this.state;
+            const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
+            await ControlActions.changeControl(toJS(control));
         }
-        catch (error) {
-
-        }
+        this.setState({
+            loadingEdit: false
+        });
+        if (Number(Stores.propsStore.control.id) <= 0) this.clear();
     };
 
     clear = () => {
@@ -246,6 +241,7 @@ class AddControlScreen extends Component<Props, State> {
             loadingRemove: false
         });
         this.clear();
+        await NavigationService.goBack();
     };
 }
 

@@ -48,6 +48,7 @@ export const H4 = styled(H1)`
 `;
 
 export const Button = styled.TouchableOpacity({
+    flexDirection: "row",
     backgroundColor: "#282C3A",
     borderRadius: 15,
     alignSelf: "center",

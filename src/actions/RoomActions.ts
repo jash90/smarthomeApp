@@ -12,7 +12,7 @@ export default class RoomActions {
             const response = await RoomApi.updateRoom(room);
             room = response.data;
             Stores.propsStore.setRoom(room);
-            Stores.appStore.setRoom(room);
+            Stores.appStore.updateRoom(room);
             Toast.show(`Room ${room.name} updated.`);
         } catch (error) {
             ErrorUtil.errorService(error);
@@ -21,9 +21,8 @@ export default class RoomActions {
 
     public static async saveRoom(room: Room) {
         try {
-
             const response = await RoomApi.createRoom(room);
-            Stores.appStore.setRooms([response.data, ...Stores.appStore.rooms]);
+            Stores.appStore.addRoom(response.data);
             Toast.show(`Room ${response.data.name} added.`);
         } catch (error) {
             ErrorUtil.errorService(error);
@@ -33,10 +32,7 @@ export default class RoomActions {
     public static async removeRoom(id: number) {
         try {
             const response = await RoomApi.removeRoom(id);
-            const index = Stores.appStore.rooms.findIndex(
-                (c: any) => c.id == id
-            );
-            Stores.appStore.rooms.splice(index, 1);
+            Stores.appStore.removeRoom(response.data);
             Toast.show(`Room ${Stores.propsStore.room.name} removed.`);
         } catch (error) {
             ErrorUtil.errorService(error);

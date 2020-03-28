@@ -48,27 +48,35 @@ export default class AppStore {
             oldcontrol.value = control.value;
             oldcontrol.roomId = control.roomId;
             oldcontrol.typeId = control.typeId;
+            oldcontrol.userId = control.userId;
         }
     }
 
     @action addControl(control: Control) {
-        const controls: Control[] = [control, ...this.controls];
-        this.controls = [];
-        this.controls = controls;
+        this.controls = [control, ...this.controls];
     }
 
     @action removeControl(control: Control) {
         const index = this.controls.findIndex(c => c.id === control.id)
-        const controls: Control[] = this.controls;
-        controls.splice(index, 1);
-        this.controls = [];
-        this.controls = controls;
+        this.controls.splice(index, 1);
     }
 
-    @action setRoom(room: Room) {
+    @action updateRoom(room: Room) {
         let oldroom = this.rooms.find(r => r.id === room.id);
-        if (oldroom)
+        if (oldroom) {
+            oldroom.id = room.id;
             oldroom.name = room.name;
+            oldroom.userId = oldroom.userId;
+        }
+    }
+
+    @action addRoom(room: Room) {
+        this.rooms = [room, ...this.rooms];
+    }
+
+    @action removeRoom(room: Room) {
+        const index = this.rooms.findIndex(r => r.id === room.id)
+        this.rooms.splice(index, 1);
     }
 
     @action setRooms(rooms: Room[]) {
