@@ -182,7 +182,11 @@ class AddControlScreen extends Component<Props, State> {
                 await ControlActions.saveControl(toJS(item));
             }
             else {
+                this.setState({
+                    loadingEdit: false
+                });
                 Toast.show("Incorrect Type", Toast.LONG);
+                return;
             }
         } else {
             let { name, typeId, roomId } = this.state;
@@ -191,19 +195,19 @@ class AddControlScreen extends Component<Props, State> {
             if (typeId != Stores.propsStore.control.typeId) {
                 const type = Stores.appStore.types.find(t => t.id == this.state.typeId);
                 if (type) {
-                    let value = type.values[0];
-                    var item = { name, value, typeId, roomId };
-                    const control: Control = new Control(name, value, typeId, userId, roomId, id);
-                    await ControlActions.changeControl(toJS(control));
+                    value = type.values[0];
                 }
                 else {
+                    this.setState({
+                        loadingEdit: false
+                    });
                     Toast.show("Incorrect Type", Toast.LONG);
+                    return;
                 }
-            } else {
-                var item = { name, value, typeId, roomId };
-                const control: Control = new Control(name, value, typeId, userId, roomId, id);
-                await ControlActions.changeControl(toJS(control));
             }
+            var item = { name, value, typeId, roomId };
+            const control: Control = new Control(name, value, typeId, userId, roomId, id);
+            await ControlActions.changeControl(toJS(control));
         }
         this.setState({
             loadingEdit: false

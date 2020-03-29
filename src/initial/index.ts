@@ -30,9 +30,7 @@ export default class Initial {
             if (logged) {
                 await TypeActions.dowloadTypes();
                 Stores.authStore.setUser(JSON.parse(user));
-                axios.defaults.headers.common["Authorization"] = `Bearer ${
-                    JSON.parse(user).token
-                    }`;
+                axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(user).token}`;
             }
         }
         catch (error) {

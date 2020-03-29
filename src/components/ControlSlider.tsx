@@ -109,7 +109,7 @@ export default class ControlSlider extends Component<Props, State> {
 
     onSlidingComplete = async (value: any) => {
         this.setState({ loading: true });
-        let { index, item } = this.props.item;
+        let { item } = this.props.item;
         let { name, typeId, roomId, id, userId } = item;
         let control = new Control(name, value, typeId, userId, roomId, id);
         await ControlActions.changeControl(toJS(control));

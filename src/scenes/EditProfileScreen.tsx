@@ -81,12 +81,8 @@ class EditProfileScreen extends Component<{}, State> {
         try {
             const { firstname, lastname } = this.state;
             const response = await UserApi.edit(firstname, lastname);
-            if (response.status === 200) {
-                AuthActions.setUser(response.data);
-                Toast.show("Profile changes.");
-            } else {
-                ErrorUtil.errorService(response);
-            }
+            AuthActions.setUser(response.data);
+            Toast.show("Profile changes.");
         } catch (error) {
             ErrorUtil.errorService(error);
         }
@@ -98,13 +94,9 @@ class EditProfileScreen extends Component<{}, State> {
                 password,
                 repeatPassword
             );
-            if (response.status === 200) {
-                AuthActions.setUser(response.data);
-                Toast.show("Password changes.");
-                this.setState({ password: "", repeatPassword: "" });
-            } else {
-                ErrorUtil.errorService(response);
-            }
+            AuthActions.setUser(response.data);
+            Toast.show("Password changes.");
+            this.setState({ password: "", repeatPassword: "" });
         } catch (error) {
             ErrorUtil.errorService(error);
         }

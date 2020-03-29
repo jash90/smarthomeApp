@@ -168,10 +168,11 @@ class HomeScreen extends Component<Props, State> {
             const controls = response.data;
             await Serialize.this(Clazz.control, controls);
             Store.appStore.setControls(controls);
-            this.setState({ loadingControl: false });
         } catch (error) {
-            this.setState({ loadingControl: false });
             await ErrorUtil.errorService(error);
+        }
+        finally {
+            this.setState({ loadingControl: false });
         }
     };
 
@@ -180,10 +181,11 @@ class HomeScreen extends Component<Props, State> {
             this.setState({ loadingRoom: true });
             const response = await RoomsApi.getRooms();
             Store.appStore.setRooms(response.data);
-            this.setState({ loadingRoom: false });
         } catch (error) {
-            this.setState({ loadingRoom: false });
             await ErrorUtil.errorService(error);
+        }
+        finally {
+            this.setState({ loadingControl: false });
         }
     };
 }

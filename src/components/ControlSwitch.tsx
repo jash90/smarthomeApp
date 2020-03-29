@@ -79,7 +79,7 @@ export default class ControlSwitch extends Component<Props, State> {
 
     onPress = async () => {
         this.setState({ loading: true });
-        let { index, item } = this.props.item;
+        let { item } = this.props.item;
         let { name, value, typeId, roomId, id, userId } = item;
         let control = new Control(name, !value, typeId, userId, roomId, id);
         await ControlActions.changeControl(toJS(control));

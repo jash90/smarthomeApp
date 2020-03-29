@@ -104,13 +104,10 @@ class AddRoomScreen extends Component<Props, State> {
         if (Stores.propsStore.room.id <= 0) {
             await RoomActions.saveRoom(new Room(this.state.name));
         } else {
-            const index = Stores.appStore.rooms.findIndex(
-                (c: Room) => c.id == Stores.propsStore.room?.id
-            );
             let { name } = this.state;
             let { userId, id } = Stores.propsStore.room;
             let room: Room = new Room(name, userId, id);
-            await RoomActions.changeControl(index, room);
+            await RoomActions.changeControl(room);
         }
         this.setState({
             loadingEdit: false

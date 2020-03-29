@@ -7,7 +7,7 @@ import ErrorUtil from "../api/ErrorUtil";
 import Toast from "react-native-simple-toast";
 
 export default class RoomActions {
-    public static async changeControl(index: number, room: Room) {
+    public static async changeControl(room: Room) {
         try {
             const response = await RoomApi.updateRoom(room);
             room = response.data;
