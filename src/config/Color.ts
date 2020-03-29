@@ -1,7 +1,7 @@
 export default {
-    primaryColor: "#d0dbe8",
-    secondaryColor: "#282C3A",
-    accentColor: "#FF7500",
-    textColor: "#fff",
+    primaryColor: "#454",
+    secondaryColor: "#018",
+    accentColor: "#F00AFF",
+    textColor: "#fefefe",
     backgroundColors: ["#3D4151", "#1C202C", "#141824"],
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonText, H4 } from "./StyledComponent";
 import { ActivityIndicator, View, TouchableOpacity } from "react-native";
-
+import Color from "../config/Color";
 
 interface Props {
     children: string;
@@ -15,7 +15,7 @@ export const AddTitle: React.FC<Props> = ({ children, onAddPress }: Props) => {
             <TouchableOpacity onPress={onAddPress}>
                 <H4
                     style={{
-                        color: "orange",
+                        color: Color.accentColor,
                         fontSize: 24,
                         marginHorizontal: 5
                     }}
