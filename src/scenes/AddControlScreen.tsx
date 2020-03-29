@@ -78,8 +78,6 @@ class AddControlScreen extends Component<Props, State> {
                 <H4>Type</H4>
                 <HorizontalList
                     data={this.props.appStore.types}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }: any) => {
                         return (
                             <TypeItemSelectable
@@ -95,8 +93,6 @@ class AddControlScreen extends Component<Props, State> {
                 <H4>Rooms</H4>
                 <HorizontalList
                     data={this.props.appStore.rooms}
-                    keyExtractor={(item: any) => String(item.id)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }: any) => {
                         return (
                             <RoomItemSelectable

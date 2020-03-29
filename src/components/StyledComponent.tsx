@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
+import React from "react";
 
 export const SeparatorWidth = styled.View({
     width: 15
@@ -92,7 +93,6 @@ export const ControlView = styled(RoomView)({
     justifyContent: "center",
     alignItems: "center",
     padding: 0,
-    marginRight: 20
 });
 
 export const ControlText = styled(H4)({
@@ -137,14 +137,23 @@ export const SaveText = styled.Text({
     alignSelf: "center"
 });
 
-export const HorizontalList = styled(FlatList).attrs({
+export const VerticalList = styled(FlatList).attrs({
     showsHorizontalScrollIndicator: false,
     showsVerticalScrollIndicator: false,
+    keyExtractor: (item: any) => String(item.id),
+    ItemSeparatorComponent: () => <SeparatorHeight />,
+})`
+    margin-right: -15px;
+`;
+
+export const HorizontalList = styled(VerticalList).attrs({
     horizontal: true,
+    ItemSeparatorComponent: () => <SeparatorWidth />,
     contentContainerStyle: {
         paddingHorizontal: 20,
     }
-})({
-    flexGrow: 0,
-    marginHorizontal: -20,
-});
+})`
+    flex-grow: 0;
+    margin: 0px -20px;
+`;
+

@@ -69,7 +69,7 @@ export default class ControlSlider extends Component<Props, State> {
                             </View>
                         ) : (
                                 <Slider
-                                    style={{ flex: 1, height: 40 }}
+                                    style={{ flex: 1, marginLeft: 20, height: 40 }}
                                     minimumValue={
                                         TypeActions.getMin(
                                             this.props.item.item.typeId

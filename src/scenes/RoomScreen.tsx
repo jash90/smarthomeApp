@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { FlatList, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "../components/SceneContainer";
-import { ControlText, ControlView, H4, SeparatorHeight, Title } from "../components/StyledComponent";
+import { ControlText, ControlView, H4, SeparatorHeight, Title, VerticalList } from '../components/StyledComponent';
 import NavigationService from "../navigation/NavigationService";
 import Stores from "../stores/mobxStores";
 import PropsStore from "../stores/mobxStores/PropsStore";
@@ -41,15 +41,11 @@ class RoomScreen extends Component<Props, State> {
                 <AddTitle onAddPress={this.onAddControl}>
                     {"Controls"}
                 </AddTitle>
-                <FlatList
+                <VerticalList
                     data={Stores.appStore.controls.filter(c => c.roomId == this.props.propsStore.room.id)}
                     extraData={Stores.propsStore.control}
-                    keyExtractor={(item: any) => String(item.id)}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={this.renderSeparator}
                     ListEmptyComponent={this.renderEmpty}
-                    renderItem={item => {
+                    renderItem={(item: any) => {
                         if (TypeActions.getGroup(item.item.typeId) == Group.slider) {
                             return <ControlSlider item={item} />;
                         } else {

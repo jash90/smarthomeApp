@@ -30,6 +30,7 @@ import AppStore from '../stores/mobxStores/AppStore';
 import PropsStore from '../stores/mobxStores/PropsStore';
 import styled from "styled-components/native"
 import { AddTitle } from "../components/AddTitle";
+import { VerticalList } from '../components/StyledComponent';
 interface Props {
     appStore: AppStore;
     propsStore: PropsStore;
@@ -84,9 +85,7 @@ class HomeScreen extends Component<Props, State> {
                         <HorizontalList
                             data={Stores.appStore.rooms}
                             ListEmptyComponent={this.renderEmpty}
-                            keyExtractor={(item: any) => String(item.id)}
                             extraData={Stores.propsStore.room}
-                            ItemSeparatorComponent={() => <SeparatorWidth />}
                             renderItem={({ item }: any) => {
                                 return (
                                     <TouchableOpacity onPress={() => this.onRoom(item)}>
@@ -100,15 +99,11 @@ class HomeScreen extends Component<Props, State> {
                         <AddTitle onAddPress={this.onAddControl}>
                             {"Controls"}
                         </AddTitle>
-                        <FlatList
+                        <VerticalList
                             data={this.props.appStore.controls.filter(c => c.roomId === null)}
-                            keyExtractor={(item: any) => String(item.id)}
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
                             extraData={Stores.propsStore.control}
-                            ItemSeparatorComponent={this.renderSeparator}
                             ListEmptyComponent={this.renderEmpty}
-                            renderItem={item => {
+                            renderItem={(item: any) => {
                                 if (TypeActions.getGroup(item.item.typeId) == Group.slider) {
                                     return <ControlSlider item={item} />;
                                 } else {
