@@ -11,7 +11,7 @@ const SafeView = styled.SafeAreaView`
 
 const Container = styled.View`
     flex: 1;
-    margin: 0 20px 20px 20px;
+    margin: 0px 20px 20px 20px;
 `;
 
 interface ScreenContainerProps extends Props<View>, NotificationBarProps {

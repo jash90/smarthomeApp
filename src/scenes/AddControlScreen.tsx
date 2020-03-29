@@ -180,7 +180,7 @@ class AddControlScreen extends Component<Props, State> {
         this.setState({
             name: "",
             typeId: 0,
-            roomId: 0
+            roomId: null
         });
     };
 

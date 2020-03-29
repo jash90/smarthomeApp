@@ -86,6 +86,7 @@ class HomeScreen extends Component<Props, State> {
                             data={Stores.appStore.rooms}
                             ListEmptyComponent={this.renderEmpty}
                             extraData={Stores.propsStore.room}
+                            style={{ height: 100 }}
                             renderItem={({ item }: any) => {
                                 return (
                                     <TouchableOpacity onPress={() => this.onRoom(item)}>

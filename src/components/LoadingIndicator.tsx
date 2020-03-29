@@ -11,7 +11,7 @@ const Container = styled.View`
 `;
 
 const Indicator = styled.ActivityIndicator`
-    margin-right: 10;
+    margin-right: 10px;
     height: 50px;
     align-items: center;
 `;
