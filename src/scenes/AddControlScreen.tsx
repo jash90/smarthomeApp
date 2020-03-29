@@ -199,6 +199,10 @@ class AddControlScreen extends Component<Props, State> {
                 else {
                     Toast.show("Incorrect Type", Toast.LONG);
                 }
+            } else {
+                var item = { name, value, typeId, roomId };
+                const control: Control = new Control(name, value, typeId, userId, roomId, id);
+                await ControlActions.changeControl(toJS(control));
             }
         }
         this.setState({
