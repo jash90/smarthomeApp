@@ -24,13 +24,16 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
     icon
 }: ScreenContainerProps) => {
     return (
-        <View
+        <LinearGradient
+            colors={Color.backgroundColors}
+            start={{ x: 0.0, y: 0 }}
+            end={{ x: 1.0, y: 1.0 }}
             style={{
                 flex: 1,
-                backgroundColor: Color.secondaryColor + "EE"
+                backgroundColor: Color.primaryColor
             }}
         >
-            <StatusBar barStyle="light-content" backgroundColor={Color.secondaryColor} />
+            <StatusBar barStyle="light-content" backgroundColor={Color.backgroundColors[0]} />
             <SafeView>
                 <NotificationBar
                     icon={icon}
@@ -39,6 +42,6 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
                 />
                 <Container>{children}</Container>
             </SafeView>
-        </View>
+        </LinearGradient>
     );
 };
