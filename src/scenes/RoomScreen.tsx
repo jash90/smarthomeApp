@@ -15,6 +15,7 @@ import { Group, Room } from "../stores/models";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { NoItems } from "../components/NoItems";
 import Screens from "../navigation/Scenes";
+import { AddTitle } from "../components/AddTitle";
 
 interface Props {
     authStore: AuthStore;
@@ -37,20 +38,9 @@ class RoomScreen extends Component<Props, State> {
         return (
             <ScreenContainer onBackPress={this.onBack} icon={"square-edit-outline"} onRightPress={this.onEdit}>
                 <Title>{this.props.propsStore.room.name}</Title>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <H4>Controls</H4>
-                    <TouchableOpacity onPress={this.onAddControl}>
-                        <H4
-                            style={{
-                                color: "orange",
-                                fontSize: 24,
-                                marginHorizontal: 5
-                            }}
-                        >
-                            +
-                            </H4>
-                    </TouchableOpacity>
-                </View>
+                <AddTitle onAddPress={this.onAddControl}>
+                    {"Controls"}
+                </AddTitle>
                 <FlatList
                     data={Stores.appStore.controls.filter(c => c.roomId == this.props.propsStore.room.id)}
                     extraData={Stores.propsStore.control}

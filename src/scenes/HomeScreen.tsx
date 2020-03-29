@@ -29,6 +29,7 @@ import Stores from "../stores/mobxStores";
 import AppStore from '../stores/mobxStores/AppStore';
 import PropsStore from '../stores/mobxStores/PropsStore';
 import styled from "styled-components/native"
+import { AddTitle } from "../components/AddTitle";
 interface Props {
     appStore: AppStore;
     propsStore: PropsStore;
@@ -77,20 +78,9 @@ class HomeScreen extends Component<Props, State> {
                     <Container>
                         <WelcomeText>Hello,</WelcomeText>
                         <PersonText>{`Mr. ${Store.authStore.firstname}`}</PersonText>
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <H4>Rooms</H4>
-                            <TouchableOpacity onPress={this.onAddRoom}>
-                                <H4
-                                    style={{
-                                        color: "orange",
-                                        fontSize: 24,
-                                        marginHorizontal: 5
-                                    }}
-                                >
-                                    +
-                            </H4>
-                            </TouchableOpacity>
-                        </View>
+                        <AddTitle onAddPress={this.onAddRoom}>
+                            {"Rooms"}
+                        </AddTitle>
                         <HorizontalList
                             data={Stores.appStore.rooms}
                             ListEmptyComponent={this.renderEmpty}
@@ -107,20 +97,9 @@ class HomeScreen extends Component<Props, State> {
                                 );
                             }}
                         />
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <H4>Controls</H4>
-                            <TouchableOpacity onPress={this.onAddControl}>
-                                <H4
-                                    style={{
-                                        color: "orange",
-                                        fontSize: 24,
-                                        marginHorizontal: 5
-                                    }}
-                                >
-                                    +
-                            </H4>
-                            </TouchableOpacity>
-                        </View>
+                        <AddTitle onAddPress={this.onAddControl}>
+                            {"Controls"}
+                        </AddTitle>
                         <FlatList
                             data={this.props.appStore.controls.filter(c => c.roomId === null)}
                             keyExtractor={(item: any) => String(item.id)}
@@ -139,7 +118,6 @@ class HomeScreen extends Component<Props, State> {
                         />
                     </Container>
                 </ScrollView>
-
             </ScreenContainer>
         );
     }

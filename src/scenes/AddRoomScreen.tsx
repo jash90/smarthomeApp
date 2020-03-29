@@ -18,6 +18,7 @@ import { NoItems } from "../components/NoItems";
 import RoomActions from '../actions/RoomActions';
 import { Navigators } from "../navigation/navigators/Enum";
 import { toJS } from "mobx";
+import { LoadingText } from "../components/LoadingText";
 
 interface Props {
     appStore: AppStore;
@@ -70,23 +71,15 @@ class AddRoomScreen extends Component<Props, State> {
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     {Stores.propsStore.room.id > 0 && (
                         <Button onPress={this.onRemove}>
-                            {this.state.loadingRemove && (
-                                <ActivityIndicator
-                                    size={"small"}
-                                    color={"#d0dbe6"}
-                                />
-                            )}
-                            <ButtonText>Remove</ButtonText>
+                            <LoadingText loading={this.state.loadingRemove} >
+                                {"Remove"}
+                            </LoadingText>
                         </Button>
                     )}
                     <Button onPress={this.onSave}>
-                        {this.state.loadingEdit && (
-                            <ActivityIndicator
-                                size={"small"}
-                                color={"#d0dbe6"}
-                            />
-                        )}
-                        <ButtonText>Save</ButtonText>
+                        <LoadingText loading={this.state.loadingEdit} >
+                            {"Save"}
+                        </LoadingText>
                     </Button>
                 </View>
             </ScreenContainer>

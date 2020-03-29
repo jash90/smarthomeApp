@@ -16,6 +16,9 @@ import PropsStore from "../stores/mobxStores/PropsStore";
 import Screens from "../navigation/Scenes";
 import { Navigators } from "../navigation/navigators/Enum";
 import { toJS } from "mobx";
+import { TypeItemSelectable } from '../components/TypeItemSelectable';
+import { RoomItemSelectable } from '../components/RoomItemSelectable';
+import { LoadingText } from '../components/LoadingText';
 
 interface Props {
     appStore: AppStore;
@@ -78,26 +81,14 @@ class AddControlScreen extends Component<Props, State> {
                     keyExtractor={(item: any) => String(item.id)}
                     ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }: any) => {
-                        const color =
-                            item.id === this.state.typeId
-                                ? "#FF7500"
-                                : "#D0DBE8";
                         return (
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.setState({ typeId: item.id })
-                                }
-                            >
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Icon
-                                            name={item.icon}
-                                            size={40}
-                                            color={color}
-                                        />
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
+                            <TypeItemSelectable
+                                available={item.id === this.state.typeId}
+                                icon={item.icon}
+                                onPress={() => {
+                                    this.setState({ typeId: item.id });
+                                }}
+                            />
                         );
                     }}
                 />
@@ -107,58 +98,32 @@ class AddControlScreen extends Component<Props, State> {
                     keyExtractor={(item: any) => String(item.id)}
                     ItemSeparatorComponent={() => <SeparatorHeight />}
                     renderItem={({ item }: any) => {
-                        const color =
-                            item.id === this.state.roomId
-                                ? "#FF7500"
-                                : "#D0DBE8";
                         return (
-                            <TouchableOpacity
+                            <RoomItemSelectable
+                                name={item.name}
+                                available={item.id === this.state.roomId}
                                 onPress={() =>
                                     this.setState({
                                         roomId: this.state.roomId
                                             ? null
                                             : item.id
-                                    })
-                                }
-                            >
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Text
-                                            numberOfLines={2}
-                                            style={{
-                                                fontSize: 14,
-                                                color: color,
-                                                padding: 10
-                                            }}
-                                        >
-                                            {item.name}
-                                        </Text>
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
+                                    })}
+                            />
+                        )
                     }}
                 />
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     {Stores.propsStore.control.id > 0 && (
                         <Button onPress={this.onRemove}>
-                            {this.state.loadingRemove && (
-                                <ActivityIndicator
-                                    size={"small"}
-                                    color={"#d0dbe6"}
-                                />
-                            )}
-                            <ButtonText>Remove</ButtonText>
+                            <LoadingText loading={this.state.loadingRemove}>
+                                {"Remove"}
+                            </LoadingText>
                         </Button>
                     )}
                     <Button onPress={this.onSave}>
-                        {this.state.loadingEdit && (
-                            <ActivityIndicator
-                                size={"small"}
-                                color={"#d0dbe6"}
-                            />
-                        )}
-                        <ButtonText>Save</ButtonText>
+                        <LoadingText loading={this.state.loadingEdit} >
+                            {"Save"}
+                        </LoadingText>
                     </Button>
                 </View>
             </ScreenContainer>
