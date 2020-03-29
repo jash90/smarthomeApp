@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
 import React from "react";
+import Color from "../config/Color";
 
 export const SeparatorWidth = styled.View({
     width: 15
@@ -13,7 +14,7 @@ export const SeparatorHeight = styled.View({
 export const Title = styled.Text`
     font-size: 40px;
     font-weight: bold;
-    color: white;
+    color: ${Color.textColor};
     align-self: center;
     padding-top: 10px;
 `;
@@ -30,7 +31,7 @@ export const PersonText = styled(WelcomeText)`
 `;
 
 export const H1 = styled.Text`
-    color: white;
+    color: ${Color.textColor};
     font-size: 26px;
     font-weight: bold;
     padding: 10px 0;
@@ -50,7 +51,7 @@ export const H4 = styled(H1)`
 
 export const Button = styled.TouchableOpacity({
     flexDirection: "row",
-    backgroundColor: "#282C3A",
+    backgroundColor: Color.secondaryColor,
     borderRadius: 15,
     alignSelf: "center",
     justifyContent: "center",
@@ -62,7 +63,7 @@ export const Button = styled.TouchableOpacity({
 export const ButtonText = styled.Text({
     fontSize: 16,
     alignSelf: "center",
-    color: "#d0dbe6"
+    color: Color.primaryColor
 });
 
 export const FlatButton = styled.TouchableOpacity({
@@ -76,7 +77,7 @@ export const RoomView = styled.View({
     width: 100,
     height: 100,
     borderRadius: 20,
-    backgroundColor: "#FF7500",
+    backgroundColor: Color.accentColor,
     justifyContent: "flex-end",
     paddingLeft: 10,
     paddingBottom: 10
@@ -87,7 +88,7 @@ export const RoomText = styled(H4)({
 });
 
 export const ControlView = styled(RoomView)({
-    backgroundColor: "#282C3A",
+    backgroundColor: Color.secondaryColor,
     width: 70,
     height: 70,
     justifyContent: "center",
@@ -96,7 +97,7 @@ export const ControlView = styled(RoomView)({
 });
 
 export const ControlText = styled(H4)({
-    color: "#D0DBE8",
+    color: Color.primaryColor,
     padding: 0
 });
 
@@ -105,16 +106,16 @@ export const Input = styled.TextInput({
     height: 40,
     alignSelf: "center",
     borderRadius: 15,
-    backgroundColor: "#686B75",
+    backgroundColor: Color.primaryColor + "20",
     paddingHorizontal: 15,
-    color: "white",
+    color: Color.textColor,
     fontSize: 18,
     marginVertical: 10
 });
 
 Input.defaultProps = {
     autoCapitalize: "none",
-    placeholderTextColor: "#D0DBE6"
+    placeholderTextColor: Color.primaryColor
 };
 
 export const FlatText = styled(H4)({
@@ -126,13 +127,13 @@ export const SaveContainer = styled.View({
     height: 30,
     backgroundColor: "transparent",
     borderRadius: 20,
-    borderColor: "#D0DBE6",
+    borderColor: Color.primaryColor,
     borderWidth: 1,
     justifyContent: "center"
 });
 
 export const SaveText = styled.Text({
-    color: "#D0DBE6",
+    color: Color.primaryColor,
     fontSize: 12,
     alignSelf: "center"
 });

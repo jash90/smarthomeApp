@@ -9,6 +9,7 @@ import Screens from "../navigation/Scenes";
 import { Control } from "../stores/models";
 import { toJS } from "mobx";
 import Stores from "../stores/mobxStores";
+import Color from "../config/Color";
 
 interface Props {
     item: any;
@@ -35,7 +36,7 @@ export default class ControlSwitch extends Component<Props, State> {
                 >
                     <ControlView>
                         {this.state.loading ? (
-                            <ActivityIndicator size={40} color={"#D0DBE8"} />
+                            <ActivityIndicator size={40} color={Color.primaryColor} />
                         ) : (
                                 <Icon
                                     name={
@@ -46,8 +47,8 @@ export default class ControlSwitch extends Component<Props, State> {
                                     size={40}
                                     color={
                                         this.props.item.item.value
-                                            ? "#FF7500"
-                                            : "#D0DBE8"
+                                            ? Color.accentColor
+                                            : Color.primaryColor
                                     }
                                 />
                             )}
@@ -58,8 +59,8 @@ export default class ControlSwitch extends Component<Props, State> {
                             alignSelf: "center",
                             marginLeft: 20,
                             color: this.props.item.item.value
-                                ? "#FF7500"
-                                : "#D0DBE8"
+                                ? Color.accentColor
+                                : Color.primaryColor
                         }}
                     >
                         {this.props.item.item.name}
@@ -70,7 +71,7 @@ export default class ControlSwitch extends Component<Props, State> {
                         style={{ paddingTop: 6 }}
                         name={"square-edit-outline"}
                         size={34}
-                        color={"#D0DBE8"}
+                        color={Color.primaryColor}
                     />
                 </TouchableOpacity>
             </View>

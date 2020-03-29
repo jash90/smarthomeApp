@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import { ControlView } from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import Color from "../config/Color"
 interface Props {
     onPress: any;
     name: string;
@@ -20,7 +20,7 @@ export const RoomItemSelectable: React.FC<Props> = ({ onPress, available, name }
                         numberOfLines={2}
                         style={{
                             fontSize: 14,
-                            color: available ? "#FF7500" : "#D0DBE8",
+                            color: available ? Color.accentColor : Color.primaryColor,
                             padding: 10
                         }}
                     >

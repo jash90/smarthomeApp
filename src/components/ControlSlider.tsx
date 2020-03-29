@@ -10,6 +10,7 @@ import Stores from "../stores/mobxStores";
 import { Control } from "../stores/models";
 import Screens from "../navigation/Scenes";
 import NavigationService from "../navigation/NavigationService";
+import Color from "../config/Color";
 
 interface Props {
     item: any;
@@ -37,7 +38,7 @@ export default class ControlSlider extends Component<Props, State> {
                             ""
                         }
                         size={40}
-                        color={"#FF7500"}
+                        color={Color.accentColor}
                     />
                 </ControlView>
 
@@ -52,7 +53,7 @@ export default class ControlSlider extends Component<Props, State> {
                         style={{
                             width: "100%",
                             alignSelf: "center",
-                            color: "#D0DBE8",
+                            color: Color.primaryColor,
                             textAlign: "center"
                         }}
                     >
@@ -64,7 +65,7 @@ export default class ControlSlider extends Component<Props, State> {
                             <View style={{ flex: 1 }}>
                                 <ActivityIndicator
                                     size={40}
-                                    color={"#FF7500"}
+                                    color={Color.accentColor}
                                 />
                             </View>
                         ) : (
@@ -82,9 +83,9 @@ export default class ControlSlider extends Component<Props, State> {
                                     }
                                     step={1}
                                     value={this.props.item.item.value}
-                                    thumbTintColor="#FF7500"
-                                    minimumTrackTintColor="#FF7500"
-                                    maximumTrackTintColor="#D0DBE8"
+                                    thumbTintColor={Color.accentColor}
+                                    minimumTrackTintColor={Color.accentColor}
+                                    maximumTrackTintColor={Color.primaryColor}
                                     onSlidingComplete={(value: any) =>
                                         this.onSlidingComplete(value)
                                     }
@@ -100,7 +101,7 @@ export default class ControlSlider extends Component<Props, State> {
                         style={{ paddingTop: 6 }}
                         name={"square-edit-outline"}
                         size={34}
-                        color={"#D0DBE8"}
+                        color={Color.primaryColor}
                     />
                 </TouchableOpacity>
             </View>

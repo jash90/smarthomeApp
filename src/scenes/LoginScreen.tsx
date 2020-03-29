@@ -16,7 +16,7 @@ import AsyncStore from "../stores/asyncStore";
 import AsyncStoreKeys from "../stores/asyncStore/AsyncStoreKeys";
 import Stores from "../stores/mobxStores";
 import TypeActions from '../actions/TypeActions';
-
+import Color from "../config/Color";
 interface State {
     login: string;
     password: string;
@@ -71,7 +71,7 @@ class LoginScreen extends Component<{}, State> {
                                         Stores.appStore.rememberEmail ? "check-box-outline" : "checkbox-blank-outline"
                                     }
                                     size={24}
-                                    color={"#d0dbe6"}
+                                    color={Color.primaryColor}
                                     style={{ alignSelf: "center" }}
                                 />
                                 <ButtonText>Save email</ButtonText>

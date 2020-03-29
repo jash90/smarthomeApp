@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonText } from "./StyledComponent";
 import { ActivityIndicator, View } from "react-native";
-
+import Color from "../config/Color";
 
 interface Props {
     children: string;
@@ -14,7 +14,7 @@ export const LoadingText: React.FC<Props> = ({ children, loading }: Props) => {
             {loading &&
                 (<ActivityIndicator
                     size={"small"}
-                    color={"#d0dbe6"}
+                    color={Color.primaryColor}
                     style={{ marginRight: 10 }}
                 />)
             }

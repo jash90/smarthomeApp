@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TouchableOpacity } from "react-native";
+import Color from "../config/Color";
 
 const ContainerNotification = styled.View({
     width: "100%",
@@ -27,7 +28,7 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
         <ContainerNotification>
             <TouchableOpacity style={{ padding: 5 }} onPress={onBackPress}>
                 {onBackPress && (
-                    <Icon name="arrow-left" size={35} color={"white"} />
+                    <Icon name="arrow-left" size={35} color={Color.textColor} />
                 )}
             </TouchableOpacity>
 
@@ -36,9 +37,9 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
                 onPress={onRightPress}
             >
                 {onRightPress && !icon && (
-                    <Icon name={"content-save"} size={35} color={"white"} />
+                    <Icon name={"content-save"} size={35} color={Color.textColor} />
                 )}
-                {icon && <Icon name={`${icon}`} size={35} color={"white"} />}
+                {icon && <Icon name={`${icon}`} size={35} color={Color.textColor} />}
             </TouchableOpacity>
         </ContainerNotification>
     );

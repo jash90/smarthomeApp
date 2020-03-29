@@ -25,7 +25,7 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
 }: ScreenContainerProps) => {
     return (
         <LinearGradient
-            colors={["#3D4151", "#1C202C", "#141824"]}
+            colors={Color.backgroundColors}
             start={{ x: 0.0, y: 0 }}
             end={{ x: 1.0, y: 1.0 }}
             style={{
@@ -33,7 +33,7 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
                 backgroundColor: Color.primaryColor
             }}
         >
-            <StatusBar barStyle="light-content" backgroundColor="#3D4151" />
+            <StatusBar barStyle="light-content" backgroundColor={Color.backgroundColors[0]} />
             <SafeView>
                 <NotificationBar
                     icon={icon}

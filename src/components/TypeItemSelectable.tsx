@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { ControlView } from "./StyledComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Color from "../config/Color";
 
 interface Props {
     onPress: any;
@@ -19,7 +20,7 @@ export const TypeItemSelectable: React.FC<Props> = ({ onPress, icon, available }
                     <Icon
                         name={icon}
                         size={40}
-                        color={available ? "#FF7500" : "#D0DBE8"}
+                        color={available ? Color.accentColor : Color.primaryColor}
                     />
                 </ControlView>
             </View>
