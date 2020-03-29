@@ -26,7 +26,6 @@ interface Props {
 interface State {
     name: string;
     typeId: number;
-    value: any;
     roomId: number | null;
     loadingEdit: boolean;
     loadingRemove: boolean;
@@ -40,7 +39,6 @@ class AddControlScreen extends Component<Props, State> {
         this.state = {
             name: "",
             typeId: 0,
-            value: null,
             roomId: null,
             loadingEdit: false,
             loadingRemove: false
@@ -49,11 +47,10 @@ class AddControlScreen extends Component<Props, State> {
 
     componentDidMount = async () => {
         if (!!Stores.propsStore.control) {
-            let { name, typeId, value, roomId } = Stores.propsStore.control;
+            let { name, typeId, roomId } = Stores.propsStore.control;
             this.setState({
                 name,
                 typeId,
-                value,
                 roomId
             });
         }
@@ -98,38 +95,6 @@ class AddControlScreen extends Component<Props, State> {
                                             size={40}
                                             color={color}
                                         />
-                                    </ControlView>
-                                </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                <H4>Value</H4>
-                <HorizontalList
-                    data={
-                        this.props.appStore.types.find((t: Type) => t.id === this.state.typeId)?.values
-                    }
-                    keyExtractor={(item: any) => String(item)}
-                    ItemSeparatorComponent={() => <SeparatorHeight />}
-                    renderItem={({ item }: any) => {
-                        const color =
-                            item === this.state.value
-                                ? "#FF7500"
-                                : "#D0DBE8";
-                        return (
-                            <TouchableOpacity
-                                onPress={() => this.setState({ value: item })}
-                            >
-                                <View style={{ flexDirection: "row" }}>
-                                    <ControlView>
-                                        <Text
-                                            style={{
-                                                fontSize: 36,
-                                                color: color
-                                            }}
-                                        >
-                                            {TypeUtil.stringifyValue(item)}
-                                        </Text>
                                     </ControlView>
                                 </View>
                             </TouchableOpacity>
@@ -209,13 +174,32 @@ class AddControlScreen extends Component<Props, State> {
             loadingEdit: true
         });
         if (Stores.propsStore.control.id == 0) {
-            const { name, value, typeId, roomId } = this.state;
-            var item = { name, value, typeId, roomId };
-            await ControlActions.saveControl(toJS(item));
+            const { name, typeId, roomId } = this.state;
+            const type = Stores.appStore.types.find(t => t.id == this.state.typeId);
+            if (type) {
+                let value = type.values[0];
+                var item = { name, value, typeId, roomId };
+                await ControlActions.saveControl(toJS(item));
+            }
+            else {
+                Toast.show("Incorrect Type", Toast.LONG);
+            }
         } else {
-            let { name, typeId, value, roomId } = this.state;
-            const control: Control = new Control(name, value, typeId, Stores.authStore.id, roomId, Stores.propsStore.control.id);
-            await ControlActions.changeControl(toJS(control));
+            let { name, typeId, roomId } = this.state;
+            let userId = Stores.authStore.id;
+            let { value, id } = Stores.propsStore.control;
+            if (typeId != Stores.propsStore.control.typeId) {
+                const type = Stores.appStore.types.find(t => t.id == this.state.typeId);
+                if (type) {
+                    let value = type.values[0];
+                    var item = { name, value, typeId, roomId };
+                    const control: Control = new Control(name, value, typeId, userId, roomId, id);
+                    await ControlActions.changeControl(toJS(control));
+                }
+                else {
+                    Toast.show("Incorrect Type", Toast.LONG);
+                }
+            }
         }
         this.setState({
             loadingEdit: false
@@ -227,7 +211,6 @@ class AddControlScreen extends Component<Props, State> {
         this.setState({
             name: "",
             typeId: 0,
-            value: null,
             roomId: 0
         });
     };
