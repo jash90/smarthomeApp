@@ -100,12 +100,8 @@ class RegisterScreen extends Component<{}, State> {
                 return;
             }
             const response = await AuthApi.register(login, password, firstname, lastname);
-            if (!!response.data?.token) {
-                await AuthActions.setUser(response.data);
-                NavigationService.navigate(Navigators.Account);
-            } else {
-                ErrorUtil.errorService(response);
-            }
+            await AuthActions.setUser(response.data);
+            NavigationService.reset(Navigators.Account);
         } catch (error) {
             ErrorUtil.errorService(error);
         }
